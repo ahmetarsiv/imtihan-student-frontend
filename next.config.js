@@ -1,4 +1,24 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {}
+require('dotenv').config();
 
-module.exports = nextConfig
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+    output: 'standalone',
+    i18n: {
+        locales: ['tr'],
+        defaultLocale: 'tr',
+    },
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'http',
+                hostname: '**',
+            },
+            {
+                protocol: 'https',
+                hostname: '**',
+            },
+        ],
+    },
+};
+
+module.exports = nextConfig;

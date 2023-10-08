@@ -80,7 +80,11 @@ export default function DashboardPage() {
                     </Card>
                 </Grid>
 
-                <Grid numItems={1} numItemsLg={2} className="mb-5 gap-4">
+                <Grid
+                    numItems={1}
+                    numItemsSm={2}
+                    numItemsLg={3}
+                    className="mb-5 gap-4">
                     <Col numColSpan={1} numColSpanLg={2}>
                         <Card>
                             <AreaChart

@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import axios from '@/lib/axios';
 import { useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 interface IUser {
     id: number;
@@ -47,7 +47,7 @@ export const useAuth = ({
     redirectIfAuthenticated,
 }: IAuthProps = {}): AuthHook => {
     const router = useRouter();
-    const params = useSearchParams();
+    const params = useParams();
 
     const {
         data: user,
@@ -121,10 +121,10 @@ export const useAuth = ({
 
         try {
             const response = await axios.post('/reset-password', {
-                token: params.get('token'),
+                token: params.token,
                 ...props,
             });
-            router.push('/login?reset=' + btoa(response.data.status));
+            router.push('/auth/login?reset=' + btoa(response.data.status));
         } catch (error: any) {
             if (error.response.status !== 422) throw error;
 
@@ -146,7 +146,6 @@ export const useAuth = ({
 
         window.location.pathname = '/auth/login';
     };
-
     useEffect(() => {
         if (middleware === 'guest' && redirectIfAuthenticated && user)
             router.push(redirectIfAuthenticated);

@@ -2,68 +2,63 @@
 
 import ApplicationLogo from '@/components/ApplicationLogo';
 import AuthCard from '@/components/AuthCard';
-import AuthSessionStatus from '@/components/AuthSessionStatus';
 import Button from '@/components/Button';
 import GuestLayout from '@/layouts/GuestLayout';
 import Input from '@/components/elements/Input';
 import InputError from '@/components/elements/InputError';
 import Link from 'next/link';
 import { useAuth } from '@/hooks/auth';
-import React, { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
-import InputCheckbox from '@/components/elements/InputCheckbox';
-import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
-export default function LoginPage() {
-    const params = useSearchParams();
-
-    const { login } = useAuth({
+const Register = () => {
+    const router = useRouter();
+    const { register } = useAuth({
         middleware: 'guest',
         redirectIfAuthenticated: '/',
     });
 
     const [isRevealPassword, setIsRevealPassword] = useState(false);
 
+    const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [shouldRemember, setShouldRemember] = useState(false);
-    const [errors, setErrors] = useState<any>([]);
-    const [status, setStatus] = useState<string | null>(null);
+    const [passwordConfirmation, setPasswordConfirmation] = useState('');
+    const [errors, setErrors] = useState([]);
 
-    useEffect(() => {
-        const reset = params.get('reset');
-        if (reset && reset.length > 0 && errors.length === 0) {
-            setStatus(atob(reset as string));
-        } else {
-            setStatus(null);
-        }
-    }, []);
-
-    const submitForm = async (event: React.FormEvent<HTMLFormElement>) => {
+    const submitForm = (event: { preventDefault: () => void }) => {
         event.preventDefault();
 
-        await login({
+        register({
+            full_name: fullName,
             email,
             password,
-            remember: shouldRemember,
+            password_confirmation: passwordConfirmation,
             setErrors,
-            setStatus,
         });
     };
+
+    useEffect(() => {
+        if (router.query?.email) {
+            setEmail(router.query.email);
+        }
+        console.log(router.query?.email);
+    }, [router.query]);
 
     return (
         <GuestLayout>
             <AuthCard
                 logo={
                     <Link href="/">
-                        <div>
+                        <span>
                             <ApplicationLogo width={144} height={32} />
-                        </div>
+                        </span>
                     </Link>
                 }>
                 <div className="flex flex-col">
                     <p className="my-4 text-center text-sm">
-                        Devam etmek için lütfen İmtihan'a giriş yapın.
+                        Devam etmek için İmtihan'a kaydolun.
                     </p>
 
                     <Link href="">
@@ -97,20 +92,35 @@ export default function LoginPage() {
                 </div>
 
                 <form onSubmit={submitForm}>
-                    {/* Email Address */}
+                    {/* Name */}
                     <div>
+                        <Input
+                            id="full_name"
+                            type="text"
+                            value={fullName}
+                            className="block mt-1 w-full"
+                            placeholder="Tam adınız"
+                            onChange={event => setFullName(event.target.value)}
+                            required
+                            autoFocus
+                        />
+
+                        <InputError messages={errors.name} className="mt-2" />
+                    </div>
+
+                    {/* Email Address */}
+                    <div className="mt-4">
                         <Input
                             id="email"
                             type="email"
                             value={email}
                             className="block mt-1 w-full"
-                            placeholder="E-posta adresi veya kullanıcı adı"
+                            placeholder="Eposta"
                             onChange={event => setEmail(event.target.value)}
                             required
-                            autoFocus
                         />
 
-                        <InputError messages={errors?.email} className="mt-2" />
+                        <InputError messages={errors.email} className="mt-2" />
                     </div>
 
                     {/* Password */}
@@ -123,7 +133,7 @@ export default function LoginPage() {
                             placeholder="Şifre"
                             onChange={event => setPassword(event.target.value)}
                             required
-                            autoComplete="current-password"
+                            autoComplete="new-password"
                         />
 
                         <div className="relative">
@@ -144,59 +154,41 @@ export default function LoginPage() {
                             messages={errors.password}
                             className="mt-2"
                         />
-
-                        {/* Session Status */}
-                        <AuthSessionStatus className="mt-4" status={status} />
                     </div>
 
-                    {/* Remember Me */}
-                    <div className="block mt-4">
-                        <label
-                            htmlFor="remember_me"
-                            className="inline-flex items-center">
-                            <InputCheckbox
-                                id="remember_me"
-                                name="remember"
-                                className="form-checkbox"
-                                onChange={event =>
-                                    setShouldRemember(event.target.checked)
-                                }
-                            />
+                    {/* Confirm Password */}
+                    <div className="mt-4">
+                        <Input
+                            id="passwordConfirmation"
+                            type={isRevealPassword ? 'text' : 'password'}
+                            value={passwordConfirmation}
+                            className="block mt-1 w-full"
+                            placeholder="Şifreyi doğrulayın"
+                            onChange={event =>
+                                setPasswordConfirmation(event.target.value)
+                            }
+                            required
+                        />
 
-                            <span className="ml-2 text-sm text-zinc-600">
-                                Beni hatırla
-                            </span>
-                        </label>
+                        <InputError
+                            messages={errors.password_confirmation}
+                            className="mt-2"
+                        />
                     </div>
 
-                    {/* Button */}
-                    <div className="flex items-center justify-between mt-4">
-                        <Link href="/auth/forgot-password">
+                    <div className="flex items-center justify-end mt-4">
+                        <Link href="/auth/login">
                             <span className="underline text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-zinc-500">
-                                Şifrenizi mi unuttunuz?
+                                Zaten kayıtlı mısınız?
                             </span>
                         </Link>
 
-                        <Button>Giriş yap</Button>
+                        <Button className="ml-4">Kaydol</Button>
                     </div>
                 </form>
-
-                <hr className="my-8 w-full h-px bg-zinc-200 border-0 dark:bg-zinc-700" />
-
-                <div className="dark:bg-black w-full">
-                    <div className="flex flex-col">
-                        <p className="my-4 text-center text-sm text-zinc-900 dark:text-zinc-300">
-                            Hesabınız yok mu?
-                        </p>
-
-                        <Link href="/auth/register">
-                            <div className="dark:text-white text-zinc-900 border hover:border-brand font-medium rounded-full text-lg text-center py-2.5">
-                                İmtihan için kaydolun.
-                            </div>
-                        </Link>
-                    </div>
-                </div>
             </AuthCard>
         </GuestLayout>
     );
-}
+};
+
+export default Register;

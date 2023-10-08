@@ -1,6 +1,8 @@
 import {
+    BellIcon,
     BookmarkIcon,
     CalendarDaysIcon,
+    ChartPieIcon,
     CreditCardIcon,
     HomeIcon,
     InformationCircleIcon,
@@ -27,6 +29,11 @@ const menuConfig: IMenuConfig = {
             name: 'Ana Sayfa',
             icon: <HomeIcon className="inline-block w-6 h-6" />,
             path: '/',
+        },
+        {
+            name: 'Sınavlar',
+            icon: <ChartPieIcon className="inline-block w-6 h-6" />,
+            path: '/exam',
         },
         {
             name: 'Not',
@@ -71,12 +78,24 @@ const menuConfig: IMenuConfig = {
             path: '/note',
         },
         {
+            name: 'Bildirimler',
+            icon: <BellIcon className="inline-block w-7 h-7" />,
+            path: '/notification',
+        },
+        {
             name: 'Hesap',
             icon: <UserIcon className="inline-block w-7 h-7" />,
             path: '/account',
         },
     ],
     account: [
+        {
+            name: 'Sınavlar',
+            icon: (
+                <ChartPieIcon className="text-brand w-6 h-6 mr-2 float-left" />
+            ),
+            path: '/exam',
+        },
         {
             name: 'Ders Programı',
             icon: (

@@ -52,7 +52,7 @@ export default function ViewModal({
                                     className="max-w-full h-auto rounded-lg duration-300 filter grayscale hover:grayscale-0"
                                 />
 
-                                <h1 className="mb-3 text-3xl font-extrabold md:text-5xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-r to-brand from-purple-400">
+                                <h1 className="mb-4 text-3xl font-extrabold md:text-3xl lg:text-4xl text-zinc-900 dark:text-zinc-200">
                                     {announcement?.name}
                                 </h1>
 

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import { AppDispatch, useDispatch, useSelector } from '@/store';
 import { deleteNote, getNotes } from '@/store/slices/note';
 import Card from '@/components/cards/Card';

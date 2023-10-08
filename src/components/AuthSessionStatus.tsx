@@ -3,7 +3,7 @@
 import React from 'react';
 
 interface IAuthSessionStatusProps {
-    status?: string;
+    status?: string | null;
     className?: string;
 }
 

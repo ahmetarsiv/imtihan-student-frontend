@@ -10,7 +10,7 @@ interface IAuthCardProps {
 export default function AuthCard({ logo, children }: IAuthCardProps) {
     return (
         <>
-            <div className="flex justify-center pb-10 w-screen">{logo}</div>
+            <div className="flex justify-center my-auto">{logo}</div>
 
             <div className="w-96 px-2">{children}</div>
         </>

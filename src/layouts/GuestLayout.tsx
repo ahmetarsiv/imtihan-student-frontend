@@ -9,7 +9,7 @@ interface IGuestLayoutProps {
 export default function GuestLayout({ children }: IGuestLayoutProps) {
     return (
         <>
-            <main className="py-16 grid justify-items-center bg-white overflow-hidden dark:bg-black min-h-screen">
+            <main className="grid justify-items-center bg-white overflow-hidden dark:bg-black min-h-screen">
                 {children}
             </main>
         </>

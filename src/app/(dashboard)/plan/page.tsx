@@ -59,15 +59,15 @@ export default function PlanPage(): ReactNode {
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
                         <InfoCard
                             description="Premium planımı nasıl iptal edebilirim?"
-                            link="https://imtihan-docs.vercel.app/help#premium-planlar%C4%B1n%C4%B1-iptal-etme"
+                            link="https://support.imtihan.tech/plan-help#premium-planlar%C4%B1n%C4%B1-iptal-etme"
                         />
                         <InfoCard
                             description="Premium planım doğru çalışmıyor. Ne yapmalıyım?"
-                            link="https://imtihan-docs.vercel.app/help#premium-%C3%A7al%C4%B1%C5%9Fm%C4%B1yor"
+                            link="https://support.imtihan.tech/plan-help#premium-%C3%A7al%C4%B1%C5%9Fm%C4%B1yor"
                         />
                         <InfoCard
                             description="Premium fiyatı neden arttı?"
-                            link="https://imtihan-docs.vercel.app/help#fiyat-g%C3%BCncellemeri"
+                            link="https://support.imtihan.tech/payment-help#fiyat-g%C3%BCncellemeri"
                         />
                     </div>
                 </div>

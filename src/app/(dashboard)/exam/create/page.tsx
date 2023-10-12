@@ -10,7 +10,7 @@ import Input from '@/components/elements/Input';
 export default function ExamCreatePage(): ReactNode {
     const [sliderValue, setSliderValue] = useState(50);
 
-    const handleSliderChange = e => {
+    const handleSliderChange = (e: any) => {
         setSliderValue(e.target.value);
     };
     return (

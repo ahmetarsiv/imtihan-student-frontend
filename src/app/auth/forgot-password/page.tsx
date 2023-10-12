@@ -21,8 +21,8 @@ const ForgotPassword = () => {
         router.back();
     };
 
-    const [email, setEmail] = useState('');
-    const [errors, setErrors] = useState([]);
+    const [email, setEmail] = useState<string>('');
+    const [errors, setErrors] = useState<any>([]);
     const [status, setStatus] = useState(null);
 
     const submitForm = (event: { preventDefault: () => void }) => {
@@ -66,7 +66,7 @@ const ForgotPassword = () => {
                             autoFocus
                         />
 
-                        <InputError messages={errors.email} className="mt-2" />
+                        <InputError messages={errors?.email} className="mt-2" />
                     </div>
 
                     <div className="flex items-center justify-between mt-4">

@@ -10,10 +10,10 @@ import Link from 'next/link';
 import { useAuth } from '@/hooks/auth';
 import { useState, useEffect } from 'react';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const Register = () => {
-    const router = useRouter();
+    const searchParams = useSearchParams();
     const { register } = useAuth({
         middleware: 'guest',
         redirectIfAuthenticated: '/',
@@ -25,7 +25,7 @@ const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
-    const [errors, setErrors] = useState([]);
+    const [errors, setErrors] = useState<any>([]);
 
     const submitForm = (event: { preventDefault: () => void }) => {
         event.preventDefault();
@@ -40,11 +40,10 @@ const Register = () => {
     };
 
     useEffect(() => {
-        if (router.query?.email) {
-            setEmail(router.query.email);
+        if (searchParams.get('email')) {
+            setEmail(searchParams.get('email') || '');
         }
-        console.log(router.query?.email);
-    }, [router.query]);
+    }, [searchParams.get('email')]);
 
     return (
         <GuestLayout>

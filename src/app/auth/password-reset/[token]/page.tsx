@@ -22,7 +22,7 @@ const PasswordReset = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
-    const [errors, setErrors] = useState<string[]>([]);
+    const [errors, setErrors] = useState<any>([]);
     const [status, setStatus] = useState<string | null>(null);
 
     const submitForm = (event: React.FormEvent) => {

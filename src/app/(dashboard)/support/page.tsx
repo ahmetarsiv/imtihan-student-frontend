@@ -37,7 +37,7 @@ export default function SupportPage(): ReactNode {
         },
         {
             Header: 'İşlemler',
-            Cell: ({ row }) => (
+            Cell: ({ row }: any) => (
                 <div className="flex items-center space-x-2">
                     <button
                         onClick={() => handleDelete(row?.original?.id)}

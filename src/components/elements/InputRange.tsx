@@ -1,13 +1,13 @@
 'use client';
 
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 
 interface IInputRangeProps {
     min: number;
     max: number;
     value: number;
     // eslint-disable-next-line no-unused-vars
-    onChange: (value: number) => void;
+    onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function InputRange({

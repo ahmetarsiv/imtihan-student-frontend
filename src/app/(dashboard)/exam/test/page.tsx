@@ -9,7 +9,7 @@ import Image from 'next/image';
 import Logo from '/public/imtihan.svg';
 
 export default function TestPage(): ReactNode {
-    const [selectedOption, setSelectedOption] = useState(null);
+    const [selectedOption, setSelectedOption] = useState<string | null>(null);
     const options = [
         'Topladığımız meyvelerin henüz yenecek durumda olmadığını görünce üzüldük. ',
         'Ne kadar ağırbaşlı, görgülü, nazik bir insan olduğunu hepimiz biliyoruz.',
@@ -17,7 +17,7 @@ export default function TestPage(): ReactNode {
         'Toplumda uzun süredir, özellikle medyanın altını çizdiği bir kusursuz beden imgesi var.',
         'Bu romanda ustaca örülmüş olaylar içinde, kudretli ruh tahlillerine yer verilmiştir',
     ];
-    const optionChangeColor = option =>
+    const optionChangeColor = (option: any) =>
         selectedOption === option
             ? 'bg-brand text-white'
             : 'bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-800';
@@ -27,7 +27,7 @@ export default function TestPage(): ReactNode {
         setIsOpen(!isOpen);
     };
     useEffect(() => {
-        function handleContextMenu(e) {
+        function handleContextMenu(e: any) {
             e.preventDefault();
         }
 

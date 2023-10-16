@@ -1,6 +1,7 @@
 {
-  "name": "imtihan-student-frontend",
-  "version": "0.1.0",
+  "name": "imtihan",
+  "description": "The Next.js E-Exam",
+  "version": "0.21.4",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -23,7 +24,7 @@
     "axios": "^1.5.1",
     "dotenv": "^16.3.1",
     "framer-motion": "^10.16.4",
-    "next": "latest",
+    "next": "^13.5.5",
     "next-themes": "^0.2.1",
     "react": "latest",
     "react-dom": "latest",
@@ -38,13 +39,13 @@
     "yup": "^1.3.2"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "latest",
-    "@types/node": "latest",
-    "@types/react": "latest",
-    "@types/react-dom": "latest",
+    "@next/eslint-plugin-next": "^13.5.5",
+    "@types/node": "^20.8.6",
+    "@types/react": "^18.2.28",
+    "@types/react-dom": "^18.2.13",
     "autoprefixer": "latest",
     "eslint": "^8.50.0",
-    "eslint-config-next": "latest",
+    "eslint-config-next": "^13.5.5",
     "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-custom-alias": "^1.3.0",
     "eslint-import-resolver-webpack": "^0.13.2",

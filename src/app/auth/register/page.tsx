@@ -8,9 +8,10 @@ import Input from '@/components/elements/Input';
 import InputError from '@/components/elements/InputError';
 import Link from 'next/link';
 import { useAuth } from '@/hooks/auth';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import Label from '@/components/Label';
 
 const Register = () => {
     const searchParams = useSearchParams();
@@ -77,7 +78,7 @@ const Register = () => {
                                 />
                             </svg>
                             <span className="text-black text-center font-medium">
-                                Google ile giriş yapın.
+                                Google ile kayıt olun.
                             </span>
                         </div>
                     </Link>
@@ -175,16 +176,62 @@ const Register = () => {
                         />
                     </div>
 
-                    <div className="flex items-center justify-end mt-4">
-                        <Link href="/auth/login">
-                            <span className="underline text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-zinc-500">
-                                Zaten kayıtlı mısınız?
-                            </span>
-                        </Link>
+                    <div className="flex items-center justify-between mt-4">
+                        <Label className="text-xs">
+                            Kaydol'a tıklayarak İmtihan'ın{' '}
+                            <Link
+                                href="https://imtihan.tech/terms-of-services"
+                                className="underline"
+                                target="_blank">
+                                Şartlarını
+                            </Link>{' '}
+                            ve{' '}
+                            <Link
+                                href="https://imtihan.tech/privacy-policy"
+                                className="underline"
+                                target="_blank">
+                                Gizlilik Politikasını
+                            </Link>{' '}
+                            kabul ediyorum.
+                        </Label>
 
                         <Button className="ml-4">Kaydol</Button>
                     </div>
                 </form>
+
+                <hr className="my-8 w-full h-px bg-zinc-200 border-0 dark:bg-zinc-700" />
+
+                <div className="dark:bg-black w-full">
+                    <div className="flex flex-col">
+                        <p className="my-4 text-center text-sm text-zinc-900 dark:text-zinc-300">
+                            Zaten kayıtlı mısınız?
+                        </p>
+
+                        <Link href="/auth/login">
+                            <div className="dark:text-white text-zinc-900 border hover:border-brand font-medium rounded-full text-lg text-center py-2.5">
+                                İmtihan için giriş yap.
+                            </div>
+                        </Link>
+                    </div>
+                </div>
+
+                <Label className="text-center text-xs my-4">
+                    Bu site CAPTCHA tarafından korunmaktadır ve CloudFlare{' '}
+                    <Link
+                        href="https://www.cloudflare.com/privacypolicy/"
+                        className="underline"
+                        target="_blank">
+                        Gizlilik Politikası
+                    </Link>{' '}
+                    ile{' '}
+                    <Link
+                        href="https://www.cloudflare.com/website-terms/"
+                        className="underline"
+                        target="_blank">
+                        Hizmet Koşulları
+                    </Link>{' '}
+                    geçerlidir.
+                </Label>
             </AuthCard>
         </GuestLayout>
     );

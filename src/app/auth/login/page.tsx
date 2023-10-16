@@ -11,8 +11,9 @@ import Link from 'next/link';
 import { useAuth } from '@/hooks/auth';
 import React, { useEffect, useState } from 'react';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
-import InputCheckbox from '@/components/elements/InputCheckbox';
 import { useSearchParams } from 'next/navigation';
+import Label from '@/components/Label';
+import Toggle from '@/components/elements/Toggle';
 
 export default function LoginPage() {
     const params = useSearchParams();
@@ -154,16 +155,15 @@ export default function LoginPage() {
                         <label
                             htmlFor="remember_me"
                             className="inline-flex items-center">
-                            <InputCheckbox
+                            <Toggle
                                 id="remember_me"
                                 name="remember"
-                                className="form-checkbox"
                                 onChange={event =>
                                     setShouldRemember(event.target.checked)
                                 }
                             />
 
-                            <span className="ml-2 text-sm text-zinc-600">
+                            <span className="text-sm text-zinc-600">
                                 Beni hatırla
                             </span>
                         </label>
@@ -196,6 +196,24 @@ export default function LoginPage() {
                         </Link>
                     </div>
                 </div>
+
+                <Label className="text-center text-xs my-4">
+                    Bu site CAPTCHA tarafından korunmaktadır ve CloudFlare{' '}
+                    <Link
+                        href="https://www.cloudflare.com/privacypolicy/"
+                        className="underline"
+                        target="_blank">
+                        Gizlilik Politikası
+                    </Link>{' '}
+                    ile{' '}
+                    <Link
+                        href="https://www.cloudflare.com/website-terms/"
+                        className="underline"
+                        target="_blank">
+                        Hizmet Koşulları
+                    </Link>{' '}
+                    geçerlidir.
+                </Label>
             </AuthCard>
         </GuestLayout>
     );

@@ -49,7 +49,7 @@ export default function Modal({
                     key="modal"
                     transition={{ duration: 0.3, ease: 'easeInOut' }}
                     className="fixed inset-0 z-50 w-full h-full flex justify-center items-center">
-                    <div className="relative md:max-w-2xl md:max-h-[50%] w-full h-full md:h-auto">
+                    <div className="flex items-center relative md:max-w-2xl md:max-h-[50%] w-full h-full md:h-auto">
                         <motion.div
                             initial={{ scale: 0.8, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}

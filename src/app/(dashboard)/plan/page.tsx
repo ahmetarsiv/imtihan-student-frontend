@@ -21,7 +21,7 @@ export default function PlanPage(): ReactNode {
                                 ilerleme takibi hakkı.
                             </p>
                             <a
-                                href="https://imtihan-docs.vercel.app/help#premium-planlar"
+                                href="https://support.imtihan.tech/plan-help#premium-planlar%C4%B1"
                                 target="_blank"
                                 rel="noreferrer">
                                 <span className="underline">

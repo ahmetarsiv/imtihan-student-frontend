@@ -18,6 +18,10 @@ import Toggle from '@/components/elements/Toggle';
 export default function LoginPage() {
     const params = useSearchParams();
 
+    const handleGoogleLogin = () => {
+        window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/google`;
+    };
+
     const { login } = useAuth({
         middleware: 'guest',
         redirectIfAuthenticated: '/',
@@ -67,7 +71,7 @@ export default function LoginPage() {
                         Devam etmek için lütfen İmtihan'a giriş yapın.
                     </p>
 
-                    <Link href="">
+                    <button onClick={handleGoogleLogin}>
                         <div className="w-full border hover:border-brand dark:bg-[#fff] dark:hover:bg-[#e5e7eb]/90 rounded-full text-lg px-5 py-2.5 inline-flex items-center mb-2">
                             <svg
                                 className="text-black mr-2 -ml-1 w-4 h-4"
@@ -87,7 +91,7 @@ export default function LoginPage() {
                                 Google ile giriş yapın.
                             </span>
                         </div>
-                    </Link>
+                    </button>
                 </div>
 
                 <div className="inline-flex justify-center items-center w-full">

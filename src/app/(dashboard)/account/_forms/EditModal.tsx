@@ -17,6 +17,8 @@ import InputSelect from '@/components/elements/InputSelect';
 import { ICountryResponse } from '@/types/ICountry';
 import { ICityResponse } from '@/types/ICity';
 import { IStateResponse } from '@/types/IState';
+import { getCountries } from '@/store/slices/country';
+import { getCities } from '@/store/slices/city';
 
 interface IEditModalProps {
     open: boolean;
@@ -86,17 +88,12 @@ export default function EditModal({ open, setIsOpen, id }: IEditModalProps) {
 
     const handleCountryChange = (event: any) => {
         const selectedCountryId = event.target.value;
-        countries(selectedCountryId);
+        dispatch(getCountries(selectedCountryId));
     };
 
     const handleCityChange = (event: any) => {
         const selectedCityId = event.target.value;
-        cities(selectedCityId);
-    };
-
-    const handleStateChange = (event: any) => {
-        const selectedStateId = event.target.value;
-        states(selectedStateId);
+        dispatch(getCities(selectedCityId));
     };
 
     useEffect(() => {
@@ -240,7 +237,6 @@ export default function EditModal({ open, setIsOpen, id }: IEditModalProps) {
                                 <InputSelect
                                     defaultOption="Varsayılan"
                                     {...register('state_id')}
-                                    onChange={handleStateChange}
                                     className="block mt-1 w-full">
                                     {states.map((state: IStateResponse) => (
                                         <option key={state.id} value={state.id}>

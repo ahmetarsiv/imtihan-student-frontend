@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppDispatch } from '@/store';
 import axios from '@/lib/axios';
 import { IBasePaginate, IPaginate } from '@/types/IPaginate';
-import { IUserForm, IUserResponse } from '@/types/IUser';
+import { IUserResponse } from '@/types/IUser';
 
 interface IUserState {
     isLoading: boolean;

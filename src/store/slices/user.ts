@@ -95,7 +95,7 @@ export const getUser = (id: number) => async (dispatch: AppDispatch) => {
     }
 };
 
-export const postUser = (data: IUserForm) => async (dispatch: AppDispatch) => {
+export const postUser = (data: FormData) => async (dispatch: AppDispatch) => {
     dispatch(slice.actions.startLoading());
     try {
         const response = await axios.post('/api/student/accounts/', data);
@@ -106,7 +106,7 @@ export const postUser = (data: IUserForm) => async (dispatch: AppDispatch) => {
 };
 
 export const updateUser =
-    (id: number, data: IUserForm) => async (dispatch: AppDispatch) => {
+    (id: number, data: FormData) => async (dispatch: AppDispatch) => {
         dispatch(slice.actions.startLoading());
         try {
             const response = await axios.put(

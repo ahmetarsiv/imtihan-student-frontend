@@ -34,11 +34,11 @@ const slice = createSlice({
 
 export default slice.reducer;
 
-export function getCities() {
+export function getCities(id: number) {
     return async (dispatch: AppDispatch) => {
         await dispatch(slice.actions.startLoading());
         try {
-            const response = await axios.get('/api/student/cities/');
+            const response = await axios.get('/api/student/cities/' + id);
             dispatch(slice.actions.getCities(response.data));
         } finally {
             dispatch(slice.actions.endLoading());

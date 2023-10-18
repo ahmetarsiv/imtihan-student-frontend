@@ -19,6 +19,8 @@ import { ICityResponse } from '@/types/ICity';
 import { IStateResponse } from '@/types/IState';
 import { getCountries } from '@/store/slices/country';
 import { getCities } from '@/store/slices/city';
+import { getStates } from '@/store/slices/state';
+import Gender from '@/enums/gender';
 
 interface IEditModalProps {
     open: boolean;
@@ -39,6 +41,7 @@ const UserUpdateSchema: yup.ObjectSchema<IUserForm> = yup.object().shape({
             'You need to provide a file',
             (value: any) => value.length > 0,
         ),
+    gender: yup.number().required('Required'),
     country_id: yup.number().required('Required'),
     city_id: yup.number().required('Required'),
     state_id: yup.number().required('Required'),
@@ -88,18 +91,19 @@ export default function EditModal({ open, setIsOpen, id }: IEditModalProps) {
 
     const handleCountryChange = (event: any) => {
         const selectedCountryId = event.target.value;
-        dispatch(getCountries(selectedCountryId));
+        dispatch(getCities(selectedCountryId));
     };
 
     const handleCityChange = (event: any) => {
         const selectedCityId = event.target.value;
-        dispatch(getCities(selectedCityId));
+        dispatch(getStates(selectedCityId));
     };
 
     useEffect(() => {
         if (id) {
             dispatch(getUser(id));
         }
+        dispatch(getCountries());
     }, [id]);
 
     const handleDelete = (id: number) => {
@@ -139,6 +143,22 @@ export default function EditModal({ open, setIsOpen, id }: IEditModalProps) {
                                 {errors.full_name?.message && (
                                     <p className="mt-2 text-sm text-red-600 dark:text-red-500">
                                         {errors.full_name?.message}
+                                    </p>
+                                )}
+                            </div>
+
+                            <div className="w-full">
+                                <Label>Cinsiyet</Label>
+                                <InputSelect
+                                    defaultOption="Varsayılan"
+                                    {...register('gender')}
+                                    className="block mt-1 w-full">
+                                    <option value={Gender.MALE}>Erkek</option>
+                                    <option value={Gender.FEMALE}>Kadın</option>
+                                </InputSelect>
+                                {errors.gender?.message && (
+                                    <p className="mt-2 text-sm text-red-600 dark:text-red-500">
+                                        {errors.gender.message}
                                     </p>
                                 )}
                             </div>

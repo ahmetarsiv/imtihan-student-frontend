@@ -8,6 +8,7 @@ interface IUser {
     full_name: string;
     address: string;
     avatar: string;
+    gender: number;
     email: string;
     phone: string;
     city_id: number;

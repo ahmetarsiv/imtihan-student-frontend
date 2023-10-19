@@ -7,6 +7,7 @@ import classSchedule from '@/store/slices/classSchedule';
 import country from '@/store/slices/country';
 import city from '@/store/slices/city';
 import state from '@/store/slices/state';
+import staticPage from '@/store/slices/static-page';
 
 interface RootState {
     user: ReturnType<typeof user>;
@@ -17,6 +18,7 @@ interface RootState {
     country: ReturnType<typeof country>;
     city: ReturnType<typeof city>;
     state: ReturnType<typeof state>;
+    staticPage: ReturnType<typeof staticPage>;
 }
 
 const rootReducer: Reducer<RootState> = combineReducers({
@@ -28,6 +30,7 @@ const rootReducer: Reducer<RootState> = combineReducers({
     country,
     city,
     state,
+    staticPage,
 });
 
 export { rootReducer };

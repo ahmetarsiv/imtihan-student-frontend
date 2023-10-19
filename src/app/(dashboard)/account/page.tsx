@@ -15,11 +15,16 @@ import Footer from '@/layouts/Footer';
 import ThemeToggle from '@/components/ThemeToggle';
 import config from '@/config/menu';
 import Link from 'next/link';
-import { ReactNode, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import EditModal from '@/app/(dashboard)/account/_forms/EditModal';
+import { AppDispatch, useDispatch, useSelector } from '@/store';
+import { getStaticPages } from '@/store/slices/static-page';
+import { IStaticPageResponse } from '@/types/IStaticPage';
 
 export default function AccountPage(): ReactNode {
     const { user, logout } = useAuth();
+    const dispatch: AppDispatch = useDispatch();
+    const { staticPages } = useSelector(state => state.staticPage);
     const packageJson = require('/package.json');
     const version = packageJson.version;
 
@@ -30,6 +35,10 @@ export default function AccountPage(): ReactNode {
         setOpenEditModal(true);
         setId(id);
     };
+
+    useEffect(() => {
+        dispatch(getStaticPages());
+    }, [dispatch]);
 
     return (
         <>
@@ -94,31 +103,21 @@ export default function AccountPage(): ReactNode {
 
                     <ThemeToggle />
 
-                    <a
-                        rel="noreferrer"
-                        href="https://imtihan.tech/terms-of-services"
-                        target="_blank">
-                        <div className="border-b border-zinc-100 dark:border-zinc-900 hover:bg-zinc-100 focus:bg-zinc-100 dark:hover:bg-zinc-900 dark:focus:bg-zinc-900 w-full h-full p-5">
-                            <DocumentTextIcon className="text-brand w-6 h-6 mr-2 float-left" />
-                            <span className="text-zinc-500 dark:text-zinc-300">
-                                Hizmet Şartları
-                            </span>
-                            <ChevronRightIcon className="text-brand w-6 h-6 float-right" />
-                        </div>
-                    </a>
-
-                    <a
-                        rel="noreferrer"
-                        href="https://imtihan.tech/privacy-policy"
-                        target="_blank">
-                        <div className="border-b border-zinc-100 dark:border-zinc-900 hover:bg-zinc-100 focus:bg-zinc-100 dark:hover:bg-zinc-900 dark:focus:bg-zinc-900 w-full h-full p-5">
-                            <DocumentTextIcon className="text-brand w-6 h-6 mr-2 float-left" />
-                            <span className="text-zinc-500 dark:text-zinc-300">
-                                Gizlilik Politikası
-                            </span>
-                            <ChevronRightIcon className="text-brand w-6 h-6 float-right" />
-                        </div>
-                    </a>
+                    {staticPages.map(
+                        (staticPage: IStaticPageResponse, key: number) => (
+                            <Link
+                                key={key}
+                                href={'/static-page/' + staticPage?.id}>
+                                <div className="border-b border-zinc-100 dark:border-zinc-900 hover:bg-zinc-100 focus:bg-zinc-100 dark:hover:bg-zinc-900 dark:focus:bg-zinc-900 w-full h-full p-5">
+                                    <DocumentTextIcon className="text-brand w-6 h-6 mr-2 float-left" />
+                                    <span className="text-zinc-500 dark:text-zinc-300">
+                                        {staticPage?.name}
+                                    </span>
+                                    <ChevronRightIcon className="text-brand w-6 h-6 float-right" />
+                                </div>
+                            </Link>
+                        ),
+                    )}
 
                     <div
                         onClick={logout}

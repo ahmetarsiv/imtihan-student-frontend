@@ -16,7 +16,6 @@ export interface IUserResponse {
 export interface IUserForm {
     full_name: string;
     phone: string;
-    email: string;
     address: string;
     avatar?: any | null;
     gender: number;

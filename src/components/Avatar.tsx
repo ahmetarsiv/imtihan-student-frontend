@@ -2,7 +2,6 @@
 
 import { useAuth } from '@/hooks/auth';
 import Image from 'next/image';
-import createImageUrl from '@/lib/image';
 
 interface IAvatarProps {
     className?: string;
@@ -22,7 +21,7 @@ export default function Avatar({ className }: IAvatarProps) {
                 <div className={`${className} flex flex-col items-center`}>
                     <div className="inline-flex overflow-hidden relative justify-center items-center w-12 h-12 bg-zinc-200 rounded-full dark:bg-zinc-600">
                         <Image
-                            src={createImageUrl(user?.avatar)}
+                            src={user?.avatar}
                             alt={user?.full_name}
                             width={48}
                             height={48}

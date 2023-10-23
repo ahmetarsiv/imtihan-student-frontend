@@ -31,7 +31,6 @@ interface IEditModalProps {
 
 const UserUpdateSchema: yup.ObjectSchema<IUserForm> = yup.object().shape({
     full_name: yup.string().required('Required'),
-    email: yup.string().email('Invalid email').required('Required'),
     phone: yup.string().required('Required'),
     address: yup.string().required('Required'),
     avatar: yup
@@ -166,15 +165,11 @@ export default function EditModal({ open, setIsOpen, id }: IEditModalProps) {
                             <div>
                                 <Label>Eposta</Label>
                                 <Input
-                                    {...register('email')}
+                                    value={user?.email}
+                                    disabled
                                     type="email"
                                     className="block mt-1 w-full"
                                 />
-                                {errors.email?.message && (
-                                    <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                                        {errors.email?.message}
-                                    </p>
-                                )}
                             </div>
 
                             <div className="w-full">

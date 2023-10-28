@@ -9,6 +9,7 @@ import NoContentCard from '@/components/cards/NoContentCard';
 import LottieAnimation from '@/components/LottieAnimation';
 import Lottie from '../../../../public/lottie/animation_llpkgi2z.json';
 import { IAnnouncementResponse } from '@/types/IAnnouncement';
+import { setTitle } from '@/store/slices/root';
 
 export default function AnnouncementPage(): ReactNode {
     const { announcements, isLoading } = useSelector(
@@ -19,6 +20,7 @@ export default function AnnouncementPage(): ReactNode {
     const [id, setId] = useState<number | null>(null);
 
     useEffect(() => {
+        dispatch(setTitle('Duyurular'));
         dispatch(getAnnouncements());
     }, [dispatch]);
 

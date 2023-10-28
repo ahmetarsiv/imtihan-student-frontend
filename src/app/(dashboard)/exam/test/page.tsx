@@ -7,8 +7,12 @@ import Label from '@/components/Label';
 import Avatar from '@/components/Avatar';
 import Image from 'next/image';
 import Logo from '/public/imtihan.svg';
+import { AppDispatch, useDispatch } from '@/store';
+import { setTitle } from '@/store/slices/root';
 
 export default function TestPage(): ReactNode {
+    const dispatch: AppDispatch = useDispatch();
+
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
     const options = [
         'Topladığımız meyvelerin henüz yenecek durumda olmadığını görünce üzüldük. ',
@@ -36,6 +40,10 @@ export default function TestPage(): ReactNode {
         return () => {
             document.body.removeEventListener('contextmenu', handleContextMenu);
         };
+    }, []);
+
+    useEffect(() => {
+        dispatch(setTitle('İmtihan'));
     }, []);
 
     const startTime = new Date().getTime() + 45 * 60 * 1000;

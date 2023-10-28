@@ -20,6 +20,7 @@ import EditModal from '@/app/(dashboard)/account/_forms/EditModal';
 import { AppDispatch, useDispatch, useSelector } from '@/store';
 import { getStaticPages } from '@/store/slices/static-page';
 import { IStaticPageResponse } from '@/types/IStaticPage';
+import { setTitle } from '@/store/slices/root';
 
 export default function AccountPage(): ReactNode {
     const { user, logout } = useAuth();
@@ -37,6 +38,7 @@ export default function AccountPage(): ReactNode {
     };
 
     useEffect(() => {
+        dispatch(setTitle('Hesabım'));
         dispatch(getStaticPages());
     }, [dispatch]);
 

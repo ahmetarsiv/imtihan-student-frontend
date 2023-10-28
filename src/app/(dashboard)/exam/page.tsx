@@ -2,11 +2,19 @@
 
 import NoContentCard from '@/components/cards/NoContentCard';
 
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import LottieAnimation from '@/components/LottieAnimation';
 import Exam from '../../../../public/lottie/animation_llpjjjsc.json';
+import { AppDispatch, useDispatch } from '@/store';
+import { setTitle } from '@/store/slices/root';
 
 export default function ClassSchedulePage(): ReactNode {
+    const dispatch: AppDispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(setTitle('Sınavlar'));
+    }, [dispatch]);
+
     return (
         <>
             <main>

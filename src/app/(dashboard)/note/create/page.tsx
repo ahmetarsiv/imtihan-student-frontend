@@ -12,8 +12,9 @@ import toast from 'react-hot-toast';
 import Toggle from '@/components/elements/Toggle';
 import TextEditor from '@/components/elements/TextEditor';
 import { INoteForm } from '@/types/INote';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { setTitle } from '@/store/slices/root';
 
 const NoteCreateSchema: Yup.ObjectSchema<INoteForm> = Yup.object().shape({
     name: Yup.string().required('Required'),
@@ -44,6 +45,10 @@ export default function NoteCreatePage(): ReactNode {
                 console.log('err');
             });
     };
+
+    useEffect(() => {
+        dispatch(setTitle('Not Oluştur'));
+    }, [dispatch]);
 
     return (
         <>

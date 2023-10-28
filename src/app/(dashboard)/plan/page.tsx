@@ -4,9 +4,16 @@ import { CreditCardIcon } from '@heroicons/react/24/outline';
 import Label from '@/components/Label';
 import NavLink from '@/components/NavLink';
 import InfoCard from '@/components/cards/InfoCard';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
+import { AppDispatch, useDispatch } from '@/store';
+import { setTitle } from '@/store/slices/root';
 
 export default function PlanPage(): ReactNode {
+    const dispatch: AppDispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(setTitle('Planlarım'));
+    }, [dispatch]);
     return (
         <>
             <main>

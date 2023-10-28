@@ -9,12 +9,14 @@ import NoContentCard from '@/components/cards/NoContentCard';
 import LottieAnimation from '@/components/LottieAnimation';
 import { INoteResponse } from '@/types/INote';
 import NavLink from '@/components/NavLink';
+import { setTitle } from '@/store/slices/root';
 
 export default function NotePage(): ReactNode {
     const dispatch: AppDispatch = useDispatch();
     const { notes, isLoading } = useSelector(state => state.note);
 
     useEffect(() => {
+        dispatch(setTitle('Notlar'));
         dispatch(getNotes());
     }, [dispatch]);
 

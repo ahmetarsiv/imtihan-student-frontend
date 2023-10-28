@@ -8,23 +8,21 @@ import { Toaster } from 'react-hot-toast';
 import BackButton from '@/components/BackButton';
 import React, { ReactNode, useEffect, useState } from 'react';
 import NotificationButton from '@/components/NotificationButton';
+import { useSelector } from '@/store';
 
 interface AppLayoutProps {
     children: ReactNode;
 }
 
 export default function AppLayout({ children }: AppLayoutProps) {
-    const { user } = useAuth({ middleware: 'auth' });
     const [title, setTitle] = useState<string>('');
 
-    useEffect(() => {
-        setTitle(document?.title);
-    }, []);
+    const { root } = useSelector(state => state.root);
 
     return (
         <>
             {/* Page Heading */}
-            <Header name={title} />
+            <Header name={root?.title || 'imtihan'} />
 
             <main className="md:flex">
                 {/* Mobile Back-Button */}

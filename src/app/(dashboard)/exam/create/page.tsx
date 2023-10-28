@@ -1,18 +1,26 @@
 'use client';
 
 import Button from '@/components/Button';
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import Label from '@/components/Label';
 import InputRange from '@/components/elements/InputRange';
 import InputSelect from '@/components/elements/InputSelect';
 import Input from '@/components/elements/Input';
+import { AppDispatch, useDispatch } from '@/store';
+import { setTitle } from '@/store/slices/root';
 
 export default function ExamCreatePage(): ReactNode {
+    const dispatch: AppDispatch = useDispatch();
     const [sliderValue, setSliderValue] = useState(50);
 
     const handleSliderChange = (e: any) => {
         setSliderValue(e.target.value);
     };
+
+    useEffect(() => {
+        dispatch(setTitle('Sınav Oluştur'));
+    }, []);
+
     return (
         <>
             <main>

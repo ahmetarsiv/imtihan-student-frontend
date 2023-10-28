@@ -61,7 +61,11 @@ export const useAuth = ({
             .catch((error: any) => {
                 if (error.response.status !== 409) throw error;
 
-                router.push('/auth/verify-email');
+                if (user && !user?.is_active) {
+                    router.push('/auth/wait-list');
+                } else {
+                    router.push('/auth/verify-email');
+                }
             }),
     );
 
@@ -150,6 +154,9 @@ export const useAuth = ({
     useEffect(() => {
         if (middleware === 'guest' && redirectIfAuthenticated && user)
             router.push(redirectIfAuthenticated);
+        if (user && !user?.is_active) {
+            router.push('/auth/wait-list');
+        }
         if (
             window.location.pathname === '/verify-email' &&
             user?.email_verified_at

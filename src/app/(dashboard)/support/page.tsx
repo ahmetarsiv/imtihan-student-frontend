@@ -20,6 +20,7 @@ export default function SupportPage(): ReactNode {
 
     useEffect(() => {
         dispatch(getSupports(pagePaginate, search));
+        console.log(supports);
     }, [dispatch, pagePaginate, search]);
 
     const handleDelete = (id: number) => {

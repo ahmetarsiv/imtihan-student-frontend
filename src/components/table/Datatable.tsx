@@ -95,14 +95,14 @@ export default function Datatable({
                             {headerGroups.map(
                                 (headerGroup: any, key: number) => (
                                     <tr
-                                        key={key}
-                                        {...headerGroup.getHeaderGroupProps()}>
+                                        {...headerGroup.getHeaderGroupProps()}
+                                        key={key}>
                                         {headerGroup.headers.map(
                                             (column: any, key: number) => (
                                                 <th
-                                                    key={key}
                                                     className="px-4 py-3"
-                                                    {...column.getHeaderProps()}>
+                                                    {...column.getHeaderProps()}
+                                                    key={key}>
                                                     {column.render('Header')}
                                                 </th>
                                             ),

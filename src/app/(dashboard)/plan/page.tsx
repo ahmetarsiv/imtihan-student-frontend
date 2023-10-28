@@ -32,7 +32,7 @@ export default function PlanPage(): ReactNode {
                         <div>
                             <h3 className="text-2xl font-bold pb-5">Ödeme</h3>
                             <label>
-                                Sonraki faturan 17,99 TL tutarında ve 29.10.2023
+                                Sonraki faturan 69,99 TL tutarında ve 29.10.2023
                                 tarihinde.
                             </label>
                             <div className="flex items-center pt-7 gap-5">

@@ -8,4 +8,17 @@ const axios: AxiosInstance = Axios.create({
     withCredentials: true,
 });
 
+axios.interceptors.response.use(
+    response => response,
+    error => {
+        if (error.response.status === 403) {
+            axios.post('/logout').then(() => {
+                window.location.href = '/auth/login';
+            });
+        }
+
+        return Promise.reject(error);
+    },
+);
+
 export default axios;

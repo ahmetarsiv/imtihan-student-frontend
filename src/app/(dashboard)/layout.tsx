@@ -7,6 +7,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import Lottie from '../../../public/lottie/imtihan.json';
 import LottieAnimation from '@/components/LottieAnimation';
 import ApplicationLogo from '@/components/ApplicationLogo';
+import axios from '@/lib/axios';
 
 export default function DashboardLayout(props: { children: ReactNode }) {
     const { user } = useAuth();
@@ -21,7 +22,11 @@ export default function DashboardLayout(props: { children: ReactNode }) {
         }, 2000);
     }, []);
 
-    if (user) {
+    if (user && !user?.is_active) {
+        router.push('/auth/wait-list');
+    }
+
+    if (user && user?.is_active) {
         return pathname === '/exam/test' ? (
             <> {props.children} </>
         ) : (

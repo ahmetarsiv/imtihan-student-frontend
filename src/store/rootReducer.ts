@@ -8,8 +8,10 @@ import country from '@/store/slices/country';
 import city from '@/store/slices/city';
 import state from '@/store/slices/state';
 import staticPage from '@/store/slices/static-page';
+import root from '@/store/slices/root';
 
 interface RootState {
+    root: ReturnType<typeof root>;
     user: ReturnType<typeof user>;
     note: ReturnType<typeof note>;
     support: ReturnType<typeof support>;
@@ -22,6 +24,7 @@ interface RootState {
 }
 
 const rootReducer: Reducer<RootState> = combineReducers({
+    root,
     user,
     note,
     support,

@@ -14,6 +14,7 @@ import { ReactNode, useEffect } from 'react';
 import { INoteForm } from '@/types/INote';
 import { useParams, useRouter } from 'next/navigation';
 import TextEditor from '@/components/elements/TextEditor';
+import { setTitle } from '@/store/slices/root';
 
 const NoteUpdateSchema: Yup.ObjectSchema<INoteForm> = Yup.object().shape({
     name: Yup.string().required('Required'),
@@ -56,6 +57,7 @@ export default function NoteEditPage(): ReactNode {
     };
 
     useEffect(() => {
+        dispatch(setTitle('Not Düzenle'));
         if (id) {
             dispatch(getNote(noteId));
         }

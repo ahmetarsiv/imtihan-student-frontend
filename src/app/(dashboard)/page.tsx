@@ -19,8 +19,13 @@ import LottieAnimation from '@/components/LottieAnimation';
 import Exam from '../../../public/lottie/animation_llpjjjsc.json';
 import Note from '../../../public/lottie/animation_llpiacni.json';
 import Calendar from '../../../public/lottie/animation_llpjqp34.json';
+import { AppDispatch, useDispatch } from '@/store';
+import { useEffect } from 'react';
+import { setTitle } from '@/store/slices/root';
 
 export default function DashboardPage() {
+    const dispatch: AppDispatch = useDispatch();
+
     const chartdata = [
         {
             date: 'Haz 22',
@@ -55,6 +60,10 @@ export default function DashboardPage() {
 
     const valueFormatter = (number: number | bigint) =>
         `% ${Intl.NumberFormat('tr').format(number).toString()}`;
+
+    useEffect(() => {
+        dispatch(setTitle('Ana Sayfa'));
+    }, [dispatch]);
 
     return (
         <>

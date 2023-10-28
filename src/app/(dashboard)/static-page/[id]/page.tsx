@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { AppDispatch, useDispatch, useSelector } from '@/store';
 import { getStaticPage } from '@/store/slices/static-page';
+import { setTitle } from '@/store/slices/root';
 
 export default function StaticPageViewPage() {
     const { id } = useParams();
@@ -16,6 +17,10 @@ export default function StaticPageViewPage() {
             dispatch(getStaticPage(staticPageId));
         }
     }, [dispatch, id]);
+
+    useEffect(() => {
+        dispatch(setTitle(staticPage?.name));
+    }, [staticPage]);
 
     return (
         <>

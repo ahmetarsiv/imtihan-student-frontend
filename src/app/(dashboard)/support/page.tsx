@@ -10,6 +10,7 @@ import NoContentCard from '@/components/cards/NoContentCard';
 import LottieAnimation from '@/components/LottieAnimation';
 import Lottie from '../../../../public/lottie/animation_llpjb9vt.json';
 import CreateModal from '@/app/(dashboard)/support/_forms/CreateModal';
+import { setTitle } from '@/store/slices/root';
 
 export default function SupportPage(): ReactNode {
     const dispatch: AppDispatch = useDispatch();
@@ -19,6 +20,7 @@ export default function SupportPage(): ReactNode {
     const { supports, meta, isLoading } = useSelector(state => state.support);
 
     useEffect(() => {
+        dispatch(setTitle('Destekler'));
         dispatch(getSupports(pagePaginate, search));
         console.log(supports);
     }, [dispatch, pagePaginate, search]);

@@ -6,6 +6,7 @@ import { useAuth } from '@/hooks/auth';
 import { usePathname, useRouter } from 'next/navigation';
 import Lottie from '../../../public/lottie/imtihan.json';
 import LottieAnimation from '@/components/LottieAnimation';
+import ApplicationLogo from '@/components/ApplicationLogo';
 
 export default function DashboardLayout(props: { children: ReactNode }) {
     const { user } = useAuth();
@@ -29,8 +30,11 @@ export default function DashboardLayout(props: { children: ReactNode }) {
     }
 
     return (
-        <div className="flex h-screen w-screen m-auto justify-center items-center">
-            <div className="w-72 h-72">
+        <div className="flex flex-col h-screen w-screen m-auto justify-center items-center">
+            <div>
+                <ApplicationLogo width={144} height={32} />
+            </div>
+            <div className="absolute bottom-0 w-72 h-72">
                 <LottieAnimation animationData={Lottie} />
             </div>
         </div>

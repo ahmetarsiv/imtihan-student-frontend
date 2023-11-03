@@ -1,0 +1,11 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.imtihan",
+      "sha256_cert_fingerprints":
+      ["58:B1:FE:8F:1B:FB:99:D0:77:70:8C:51:50:4B:DF:BE:C3:05:EA:33:62:79:5C:3E:8E:EA:04:6C:2A:57:91:09"]
+    }
+  }
+]

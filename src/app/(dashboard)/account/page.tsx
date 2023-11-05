@@ -99,7 +99,7 @@ export default function AccountPage(): ReactNode {
                             <Link
                                 key={key}
                                 href={
-                                    '/static-pages/' + staticPage?.id + '/view/'
+                                    '/static-page/' + staticPage?.id
                                 }>
                                 <div className="border-b border-zinc-100 dark:border-zinc-900 hover:bg-zinc-100 focus:bg-zinc-100 dark:hover:bg-zinc-900 dark:focus:bg-zinc-900 w-full h-full p-5">
                                     <DocumentTextIcon className="text-brand w-6 h-6 mr-2 float-left" />

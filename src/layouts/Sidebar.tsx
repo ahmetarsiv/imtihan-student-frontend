@@ -36,12 +36,6 @@ export default function Sidebar({ className }: SidebarProps) {
                         </li>
                     </Link>
                 ))}
-                <li
-                    onClick={logout}
-                    className="flex cursor-pointer items-center p-5 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg">
-                    <ArrowLeftOnRectangleIcon className="inline-block w-6 h-6" />
-                    <label className="cursor-pointer mx-2">Oturumu Kapat</label>
-                </li>
             </ul>
         </aside>
     );

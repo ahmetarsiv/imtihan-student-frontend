@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppDispatch } from '@/store';
 import axios from '@/lib/axios';
-import { IUserResponse } from '@/types/IUser';
+import {IUpdatePasswordForm, IUserResponse} from '@/types/IUser';
 
 interface IUserState {
     isLoading: boolean;
@@ -49,10 +49,10 @@ const slice = createSlice({
 
 export default slice.reducer;
 
-export const getUser = (id: number) => async (dispatch: AppDispatch) => {
+export const getUser = () => async (dispatch: AppDispatch) => {
     await dispatch(slice.actions.startLoading());
     try {
-        const response = await axios.get('/api/student/accounts/' + id);
+        const response = await axios.get('/api/student/accounts/');
         dispatch(slice.actions.getUser(response.data));
     } finally {
         dispatch(slice.actions.endLoading());
@@ -60,11 +60,11 @@ export const getUser = (id: number) => async (dispatch: AppDispatch) => {
 };
 
 export const updateUser =
-    (id: number, data: FormData) => async (dispatch: AppDispatch) => {
+    (data: FormData | any) => async (dispatch: AppDispatch) => {
         dispatch(slice.actions.startLoading());
         try {
             const response = await axios.put(
-                '/api/student/accounts/' + id,
+                '/api/student/accounts/',
                 data,
             );
             dispatch(slice.actions.updateUser(response.data));
@@ -73,11 +73,25 @@ export const updateUser =
         }
     };
 
-export const deleteUser = (id: number) => async (dispatch: AppDispatch) => {
+export const deleteUser = () => async (dispatch: AppDispatch) => {
     try {
-        const response = await axios.delete('/api/student/accounts/' + id);
+        const response = await axios.delete('/api/student/accounts/');
         dispatch(slice.actions.deleteUser(response.data));
     } finally {
         dispatch(slice.actions.endLoading());
     }
 };
+
+export const updatePassword =
+    (data: IUpdatePasswordForm) => async (dispatch: AppDispatch) => {
+        dispatch(slice.actions.startLoading());
+        try {
+            const response = await axios.put(
+                '/api/student/accounts/update-password/',
+                data,
+            );
+            dispatch(slice.actions.updateUser(response.data));
+        } finally {
+            dispatch(slice.actions.endLoading());
+        }
+    };

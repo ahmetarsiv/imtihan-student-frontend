@@ -6,7 +6,7 @@ import {
     CreditCardIcon,
     HomeIcon,
     InformationCircleIcon,
-    RectangleGroupIcon,
+    RectangleGroupIcon, UserCircleIcon,
     UserIcon,
 } from '@heroicons/react/24/outline';
 import { ReactNode } from 'react';
@@ -89,6 +89,13 @@ const menuConfig: IMenuConfig = {
         },
     ],
     account: [
+        {
+            name: 'Hesap Ayarlarım',
+            icon: (
+                <UserCircleIcon className="text-brand w-6 h-6 mr-2 float-left" />
+            ),
+            path: '/account/settings',
+        },
         {
             name: 'Sınavlar',
             icon: (

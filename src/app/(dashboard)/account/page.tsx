@@ -9,14 +9,14 @@ import {
     DevicePhoneMobileIcon,
     PencilSquareIcon,
     UserIcon,
+    UserCircleIcon,
 } from '@heroicons/react/24/outline';
 import { useAuth } from '@/hooks/auth';
 import Footer from '@/layouts/Footer';
 import ThemeToggle from '@/components/ThemeToggle';
 import config from '@/config/menu';
 import Link from 'next/link';
-import React, { ReactNode, useEffect, useState } from 'react';
-import EditModal from '@/app/(dashboard)/account/_forms/EditModal';
+import React, { ReactNode, useEffect } from 'react';
 import { AppDispatch, useDispatch, useSelector } from '@/store';
 import { getStaticPages } from '@/store/slices/static-page';
 import { IStaticPageResponse } from '@/types/IStaticPage';
@@ -29,14 +29,6 @@ export default function AccountPage(): ReactNode {
     const packageJson = require('/package.json');
     const version = packageJson.version;
 
-    const [openEditModal, setOpenEditModal] = useState<boolean>(false);
-    const [id, setId] = useState<number | undefined>(undefined);
-
-    const handleEdit = (id: number | undefined) => {
-        setOpenEditModal(true);
-        setId(id);
-    };
-
     useEffect(() => {
         dispatch(setTitle('Hesabım'));
         dispatch(getStaticPages());
@@ -48,10 +40,9 @@ export default function AccountPage(): ReactNode {
                 <div className="grid grid-cols-1 gap-1">
                     <div className="border-b border-zinc-100 dark:border-zinc-900 p-5">
                         <div className="float-right cursor-pointer w-10 h-10 p-2">
-                            <PencilSquareIcon
-                                className="text-brand w-6 h-6"
-                                onClick={() => handleEdit(user?.id)}
-                            />
+                            <Link href="/account/settings">
+                                <PencilSquareIcon className="text-brand w-6 h-6" />
+                            </Link>
                         </div>
                         <UserIcon className="text-brand w-12 h-12 mr-2 float-left" />
                         <span className="text-xl font-medium text-zinc-900 dark:text-zinc-300">
@@ -82,9 +73,7 @@ export default function AccountPage(): ReactNode {
                             {user?.phone ? (
                                 user?.phone
                             ) : (
-                                <button onClick={() => handleEdit(user?.id)}>
-                                    Telefon numaranı ekle
-                                </button>
+                                <>Telefon numaranı ekle</>
                             )}
                         </span>
                     </div>
@@ -109,7 +98,9 @@ export default function AccountPage(): ReactNode {
                         (staticPage: IStaticPageResponse, key: number) => (
                             <Link
                                 key={key}
-                                href={'/static-page/' + staticPage?.id}>
+                                href={
+                                    '/static-pages/' + staticPage?.id + '/view/'
+                                }>
                                 <div className="border-b border-zinc-100 dark:border-zinc-900 hover:bg-zinc-100 focus:bg-zinc-100 dark:hover:bg-zinc-900 dark:focus:bg-zinc-900 w-full h-full p-5">
                                     <DocumentTextIcon className="text-brand w-6 h-6 mr-2 float-left" />
                                     <span className="text-zinc-500 dark:text-zinc-300">
@@ -123,7 +114,7 @@ export default function AccountPage(): ReactNode {
 
                     <div
                         onClick={logout}
-                        className="border-b border-zinc-100 dark:border-zinc-900 hover:bg-zinc-100 focus:bg-zinc-100 dark:hover:bg-zinc-900 dark:focus:bg-zinc-900 w-full h-full p-5">
+                        className="border-b border-zinc-100 dark:border-zinc-900 hover:bg-zinc-100 focus:bg-zinc-100 dark:hover:bg-zinc-900 dark:focus:bg-zinc-900 w-full h-full p-5 cursor-pointer">
                         <ArrowLeftOnRectangleIcon className="text-brand w-6 h-6 mr-2 float-left" />
                         <span className="text-zinc-500 dark:text-zinc-300">
                             Oturumu Kapat
@@ -142,14 +133,6 @@ export default function AccountPage(): ReactNode {
                         </span>
                     </div>
                 </div>
-
-                {id && (
-                    <EditModal
-                        open={openEditModal}
-                        setIsOpen={setOpenEditModal}
-                        id={id}
-                    />
-                )}
 
                 <Footer className="block lg:hidden text-center mt-5" />
             </main>

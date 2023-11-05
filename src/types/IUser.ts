@@ -13,13 +13,22 @@ export interface IUserResponse {
     updated_at: Date;
 }
 
-export interface IUserForm {
+export interface IMembershipInformationForm {
     full_name: string;
-    phone: string;
-    address: string;
+    address?: string;
     avatar?: any | null;
     gender: number;
-    country_id: number;
-    city_id: number;
-    state_id: number;
+    country_id?: number;
+    city_id?: number;
+    state_id?: number;
+}
+
+export interface IContactInformationForm {
+    phone: string;
+}
+
+export interface IUpdatePasswordForm {
+    password: string;
+    password_confirmation: string;
+    current_password: string;
 }

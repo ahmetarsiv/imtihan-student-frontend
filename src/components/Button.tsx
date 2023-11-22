@@ -30,7 +30,7 @@ export default function Button({
             {isLoading ? (
                 <div className="inline-flex gap-1">
                     <ArrowPathIcon className="w-4 h-4 self-center animate-spin" />
-                    <Label>Yükleniyor</Label>
+                    <span className="text-sm">Yükleniyor</span>
                 </div>
             ) : (
                 children

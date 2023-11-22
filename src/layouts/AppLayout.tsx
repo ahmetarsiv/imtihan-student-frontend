@@ -32,7 +32,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
                 <NotificationButton>
                     <div className="border-b border-zinc-100 dark:border-zinc-900 p-2">
                         <span className="text-zinc-500 dark:text-zinc-300">
-                            Reference site about Lorem Ipsum.
+                            Henüz görülecek bir şey yok.
                         </span>
                     </div>
                 </NotificationButton>

@@ -14,6 +14,7 @@ import { useSearchParams } from 'next/navigation';
 
 const PasswordReset = () => {
     const searchParams = useSearchParams();
+    const [isLoading, setIsLoading] = useState(false);
 
     const { resetPassword } = useAuth({
         middleware: 'guest',
@@ -26,6 +27,7 @@ const PasswordReset = () => {
     const [status, setStatus] = useState<string | null>(null);
 
     const submitForm = (event: React.FormEvent) => {
+        setIsLoading(true);
         event.preventDefault();
 
         resetPassword({
@@ -110,7 +112,7 @@ const PasswordReset = () => {
                     </div>
 
                     <div className="flex items-center justify-end mt-4">
-                        <Button>Şifreyi Sıfırla</Button>
+                        <Button isLoading={isLoading}>Şifreyi Sıfırla</Button>
                     </div>
                 </form>
             </AuthCard>

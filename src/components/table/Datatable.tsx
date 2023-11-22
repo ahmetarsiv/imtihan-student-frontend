@@ -80,7 +80,7 @@ export default function Datatable({
                     <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                         {link && <NavLink name={link.name} href={link.href} />}
                         {button && (
-                            <Button onClick={button.onClick}>
+                            <Button isLoading={false} onClick={button.onClick}>
                                 {button.name}
                             </Button>
                         )}

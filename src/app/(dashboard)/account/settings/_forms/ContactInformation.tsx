@@ -8,19 +8,23 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import toast from 'react-hot-toast';
 import { AppDispatch, useDispatch, useSelector } from '@/store';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getUser, updateUser } from '@/store/slices/user';
 import { IContactInformationForm } from '@/types/IUser';
 
 const UserUpdateSchema: yup.ObjectSchema<IContactInformationForm> = yup
     .object()
     .shape({
-        phone: yup.string().required('Required'),
+        phone: yup
+            .string()
+            .matches(/^(\d{12})$/, 'Enter a valid phone number')
+            .required('Required'),
     });
 
 export default function ContactInformation() {
     const dispatch: AppDispatch = useDispatch();
     const { user } = useSelector((state: any) => state.user);
+    const [isLoading, setIsLoading] = useState(false);
 
     const {
         handleSubmit,
@@ -34,6 +38,7 @@ export default function ContactInformation() {
     });
 
     const onSubmit = (data: IContactInformationForm) => {
+        setIsLoading(true);
         console.log(data);
         dispatch(updateUser(data))
             .then(() => {
@@ -67,8 +72,12 @@ export default function ContactInformation() {
                             <Input
                                 {...register('phone')}
                                 type="tel"
+                                maxLength={12}
                                 className="block my-1 w-full"
                             />
+                            <Label className="text-xs">
+                                Ülke kodu ile birlikte (901234567890)
+                            </Label>
                             {errors.phone?.message && (
                                 <p className="mt-2 text-sm text-red-600 dark:text-red-500">
                                     {errors.phone?.message}
@@ -81,18 +90,16 @@ export default function ContactInformation() {
                             <Input
                                 value={user?.email}
                                 disabled
-                                type="tel"
+                                type="email"
                                 className="block my-1 w-full"
                             />
-                            {errors.phone?.message && (
-                                <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                                    {errors.phone?.message}
-                                </p>
-                            )}
                         </div>
                     </div>
                     <div className="flex justify-end mt-4">
-                        <Button type="submit" disabled={!isDirty}>
+                        <Button
+                            isLoading={isLoading}
+                            type="submit"
+                            disabled={!isDirty}>
                             Kaydet
                         </Button>
                     </div>

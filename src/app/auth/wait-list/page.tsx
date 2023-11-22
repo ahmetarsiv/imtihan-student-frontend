@@ -2,11 +2,9 @@
 
 import ApplicationLogo from '@/components/ApplicationLogo';
 import AuthCard from '@/components/AuthCard';
-import Button from '@/components/Button';
 import GuestLayout from '@/layouts/GuestLayout';
 import Link from 'next/link';
 import { useAuth } from '@/hooks/auth';
-import { useState } from 'react';
 
 const WaitList = () => {
     const { logout } = useAuth();

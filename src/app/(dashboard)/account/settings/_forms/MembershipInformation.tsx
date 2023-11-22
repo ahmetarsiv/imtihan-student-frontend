@@ -8,19 +8,19 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import toast from 'react-hot-toast';
 import { AppDispatch, useDispatch, useSelector } from '@/store';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { deleteUser, getUser, updateUser } from '@/store/slices/user';
 import { IMembershipInformationForm } from '@/types/IUser';
 import InputFile from '@/components/elements/InputFile';
 import InputSelect from '@/components/elements/InputSelect';
 import Gender from '@/enums/gender';
 import InfoCard from '@/components/cards/InfoCard';
-import {getCities} from "@/store/slices/city";
-import {getStates} from "@/store/slices/state";
-import {getCountries} from "@/store/slices/country";
-import {ICountryResponse} from "@/types/ICountry";
-import {ICityResponse} from "@/types/ICity";
-import {IStateResponse} from "@/types/IState";
+import { getCities } from '@/store/slices/city';
+import { getStates } from '@/store/slices/state';
+import { getCountries } from '@/store/slices/country';
+import { ICountryResponse } from '@/types/ICountry';
+import { ICityResponse } from '@/types/ICity';
+import { IStateResponse } from '@/types/IState';
 
 const UserUpdateSchema: yup.ObjectSchema<IMembershipInformationForm> = yup
     .object()
@@ -46,6 +46,7 @@ export default function MembershipInformation() {
     const { countries } = useSelector(state => state.country);
     const { cities } = useSelector(state => state.city);
     const { states } = useSelector(state => state.state);
+    const [isLoading, setIsLoading] = useState(false);
 
     const {
         handleSubmit,
@@ -61,10 +62,11 @@ export default function MembershipInformation() {
             country_id: user?.country_id,
             city_id: user?.city_id,
             state_id: user?.state_id,
-        }
+        },
     });
 
     const onSubmit = (data: IMembershipInformationForm) => {
+        setIsLoading(true);
         const formData = new FormData();
 
         if (typeof data.avatar[0] === 'object') {
@@ -192,15 +194,11 @@ export default function MembershipInformation() {
                                 {...register('country_id')}
                                 onChange={handleCountryChange}
                                 className="block mt-1 w-full">
-                                {countries.map(
-                                    (country: ICountryResponse) => (
-                                        <option
-                                            key={country.id}
-                                            value={country.id}>
-                                            {country.name}
-                                        </option>
-                                    ),
-                                )}
+                                {countries.map((country: ICountryResponse) => (
+                                    <option key={country.id} value={country.id}>
+                                        {country.name}
+                                    </option>
+                                ))}
                             </InputSelect>
                             {errors.country_id?.message && (
                                 <p className="mt-2 text-sm text-red-600 dark:text-red-500">
@@ -255,7 +253,10 @@ export default function MembershipInformation() {
                             Hesabımı sil
                         </button>
 
-                        <Button type="submit" disabled={!isDirty}>
+                        <Button
+                            isLoading={isLoading}
+                            type="submit"
+                            disabled={!isDirty}>
                             Kaydet
                         </Button>
                     </div>

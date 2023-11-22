@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import toast from 'react-hot-toast';
 import { AppDispatch, useDispatch } from '@/store';
-import React from 'react';
+import React, { useState } from 'react';
 import { updatePassword } from '@/store/slices/user';
 import { IUpdatePasswordForm } from '@/types/IUser';
 import InfoCard from '@/components/cards/InfoCard';
@@ -23,6 +23,7 @@ const UserUpdateSchema: yup.ObjectSchema<IUpdatePasswordForm> = yup
 
 export default function PasswordEdit() {
     const dispatch: AppDispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(false);
 
     const {
         handleSubmit,
@@ -33,6 +34,7 @@ export default function PasswordEdit() {
     });
 
     const onSubmit = (data: IUpdatePasswordForm) => {
+        setIsLoading(true);
         dispatch(updatePassword(data))
             .then(() => {
                 toast.success('Başarıyla güncellendi!');
@@ -91,7 +93,10 @@ export default function PasswordEdit() {
                         </div>
                     </div>
                     <div className="flex items-center justify-end mt-4">
-                        <Button type="submit" disabled={!isDirty}>
+                        <Button
+                            isLoading={isLoading}
+                            type="submit"
+                            disabled={!isDirty}>
                             Kaydet
                         </Button>
                     </div>

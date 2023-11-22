@@ -181,7 +181,9 @@ export default function TestPage(): ReactNode {
                 </div>
 
                 <div>
-                    <Button className="px-10 text-xl">Sonraki</Button>
+                    <Button isLoading={false} className="px-10 text-xl">
+                        Sonraki
+                    </Button>
                 </div>
             </footer>
         </>

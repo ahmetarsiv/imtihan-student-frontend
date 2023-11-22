@@ -10,7 +10,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { AppDispatch, useDispatch, useSelector } from '@/store';
 import { updateNote, getNote } from '@/store/slices/note';
 import toast from 'react-hot-toast';
-import { ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { INoteForm } from '@/types/INote';
 import { useParams, useRouter } from 'next/navigation';
 import TextEditor from '@/components/elements/TextEditor';
@@ -27,6 +27,7 @@ export default function NoteEditPage(): ReactNode {
     const noteId: number = parseInt(id.toString(), 10);
     const dispatch: AppDispatch = useDispatch();
     const { note } = useSelector(state => state.note);
+    const [isLoading, setIsLoading] = useState(false);
 
     const {
         handleSubmit,
@@ -45,6 +46,7 @@ export default function NoteEditPage(): ReactNode {
     });
 
     const onSubmit = (data: INoteForm): void => {
+        setIsLoading(true);
         dispatch(updateNote(noteId, data))
             .then(() => {
                 toast.success('Başarıyla güncellendi!');
@@ -120,7 +122,9 @@ export default function NoteEditPage(): ReactNode {
                                 </div>
                             </div>
                             <div className="flex justify-end w-full">
-                                <Button type="submit">Kaydet</Button>
+                                <Button isLoading={isLoading} type="submit">
+                                    Kaydet
+                                </Button>
                             </div>
                         </form>
                     </div>

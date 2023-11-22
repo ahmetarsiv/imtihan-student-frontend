@@ -16,6 +16,7 @@ import { useRouter } from 'next/navigation';
 const ForgotPassword = () => {
     const { forgotPassword } = useAuth({ middleware: 'guest' });
     const router = useRouter();
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleGoBack = () => {
         router.back();
@@ -26,6 +27,7 @@ const ForgotPassword = () => {
     const [status, setStatus] = useState(null);
 
     const submitForm = (event: { preventDefault: () => void }) => {
+        setIsLoading(true);
         event.preventDefault();
 
         forgotPassword({ email, setErrors, setStatus });
@@ -76,7 +78,9 @@ const ForgotPassword = () => {
                             Vazgeç
                         </Label>
 
-                        <Button>Eposta Şifre Sıfırlama Bağlantısı</Button>
+                        <Button isLoading={isLoading}>
+                            Eposta Şifre Sıfırlama Bağlantısı
+                        </Button>
                     </div>
                 </form>
             </AuthCard>

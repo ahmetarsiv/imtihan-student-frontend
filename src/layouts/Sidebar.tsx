@@ -1,7 +1,6 @@
 'use client';
 
 import Avatar from '@/components/Avatar';
-import { ArrowLeftOnRectangleIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { useAuth } from '@/hooks/auth';
 import { usePathname } from 'next/navigation';
@@ -12,10 +11,7 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ className }: SidebarProps) {
-    const { logout } = useAuth();
-
     const path = usePathname();
-
     const menus = menuConfig.desktop;
 
     return (

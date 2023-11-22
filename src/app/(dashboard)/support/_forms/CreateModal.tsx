@@ -12,7 +12,7 @@ import { postSupport } from '@/store/slices/support';
 import toast from 'react-hot-toast';
 import Textarea from '@/components/elements/Textarea';
 import { ISupportForm } from '@/types/ISupport';
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 
 const SupportCreateSchema: Yup.ObjectSchema<ISupportForm> = Yup.object().shape({
     subject: Yup.string().required('Required'),
@@ -37,8 +37,10 @@ export default function CreateModal({
     } = useForm({ resolver: yupResolver(SupportCreateSchema) });
 
     const dispatch: AppDispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(false);
 
     const onSubmit = (data: ISupportForm) => {
+        setIsLoading(true);
         dispatch(postSupport(data))
             .then(() => {
                 toast.success('Başarıyla oluşturuldu!');
@@ -85,7 +87,9 @@ export default function CreateModal({
                             </div>
                         </div>
                         <div className="flex justify-end w-full">
-                            <Button type="submit">Kaydet</Button>
+                            <Button isLoading={isLoading} type="submit">
+                                Kaydet
+                            </Button>
                         </div>
                     </form>
                 </Modal>

@@ -28,7 +28,9 @@ export default function ExamCreatePage(): ReactNode {
                     <div className="p-3">
                         <form>
                             <div className="flex items-center justify-end my-4">
-                                <Button type="submit">Kaydet</Button>
+                                <Button isLoading={false} type="submit">
+                                    Kaydet
+                                </Button>
                             </div>
 
                             <div className="flex flex-col gap-5">

@@ -46,6 +46,7 @@ export default function NoContentCard({
                             )}
                             {button && (
                                 <Button
+                                    isLoading={false}
                                     onClick={button.onClick}
                                     className="p-2.5">
                                     {button.name}

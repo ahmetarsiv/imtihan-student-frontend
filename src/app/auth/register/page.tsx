@@ -15,6 +15,7 @@ import Label from '@/components/Label';
 
 const Register = () => {
     const searchParams = useSearchParams();
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleGoogleLogin = () => {
         window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/google`;
@@ -34,6 +35,7 @@ const Register = () => {
     const [errors, setErrors] = useState<any>([]);
 
     const submitForm = (event: { preventDefault: () => void }) => {
+        setIsLoading(true);
         event.preventDefault();
 
         register({
@@ -200,7 +202,9 @@ const Register = () => {
                             kabul ediyorum.
                         </Label>
 
-                        <Button className="ml-4">Kaydol</Button>
+                        <Button isLoading={isLoading} className="ml-4">
+                            Kaydol
+                        </Button>
                     </div>
                 </form>
 

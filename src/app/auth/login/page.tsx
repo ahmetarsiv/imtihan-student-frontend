@@ -17,6 +17,7 @@ import Toggle from '@/components/elements/Toggle';
 
 export default function LoginPage() {
     const params = useSearchParams();
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleGoogleLogin = () => {
         window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/google`;
@@ -45,6 +46,7 @@ export default function LoginPage() {
     }, []);
 
     const submitForm = async (event: React.FormEvent<HTMLFormElement>) => {
+        setIsLoading(true);
         event.preventDefault();
 
         await login({
@@ -181,7 +183,7 @@ export default function LoginPage() {
                             </span>
                         </Link>
 
-                        <Button>Giriş yap</Button>
+                        <Button isLoading={isLoading}>Giriş yap</Button>
                     </div>
                 </form>
 

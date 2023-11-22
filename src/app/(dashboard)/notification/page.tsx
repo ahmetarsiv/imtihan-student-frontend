@@ -28,7 +28,7 @@ export default function NotificationPage(): ReactNode {
                 <div className="grid grid-cols-1 gap-1">
                     <div className="flex border-b border-zinc-100 dark:border-zinc-900 p-3">
                         <span className="text-zinc-500 dark:text-zinc-300">
-                            Reference site about Lorem Ipsum.
+                            Henüz görülecek bir şey yok.
                         </span>
                     </div>
                 </div>

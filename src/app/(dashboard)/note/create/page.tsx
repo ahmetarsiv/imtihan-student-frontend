@@ -12,7 +12,7 @@ import toast from 'react-hot-toast';
 import Toggle from '@/components/elements/Toggle';
 import TextEditor from '@/components/elements/TextEditor';
 import { INoteForm } from '@/types/INote';
-import { ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { setTitle } from '@/store/slices/root';
 
@@ -25,6 +25,7 @@ const NoteCreateSchema: Yup.ObjectSchema<INoteForm> = Yup.object().shape({
 export default function NoteCreatePage(): ReactNode {
     const dispatch: AppDispatch = useDispatch();
     const { push } = useRouter();
+    const [isLoading, setIsLoading] = useState(false);
 
     const {
         handleSubmit,
@@ -35,6 +36,7 @@ export default function NoteCreatePage(): ReactNode {
     } = useForm<INoteForm>({ resolver: yupResolver(NoteCreateSchema) });
 
     const onSubmit = (data: INoteForm): void => {
+        setIsLoading(true);
         dispatch(postNote(data))
             .then(() => {
                 toast.success('Başarıyla oluşturuldu!');
@@ -107,7 +109,9 @@ export default function NoteCreatePage(): ReactNode {
                                 </div>
                             </div>
                             <div className="flex justify-end w-full">
-                                <Button type="submit">Kaydet</Button>
+                                <Button isLoading={isLoading} type="submit">
+                                    Kaydet
+                                </Button>
                             </div>
                         </form>
                     </div>

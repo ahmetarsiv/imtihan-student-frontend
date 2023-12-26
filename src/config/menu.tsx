@@ -6,7 +6,8 @@ import {
     CreditCardIcon,
     HomeIcon,
     InformationCircleIcon,
-    RectangleGroupIcon, UserCircleIcon,
+    RectangleGroupIcon,
+    UserCircleIcon,
     UserIcon,
 } from '@heroicons/react/24/outline';
 import { ReactNode } from 'react';
@@ -36,7 +37,7 @@ const menuConfig: IMenuConfig = {
             path: '/exam',
         },
         {
-            name: 'Not',
+            name: 'Notlar',
             icon: <RectangleGroupIcon className="inline-block w-6 h-6" />,
             path: '/note',
         },
@@ -68,19 +69,14 @@ const menuConfig: IMenuConfig = {
     ],
     mobile: [
         {
-            name: 'Ana Sayfa',
-            icon: <HomeIcon className="inline-block w-7 h-7" />,
-            path: '/',
-        },
-        {
-            name: 'Not',
-            icon: <RectangleGroupIcon className="inline-block w-7 h-7" />,
-            path: '/note',
-        },
-        {
             name: 'Bildirimler',
             icon: <BellIcon className="inline-block w-7 h-7" />,
             path: '/notification',
+        },
+        {
+            name: 'Ana Sayfa',
+            icon: <HomeIcon className="inline-block w-7 h-7" />,
+            path: '/',
         },
         {
             name: 'Hesap',
@@ -102,6 +98,13 @@ const menuConfig: IMenuConfig = {
                 <ChartPieIcon className="text-brand w-6 h-6 mr-2 float-left" />
             ),
             path: '/exam',
+        },
+        {
+            name: 'Notlar',
+            icon: (
+                <RectangleGroupIcon className="text-brand w-6 h-6 mr-2 float-left" />
+            ),
+            path: '/note',
         },
         {
             name: 'Ders Programı',

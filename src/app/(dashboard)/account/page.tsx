@@ -15,22 +15,23 @@ import Footer from '@/layouts/Footer';
 import ThemeToggle from '@/components/ThemeToggle';
 import config from '@/config/menu';
 import Link from 'next/link';
-import React, { ReactNode, useEffect } from 'react';
-import { AppDispatch, useDispatch, useSelector } from '@/store';
-import { getStaticPages } from '@/store/slices/static-page';
-import { IStaticPageResponse } from '@/types/IStaticPage';
+import React, { ReactNode, useEffect, useState } from 'react';
+import { AppDispatch, useDispatch } from '@/store';
 import { setTitle } from '@/store/slices/root';
+import InviteFriends from '@/components/InviteFriends';
+import ViewModal from '@/app/(dashboard)/account/_forms/ViewModal';
 
 export default function AccountPage(): ReactNode {
     const { user, logout } = useAuth();
     const dispatch: AppDispatch = useDispatch();
-    const { staticPages } = useSelector(state => state.staticPage);
-    const packageJson = require('/package.json');
-    const version = packageJson.version;
+    const [openViewModal, setOpenViewModal] = useState<boolean>(false);
+
+    const handleView = () => {
+        setOpenViewModal(true);
+    };
 
     useEffect(() => {
         dispatch(setTitle('Hesabım'));
-        dispatch(getStaticPages());
     }, [dispatch]);
 
     return (
@@ -78,7 +79,11 @@ export default function AccountPage(): ReactNode {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 gap-1 mt-20">
+                <div className="my-10">
+                    <InviteFriends />
+                </div>
+
+                <div className="grid grid-cols-1 gap-1">
                     {config.account.map((item, index) => (
                         <Link href={item.path} key={index}>
                             <div className="block lg:hidden border-b border-zinc-100 dark:border-zinc-900 hover:bg-zinc-100 focus:bg-zinc-100 dark:hover:bg-zinc-900 dark:focus:bg-zinc-900 w-full h-full p-5">
@@ -93,21 +98,15 @@ export default function AccountPage(): ReactNode {
 
                     <ThemeToggle />
 
-                    {staticPages.map(
-                        (staticPage: IStaticPageResponse, key: number) => (
-                            <Link
-                                key={key}
-                                href={'/static-page/' + staticPage?.id}>
-                                <div className="border-b border-zinc-100 dark:border-zinc-900 hover:bg-zinc-100 focus:bg-zinc-100 dark:hover:bg-zinc-900 dark:focus:bg-zinc-900 w-full h-full p-5">
-                                    <DocumentTextIcon className="text-brand w-6 h-6 mr-2 float-left" />
-                                    <span className="text-zinc-500 dark:text-zinc-300">
-                                        {staticPage?.name}
-                                    </span>
-                                    <ChevronRightIcon className="text-brand w-6 h-6 float-right" />
-                                </div>
-                            </Link>
-                        ),
-                    )}
+                    <div
+                        onClick={handleView}
+                        className="border-b border-zinc-100 dark:border-zinc-900 hover:bg-zinc-100 focus:bg-zinc-100 dark:hover:bg-zinc-900 dark:focus:bg-zinc-900 w-full h-full p-5 cursor-pointer">
+                        <DocumentTextIcon className="text-brand w-6 h-6 mr-2 float-left" />
+                        <span className="text-zinc-500 dark:text-zinc-300">
+                            Sözleşmeler
+                        </span>
+                        <ChevronRightIcon className="text-brand w-6 h-6 float-right" />
+                    </div>
 
                     <div
                         onClick={logout}
@@ -120,19 +119,10 @@ export default function AccountPage(): ReactNode {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 gap-1 mt-10">
-                    <div className="border-b border-zinc-100 dark:border-zinc-900 w-full h-full p-5">
-                        <span className="text-zinc-500 dark:text-zinc-300">
-                            Version
-                        </span>
-                        <span className="float-right text-zinc-500 dark:text-zinc-500">
-                            {version}
-                        </span>
-                    </div>
-                </div>
-
-                <Footer className="block lg:hidden text-center mt-5" />
+                <Footer className="mt-5" />
             </main>
+
+            <ViewModal open={openViewModal} setIsOpen={setOpenViewModal} />
         </>
     );
 }

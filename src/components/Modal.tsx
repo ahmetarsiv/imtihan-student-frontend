@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 interface IModalProps {
     children: React.ReactNode;
+    className?: string;
     title: string;
     isOpen: boolean;
     // eslint-disable-next-line no-unused-vars
@@ -14,6 +15,7 @@ interface IModalProps {
 
 export default function Modal({
     children,
+    className,
     title,
     isOpen,
     setIsOpen,
@@ -68,7 +70,9 @@ export default function Modal({
                                     <XMarkIcon className="w-5 h-5 text-zinc-700 dark:text-zinc-400" />
                                 </button>
                             </div>
-                            <div className="p-6 space-y-6">{children}</div>
+                            <div className={`${className} p-6 space-y-6`}>
+                                {children}
+                            </div>
                         </motion.div>
                     </div>
                 </motion.div>

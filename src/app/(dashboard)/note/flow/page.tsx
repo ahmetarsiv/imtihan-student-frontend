@@ -12,6 +12,7 @@ import {
     HeartIcon,
 } from '@heroicons/react/24/outline';
 import Label from '@/components/Label';
+import NavLink from "@/components/NavLink";
 
 export default function FlowPage(): ReactNode {
     const dispatch: AppDispatch = useDispatch();
@@ -27,12 +28,13 @@ export default function FlowPage(): ReactNode {
 
     return (
         <>
-            <main className="md:flex md:justify-start">
-                <div className="flex flex-col gap-5">
+            <main className="flex gap-5">
+                <div className="flex flex-col gap-5 w-full">
                     <div className="hover:bg-zinc-50 dark:hover:bg-zinc-950 p-4 border border-zinc-50 dark:border-zinc-800 shadow">
                         <div className="flex justify-between items-center">
                             <div className="flex space-x-2">
-                                <div className="inline-flex overflow-hidden relative justify-center items-center w-12 h-12 bg-zinc-200 rounded-full dark:bg-zinc-600">
+                                <div
+                                    className="inline-flex overflow-hidden relative justify-center items-center w-12 h-12 bg-zinc-200 rounded-full dark:bg-zinc-600">
                                     <span className="font-medium text-zinc-600 dark:text-zinc-300">
                                         ASA
                                     </span>
@@ -49,7 +51,7 @@ export default function FlowPage(): ReactNode {
                                 <div
                                     className="cursor-pointer"
                                     onClick={toggleMenu}>
-                                    <EllipsisVerticalIcon className="w-6 h-6 dark:text-white" />
+                                    <EllipsisVerticalIcon className="w-6 h-6 dark:text-white"/>
                                 </div>
                                 {isOpen && (
                                     <div className="relative">
@@ -66,19 +68,28 @@ export default function FlowPage(): ReactNode {
                                 )}
                             </div>
                         </div>
-                        <div className="mt-4 truncate">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Proin a diam et justo ultricies aliquet.
+                        <div className="mt-4">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a diam et justo ultricies
+                            aliquet.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a diam et justo
+                            ultricies aliquet. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                         </div>
-                        <div className="flex justify-between mt-4">
-                            <ChatBubbleOvalLeftIcon className="w-5 h-6 cursor-pointer" />
-                            <ArrowPathRoundedSquareIcon className="w-5 h-6 cursor-pointer" />
-                            <HeartIcon className="w-5 h-6 cursor-pointer" />
-                            <BookmarkIcon className="w-5 h-6 cursor-pointer" />
-                            <ArrowUpTrayIcon className="w-5 h-6 cursor-pointer" />
+                        <div className="flex justify-start gap-10 mt-4">
+                            <ChatBubbleOvalLeftIcon className="w-5 h-6 cursor-pointer"/>
+                            <ArrowPathRoundedSquareIcon className="w-5 h-6 cursor-pointer"/>
+                            <HeartIcon className="w-5 h-6 cursor-pointer"/>
+                            <BookmarkIcon className="w-5 h-6 cursor-pointer"/>
+                            <ArrowUpTrayIcon className="w-5 h-6 cursor-pointer"/>
                         </div>
                     </div>
                 </div>
+
+                <aside className="bg-white dark:bg-black sm:hidden md:hidden lg:block xl:block 2xl:block hidden w-2/5 my-4">
+                    <div className="flex flex-col gap-2">
+                        <h3>Premium'a Abone Ol</h3>
+                        <span>Yeni özellikleri açmak için abone ol ve uygun olman durumunda reklam geliri payı kazan.</span>
+                        <NavLink name={'Abone ol'} href={'/plan'}/>
+                    </div>
+                </aside>
             </main>
         </>
     );

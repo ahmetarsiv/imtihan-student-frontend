@@ -1,6 +1,6 @@
 'use client';
 
-import '@/app/globals.css';
+import '@/app/style/globals.css';
 import { Inter } from 'next/font/google';
 import { ReactNode } from 'react';
 import { Progress } from '@/components/progress/Progress';

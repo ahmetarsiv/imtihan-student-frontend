@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useAuth } from '@/hooks/auth';
 import { usePathname } from 'next/navigation';
 import menuConfig, { IMenuItem } from '@/config/menu';
+import {useEffect} from "react";
 
 interface SidebarProps {
     className?: string;
@@ -23,7 +24,7 @@ export default function Sidebar({ className }: SidebarProps) {
                     <Link href={item.path} key={index}>
                         <li
                             className={`${
-                                path == item.path ? 'text-brand' : ''
+                                path === item.path ? 'text-brand' : ''
                             } flex items-center p-5 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg`}>
                             {item.icon}
                             <label className="cursor-pointer mx-2">

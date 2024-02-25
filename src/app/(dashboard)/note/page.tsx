@@ -30,7 +30,7 @@ export default function NotePage(): ReactNode {
         <>
             <main>
                 <div className="flex items-center justify-end p-4">
-                    <div className="w-full md:w-auto flex flex-col">
+                    <div className="w-full md:w-auto flex md:flex-row flex-col gap-2">
                         <NavLink name="Oluştur" href="/note/create" />
                         <NavLink name="Akış" href="/note/flow" />
                     </div>

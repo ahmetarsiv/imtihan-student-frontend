@@ -4,9 +4,8 @@ import { ReactNode, useEffect, useState } from 'react';
 import Button from '@/components/Button';
 import { EllipsisVerticalIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import Label from '@/components/Label';
-import Avatar from '@/components/Avatar';
 import Image from 'next/image';
-import Logo from '/public/imtihan.svg';
+import Placeholder from '../../../../../public/placeholder.jpg';
 import { AppDispatch, useDispatch } from '@/store';
 import { setTitle } from '@/store/slices/root';
 
@@ -74,6 +73,8 @@ export default function TestPage(): ReactNode {
     return (
         <>
             <main className="min-h-screen bg-white dark:bg-black lg:px-4 px-5 py-16 select-none">
+                {/*{minutes < 10 ? `0${minutes}` : minutes}:
+                {seconds < 10 ? `0${seconds}` : seconds}*/}
                 <div>
                     <button>
                         <div className="fixed flex flex-1 justify-center items-center top-2 left-4 backdrop-blur-sm bg-white/50 rounded-full w-9 h-9 dark:bg-black/20 z-[11]">
@@ -98,45 +99,13 @@ export default function TestPage(): ReactNode {
                     )}
                 </div>
 
-                {/*<aside className="max-w-6xl mb-5 md:mb-0 mx-auto bg-white dark:bg-black">
-                    <Avatar />
-
-                    <ul className="grid grid-cols-3 gap-4 text-zinc-900 dark:text-zinc-300">
-                        <li className="bg-blue-300 rounded-lg py-4 flex flex-col items-center justify-center">
-                            <dt className="w-12 h-12 rounded-full bg-zinc-600 text-white font-medium flex items-center justify-center mb-1">
-                                20
-                            </dt>
-                            <dd className="text-zinc-600 text-sm font-medium">
-                                Yanıtlandı
-                            </dd>
-                        </li>
-                        <li className="bg-orange-300 rounded-lg py-4 flex flex-col items-center justify-center">
-                            <dt className="w-12 h-12 rounded-full bg-zinc-600 text-white font-medium flex items-center justify-center mb-1">
-                                06
-                            </dt>
-                            <dd className="text-zinc-600 text-sm font-medium">
-                                Atlandı
-                            </dd>
-                        </li>
-                        <li className="bg-red-300 rounded-lg py-4 flex flex-col items-center justify-center">
-                            <dt className="w-12 h-12 rounded-full bg-zinc-600 text-white font-medium flex items-center justify-center mb-1">
-                                {minutes < 10 ? `0${minutes}` : minutes}:
-                                {seconds < 10 ? `0${seconds}` : seconds}
-                            </dt>
-                            <dd className="text-zinc-600 text-sm font-medium">
-                                Zaman
-                            </dd>
-                        </li>
-                    </ul>
-                </aside>*/}
-
-                <div className="flex flex-col lg:flex-row justify-around items-center md:p-5">
+                <div className="flex flex-col gap-5 lg:flex-row justify-around items-center">
                     <div className="lg:w-3/6">
                         <Label className="pb-5">Soru 21/50</Label>
                         <div>
                             <Image
-                                src={Logo}
-                                alt="Question"
+                                src={Placeholder}
+                                alt="Placeholder"
                                 className="w-full lg:w-96"
                             />
                             <br />

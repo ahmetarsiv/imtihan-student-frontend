@@ -3,11 +3,11 @@
 import React from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import tr from '@fullcalendar/core/locales/tr';
 import interactionPlugin from "@fullcalendar/interaction"
 import listPlugin from '@fullcalendar/list';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import timelinePlugin from '@fullcalendar/timeline';
+import tr from '@fullcalendar/core/locales/tr';
 
 export default function Calendar() {
     const events = [
@@ -42,7 +42,7 @@ export default function Calendar() {
         <div className="custom-calendar -z-50">
             <FullCalendar
                 plugins={[dayGridPlugin, timelinePlugin, timeGridPlugin, listPlugin, interactionPlugin]}
-                initialView="listWeek"
+                initialView="dayGridMonth"
                 weekends={true}
                 locale={tr}
                 events={events}

@@ -30,7 +30,8 @@ export default function FlowPage(): ReactNode {
         <>
             <main className="flex gap-5">
                 <div className="flex flex-col gap-5 w-full">
-                    <div className="hover:bg-zinc-50 dark:hover:bg-zinc-950 p-4 border border-zinc-50 dark:border-zinc-800 shadow">
+                    <div
+                        className="hover:bg-zinc-50 dark:hover:bg-zinc-950 p-4 border border-zinc-50 dark:border-zinc-800 shadow">
                         <div className="flex justify-between items-center">
                             <div className="flex space-x-2">
                                 <div
@@ -83,7 +84,8 @@ export default function FlowPage(): ReactNode {
                     </div>
                 </div>
 
-                <aside className="bg-white dark:bg-black sm:hidden md:hidden lg:block xl:block 2xl:block hidden w-2/5 my-4">
+                <aside
+                    className="bg-white dark:bg-black sm:hidden md:hidden lg:block xl:block 2xl:block hidden w-2/5 my-4">
                     <div className="flex flex-col gap-2">
                         <h3>Premium'a Abone Ol</h3>
                         <span>Yeni özellikleri açmak için abone ol ve uygun olman durumunda reklam geliri payı kazan.</span>

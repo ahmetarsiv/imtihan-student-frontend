@@ -3,10 +3,10 @@
 import React, { ReactNode, useEffect } from 'react';
 import { AppDispatch, useDispatch } from '@/store';
 import { setTitle } from '@/store/slices/root';
-import Card from "@/components/cards/Card";
-import Placeholder from '../../../../public/placeholder.jpg';
-import Image from "next/image";
 import NavLink from "@/components/NavLink";
+import Card from "@/components/cards/Card";
+import Image from "next/image";
+import Placeholder from '../../../../public/placeholder.jpg';
 
 export default function ClassSchedulePage(): ReactNode {
     const dispatch: AppDispatch = useDispatch();
@@ -25,7 +25,8 @@ export default function ClassSchedulePage(): ReactNode {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-2">
+                <div
+                    className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-2">
                     <Card time={Date()} badge={'TYT'} title={'Hazırlık Sınavı'}>
                         <span>Temel Yeterlilik Sınavı ölçme ve değerlendirme.</span>
                         <Image className="rounded-lg mt-2" src={Placeholder} alt={'Placeholder'}/>

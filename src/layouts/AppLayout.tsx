@@ -49,7 +49,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
             {/* Mobile Menu */}
             <MobileBar />
 
-            <Toaster position="top-right" />
+            <Toaster containerClassName="mb-14" position="bottom-center" />
         </>
     );
 }

@@ -30,18 +30,19 @@ export default function NotePage(): ReactNode {
         <>
             <main>
                 <div className="flex items-center justify-end p-4">
-                    <div className="w-full md:w-auto flex flex-col">
-                        <NavLink name="Oluştur" href="/note/create" />
-                        <NavLink name="Akış" href="/note/flow" />
+                    <div className="w-full md:w-auto flex md:flex-row flex-col gap-2">
+                        <NavLink name="Oluştur" href="/note/create"/>
+                        <NavLink name="Akış" href="/note/flow"/>
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-1">
+                <div
+                    className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-1">
                     {isLoading ? (
                         <div
                             role="status"
                             className="w-full p-4 rounded animate-pulse">
-                            <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between">
                                 <div>
                                     <div className="h-2.5 bg-zinc-300 rounded-full dark:bg-zinc-600 w-72 mb-2.5" />
                                     <div className="w-40 h-2 bg-zinc-200 rounded-full dark:bg-zinc-700 mb-2.5" />

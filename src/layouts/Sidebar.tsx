@@ -1,11 +1,11 @@
 'use client';
 
-import Avatar from '@/components/Avatar';
 import Link from 'next/link';
 import { useAuth } from '@/hooks/auth';
 import { usePathname } from 'next/navigation';
 import menuConfig, { IMenuItem } from '@/config/menu';
-import {useEffect} from "react";
+import { useEffect } from 'react';
+import Avatar from '@/components/Avatar';
 
 interface SidebarProps {
     className?: string;

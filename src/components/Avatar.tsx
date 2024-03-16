@@ -2,7 +2,7 @@
 
 import { useAuth } from '@/hooks/auth';
 import Image from 'next/image';
-import createImageUrl from "@/lib/image";
+import createImageUrl from '@/lib/image';
 
 interface IAvatarProps {
     className?: string;

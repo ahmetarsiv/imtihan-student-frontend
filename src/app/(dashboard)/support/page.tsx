@@ -22,7 +22,6 @@ export default function SupportPage(): ReactNode {
     useEffect(() => {
         dispatch(setTitle('Destekler'));
         dispatch(getSupports(pagePaginate, search));
-        console.log(supports);
     }, [dispatch, pagePaginate, search]);
 
     const handleDelete = (id: number) => {

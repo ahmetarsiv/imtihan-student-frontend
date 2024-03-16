@@ -6,29 +6,31 @@ import { EllipsisVerticalIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import Label from '@/components/Label';
 import Image from 'next/image';
 import Placeholder from '../../../../../public/placeholder.jpg';
-import { AppDispatch, useDispatch } from '@/store';
+import { AppDispatch, useDispatch, useSelector } from '@/store';
 import { setTitle } from '@/store/slices/root';
+import { IExamAnswer, IOption, IQuestion } from '@/types/IExam';
+import { useRouter } from 'next/navigation';
+import { deleteExam, storeAnswer } from '@/store/slices/exam';
 
 export default function TestPage(): ReactNode {
     const dispatch: AppDispatch = useDispatch();
+    const router = useRouter();
 
-    const [selectedOption, setSelectedOption] = useState<string | null>(null);
-    const options = [
-        'Topladığımız meyvelerin henüz yenecek durumda olmadığını görünce üzüldük. ',
-        'Ne kadar ağırbaşlı, görgülü, nazik bir insan olduğunu hepimiz biliyoruz.',
-        'Yazıyı iyice işleyip tamamladıktan sonra teslim etmek daha iyi olacak',
-        'Toplumda uzun süredir, özellikle medyanın altını çizdiği bir kusursuz beden imgesi var.',
-        'Bu romanda ustaca örülmüş olaylar içinde, kudretli ruh tahlillerine yer verilmiştir',
-    ];
-    const optionChangeColor = (option: any) =>
-        selectedOption === option
-            ? 'bg-brand text-white'
-            : 'bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-800';
+    const { exam } = useSelector(state => state.exam);
+
+    const [answer, setAnswer] = useState<IExamAnswer[]>([]);
+    const [nextQuestion, setNextQuestion] = useState<number>(0);
+    const [time, setTime] = useState(50);
+
+    const optionChangeColor = (option: any) => {
+        if (answer.find(ans => ans.answer_id === option)) {
+            return 'bg-brand text-white';
+        }
+        return 'bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-800';
+    };
 
     const [isOpen, setIsOpen] = useState(false);
-    const toggleMenu = () => {
-        setIsOpen(!isOpen);
-    };
+
     useEffect(() => {
         function handleContextMenu(e: any) {
             e.preventDefault();
@@ -41,42 +43,70 @@ export default function TestPage(): ReactNode {
         };
     }, []);
 
+    const handleOptionSelect = (option: IOption) => {
+        setAnswer([
+            {
+                question_id: option.question_id,
+                answer_id: option.id,
+            },
+            ...answer.filter(d => d.question_id !== option.question_id),
+        ]);
+    };
+
+    const handleCloseExam = () => {
+        if (confirm('İmtihandan çıkmak istediğinize emin misiniz?')) {
+            dispatch(deleteExam(exam.exam_id)).then(() => router.push('/exam'));
+        }
+    };
+
+    const handleFinishExam = () => {
+        dispatch(storeAnswer(exam.exam_id, answer)).then(() =>
+            router.push('/exam/result'),
+        );
+    };
+
     useEffect(() => {
         dispatch(setTitle('İmtihan'));
+        setTime(parseInt(exam.time) * 60);
     }, []);
 
-    const startTime = new Date().getTime() + 45 * 60 * 1000;
-    const [remainingTime, setRemainingTime] = useState(
-        startTime - new Date().getTime(),
-    );
     useEffect(() => {
-        const timerInterval = setInterval(() => {
-            const currentTime = new Date().getTime();
-            const timeDifference = startTime - currentTime;
+        if (time === 0) return;
 
-            if (timeDifference <= 0) {
-                clearInterval(timerInterval);
-                setRemainingTime(0);
-            } else {
-                setRemainingTime(timeDifference);
-            }
+        const timerId = setInterval(() => {
+            setTime(time => time - 1);
         }, 1000);
 
-        return () => {
-            clearInterval(timerInterval);
-        };
+        return () => clearInterval(timerId);
     }, []);
-    const remainingSeconds = Math.ceil(remainingTime / 1000);
-    const minutes = Math.floor(remainingSeconds / 60);
-    const seconds = remainingSeconds % 60;
+
+    useEffect(() => {
+        if (time === 0) {
+            handleFinishExam();
+        }
+    }, [time]);
+
+    useEffect(() => {
+        exam?.questions?.map((question: IQuestion) => {
+            setAnswer([
+                {
+                    question_id: question.id,
+                    answer_id: null,
+                },
+                ...answer,
+            ]);
+        });
+    }, []);
+
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
 
     return (
         <>
             <main className="min-h-screen bg-white dark:bg-black lg:px-4 px-5 py-16 select-none">
-                {/*{minutes < 10 ? `0${minutes}` : minutes}:
-                {seconds < 10 ? `0${seconds}` : seconds}*/}
+                {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
                 <div>
-                    <button>
+                    <button onClick={handleCloseExam}>
                         <div className="fixed flex flex-1 justify-center items-center top-2 left-4 backdrop-blur-sm bg-white/50 rounded-full w-9 h-9 dark:bg-black/20 z-[11]">
                             <XMarkIcon className="w-6 h-6 z-10 dark:text-white" />
                         </div>
@@ -84,7 +114,7 @@ export default function TestPage(): ReactNode {
 
                     <div
                         className="fixed flex justify-center items-center top-2 right-4 backdrop-blur-sm bg-white/50 rounded-full w-9 h-9 dark:bg-black/20 z-[11] cursor-pointer"
-                        onClick={toggleMenu}>
+                        onClick={() => setIsOpen(!isOpen)}>
                         <EllipsisVerticalIcon className="w-6 h-6 z-10 dark:text-white" />
                     </div>
 
@@ -98,61 +128,78 @@ export default function TestPage(): ReactNode {
                         </div>
                     )}
                 </div>
-
                 <div className="flex flex-col gap-5 lg:flex-row justify-around items-center">
                     <div className="lg:w-3/6">
                         <Label className="pb-5">Soru 21/50</Label>
-                        <div>
-                            <Image
-                                src={Placeholder}
-                                alt="Placeholder"
-                                className="w-full lg:w-96"
-                            />
-                            <br />
-                            <h3 className="text-2xl">
-                                Bu cümledeki altı çizili sözcüğü anlamca
-                                karşılayabilecek bir kullanım aşağıdakilerin
-                                hangisinde vardır?
-                            </h3>
-                            <br />
-                            <p className="text-lg">
-                                Yalnızız; Peyami Safa’nın, roman tekniğini en
-                                mükemmel şekliyle gerçekleştirdiği, en son ve
-                                insanlığa sunduğu teklifleri bakımından da en
-                                olgun eseridir
-                            </p>
-                        </div>
+                        {exam?.questions[nextQuestion] && (
+                            <div>
+                                {exam?.questions[nextQuestion]
+                                    .is_image_option && (
+                                    <Image
+                                        src={exam?.questions[nextQuestion].src}
+                                        alt="Placeholder"
+                                        className="w-full lg:w-96"
+                                    />
+                                )}
+                                <br />
+                                <h3 className="text-2xl">
+                                    {exam?.questions[nextQuestion].name}
+                                </h3>
+                                <br />
+                                <p className="text-lg">
+                                    {exam?.questions[nextQuestion].description}
+                                </p>
+                            </div>
+                        )}
                     </div>
 
-                    <form className="lg:w-3/6 gap-3 py-5 flex flex-col">
+                    <div className="lg:w-3/6 gap-3 py-5 flex flex-col">
                         <ul className="grid grid-cols-1 gap-4">
-                            {options.map(option => (
-                                <li
-                                    key={option}
-                                    className={`w-full py-6 px-2.5 text-lg rounded-lg cursor-pointer ${optionChangeColor(
-                                        option,
-                                    )}`}
-                                    onClick={() => setSelectedOption(option)}>
-                                    <span>{option}</span>
-                                </li>
-                            ))}
+                            {exam.questions[nextQuestion]?.options?.map(
+                                (option: IOption) => (
+                                    <li
+                                        key={option.id}
+                                        className={`w-full py-6 px-2.5 text-lg rounded-lg cursor-pointer ${optionChangeColor(
+                                            option.id,
+                                        )}`}
+                                        onClick={() =>
+                                            handleOptionSelect(option)
+                                        }>
+                                        <span>{option.description}</span>
+                                    </li>
+                                ),
+                            )}
                         </ul>
-                    </form>
+                    </div>
                 </div>
             </main>
 
             <footer className="p-3 select-none flex justify-around items-center bg-white dark:bg-black fixed bottom-0 border-t border-zinc-100 shadow w-full dark:border-zinc-800">
                 <div>
                     <h3 className="text-xl font-bold">
-                        Türk Dili ve Edebiyatı
+                        {exam.questions[nextQuestion]?.category.name}
                     </h3>
-                    <Label>Soru 21/50</Label>
+                    <Label>
+                        Soru {nextQuestion + 1}/{exam.questions.length}
+                    </Label>
                 </div>
 
                 <div>
-                    <Button isLoading={false} className="px-10 text-xl">
-                        Sonraki
-                    </Button>
+                    {exam?.questions.length - 1 !== nextQuestion ? (
+                        <Button
+                            isLoading={false}
+                            onClick={() => setNextQuestion(nextQuestion + 1)}
+                            className="px-10 text-xl">
+                            Sonraki
+                        </Button>
+                    ) : (
+                        <Button
+                            isLoading={false}
+                            onClick={handleFinishExam}
+                            className="px-10 text-xl">
+                            Sınavı Bitir
+                        </Button>
+                    )}
                 </div>
             </footer>
         </>

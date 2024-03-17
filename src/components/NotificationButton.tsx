@@ -2,7 +2,7 @@
 
 import { BellIcon } from '@heroicons/react/24/outline';
 import React, { useState } from 'react';
-import Label from '@/components/Label';
+import { Label } from '@codenteq/interfeys';
 
 interface INotificationButtonProps {
     children: React.ReactNode;

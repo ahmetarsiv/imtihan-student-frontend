@@ -2,16 +2,13 @@
 
 import ApplicationLogo from '@/components/ApplicationLogo';
 import AuthCard from '@/components/AuthCard';
-import Button from '@/components/Button';
 import GuestLayout from '@/layouts/GuestLayout';
-import Input from '@/components/elements/Input';
-import InputError from '@/components/elements/InputError';
 import Link from 'next/link';
 import { useAuth } from '@/hooks/auth';
 import React, { useState, useEffect } from 'react';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { useSearchParams } from 'next/navigation';
-import Label from '@/components/Label';
+import { Button, Input, Label } from '@codenteq/interfeys';
 
 const Register = () => {
     const searchParams = useSearchParams();
@@ -110,9 +107,8 @@ const Register = () => {
                             onChange={event => setFullName(event.target.value)}
                             required
                             autoFocus
+                            messages={errors.name}
                         />
-
-                        <InputError messages={errors.name} className="mt-2" />
                     </div>
 
                     {/* Email Address */}
@@ -125,9 +121,8 @@ const Register = () => {
                             placeholder="Eposta"
                             onChange={event => setEmail(event.target.value)}
                             required
+                            messages={errors.email}
                         />
-
-                        <InputError messages={errors.email} className="mt-2" />
                     </div>
 
                     {/* Password */}
@@ -141,6 +136,7 @@ const Register = () => {
                             onChange={event => setPassword(event.target.value)}
                             required
                             autoComplete="new-password"
+                            messages={errors.password}
                         />
 
                         <div className="relative">
@@ -156,11 +152,6 @@ const Register = () => {
                                 )}
                             </span>
                         </div>
-
-                        <InputError
-                            messages={errors.password}
-                            className="mt-2"
-                        />
                     </div>
 
                     {/* Confirm Password */}
@@ -175,11 +166,7 @@ const Register = () => {
                                 setPasswordConfirmation(event.target.value)
                             }
                             required
-                        />
-
-                        <InputError
                             messages={errors.password_confirmation}
-                            className="mt-2"
                         />
                     </div>
 
@@ -202,9 +189,12 @@ const Register = () => {
                             kabul ediyorum.
                         </Label>
 
-                        <Button isLoading={isLoading} className="ml-4">
-                            Kaydol
-                        </Button>
+                        <Button
+                            isLoading={isLoading}
+                            className="ml-4"
+                            type={'submit'}
+                            label={'Kaydol'}
+                        />
                     </div>
                 </form>
 

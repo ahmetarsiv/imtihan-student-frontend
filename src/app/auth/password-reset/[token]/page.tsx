@@ -3,14 +3,12 @@
 import ApplicationLogo from '@/components/ApplicationLogo';
 import AuthCard from '@/components/AuthCard';
 import AuthSessionStatus from '@/components/AuthSessionStatus';
-import Button from '@/components/Button';
 import GuestLayout from '@/layouts/GuestLayout';
-import Input from '@/components/elements/Input';
-import InputError from '@/components/elements/InputError';
 import Link from 'next/link';
 import { useAuth } from '@/hooks/auth';
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { Button, Input } from '@codenteq/interfeys';
 
 const PasswordReset = () => {
     const searchParams = useSearchParams();
@@ -68,9 +66,8 @@ const PasswordReset = () => {
                             onChange={event => setEmail(event.target.value)}
                             required
                             autoFocus
+                            messages={errors.email}
                         />
-
-                        <InputError messages={errors.email} className="mt-2" />
                     </div>
 
                     {/* Password */}
@@ -83,11 +80,7 @@ const PasswordReset = () => {
                             placeholder="Şifre"
                             onChange={event => setPassword(event.target.value)}
                             required
-                        />
-
-                        <InputError
                             messages={errors.password}
-                            className="mt-2"
                         />
                     </div>
 
@@ -103,16 +96,16 @@ const PasswordReset = () => {
                                 setPasswordConfirmation(event.target.value)
                             }
                             required
-                        />
-
-                        <InputError
                             messages={errors.password_confirmation}
-                            className="mt-2"
                         />
                     </div>
 
                     <div className="flex items-center justify-end mt-4">
-                        <Button isLoading={isLoading}>Şifreyi Sıfırla</Button>
+                        <Button
+                            isLoading={isLoading}
+                            type={'submit'}
+                            label={'Şifreyi Sıfırla'}
+                        />
                     </div>
                 </form>
             </AuthCard>

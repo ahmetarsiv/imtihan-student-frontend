@@ -1,9 +1,6 @@
 'use client';
 
 import * as yup from 'yup';
-import Label from '@/components/Label';
-import Input from '@/components/elements/Input';
-import Button from '@/components/Button';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import toast from 'react-hot-toast';
@@ -11,7 +8,9 @@ import { AppDispatch, useDispatch } from '@/store';
 import React, { useState } from 'react';
 import { updatePassword } from '@/store/slices/user';
 import { IUpdatePasswordForm } from '@/types/IUser';
-import InfoCard from '@/components/cards/InfoCard';
+import { Button, InfoCard, Input, Label } from '@codenteq/interfeys';
+import Link from 'next/link';
+import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 
 const UserUpdateSchema: yup.ObjectSchema<IUpdatePasswordForm> = yup
     .object()
@@ -56,12 +55,8 @@ export default function PasswordEdit() {
                                 {...register('current_password')}
                                 type="password"
                                 className="block mt-1 w-full"
+                                messages={errors.current_password?.message}
                             />
-                            {errors.current_password?.message && (
-                                <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                                    {errors.current_password?.message}
-                                </p>
-                            )}
                         </div>
 
                         <div>
@@ -70,12 +65,8 @@ export default function PasswordEdit() {
                                 {...register('password')}
                                 type="password"
                                 className="block mt-1 w-full"
+                                messages={errors.password?.message}
                             />
-                            {errors.password?.message && (
-                                <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                                    {errors.password?.message}
-                                </p>
-                            )}
                         </div>
 
                         <div>
@@ -84,21 +75,17 @@ export default function PasswordEdit() {
                                 {...register('password_confirmation')}
                                 type="password"
                                 className="block mt-1 w-full"
+                                messages={errors.password_confirmation?.message}
                             />
-                            {errors.password_confirmation?.message && (
-                                <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                                    {errors.password_confirmation?.message}
-                                </p>
-                            )}
                         </div>
                     </div>
                     <div className="flex items-center justify-end mt-4">
                         <Button
                             isLoading={isLoading}
-                            type="submit"
-                            disabled={!isDirty}>
-                            Kaydet
-                        </Button>
+                            type={'submit'}
+                            label={'Kaydet'}
+                            disabled={!isDirty}
+                        />
                     </div>
                 </form>
 
@@ -107,10 +94,18 @@ export default function PasswordEdit() {
                         Sorularınız mı var?
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                        <InfoCard
-                            description="Oturum açma bilgilerini hatırlamıyorum."
-                            link="https://support.imtihan.tech/account-help#oturum-a%C3%A7ma-bilgilerini-hat%C4%B1rlam%C4%B1yorum"
-                        />
+                        <InfoCard>
+                            <p className="mb-5 text-base text-zinc-900 dark:text-zinc-400">
+                                Oturum açma bilgilerini hatırlamıyorum.
+                            </p>
+                            <Link
+                                href="https://support.imtihan.tech/account-help#oturum-a%C3%A7ma-bilgilerini-hat%C4%B1rlam%C4%B1yorum"
+                                target="_blank"
+                                className="inline-flex items-center text-blue-500 hover:text-blue-400">
+                                Detaylı bilgi
+                                <ArrowTopRightOnSquareIcon className="w-4 h-4 ml-1.5" />
+                            </Link>
+                        </InfoCard>
                     </div>
                 </div>
             </div>

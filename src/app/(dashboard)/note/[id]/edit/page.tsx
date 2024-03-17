@@ -1,9 +1,5 @@
 'use client';
 
-import Toggle from '@/components/elements/Toggle';
-import Button from '@/components/Button';
-import Label from '@/components/Label';
-import Input from '@/components/elements/Input';
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -13,8 +9,9 @@ import toast from 'react-hot-toast';
 import { ReactNode, useEffect, useState } from 'react';
 import { INoteForm } from '@/types/INote';
 import { useParams, useRouter } from 'next/navigation';
-import TextEditor from '@/components/elements/TextEditor';
+import TextEditor from '@/components/TextEditor';
 import { setTitle } from '@/store/slices/root';
+import { Button, Input, Label, Switch } from '@codenteq/interfeys';
 
 const NoteUpdateSchema: Yup.ObjectSchema<INoteForm> = Yup.object().shape({
     name: Yup.string().required('Required'),
@@ -74,7 +71,8 @@ export default function NoteEditPage(): ReactNode {
                             <div className="flex items-center justify-between my-4">
                                 <div className="mt-3">
                                     <label className="inline-flex items-center">
-                                        <Toggle
+                                        <Switch
+                                            type={'checkbox'}
                                             {...register('is_everyone')}
                                             defaultValue={1}
                                         />
@@ -94,12 +92,8 @@ export default function NoteEditPage(): ReactNode {
                                         {...register('name')}
                                         type="text"
                                         className="block mt-1 w-full"
+                                        messages={errors.name?.message}
                                     />
-                                    {errors.name?.message && (
-                                        <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                                            {errors.name.message}
-                                        </p>
-                                    )}
                                 </div>
                                 <div>
                                     <Label>İçerik</Label>
@@ -122,9 +116,11 @@ export default function NoteEditPage(): ReactNode {
                                 </div>
                             </div>
                             <div className="flex justify-end w-full">
-                                <Button isLoading={isLoading} type="submit">
-                                    Kaydet
-                                </Button>
+                                <Button
+                                    isLoading={isLoading}
+                                    type={'submit'}
+                                    label={'Kaydet'}
+                                />
                             </div>
                         </form>
                     </div>

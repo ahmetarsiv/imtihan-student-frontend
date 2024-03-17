@@ -1,9 +1,6 @@
 'use client';
 
 import * as yup from 'yup';
-import Label from '@/components/Label';
-import Input from '@/components/elements/Input';
-import Button from '@/components/Button';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import toast from 'react-hot-toast';
@@ -11,6 +8,7 @@ import { AppDispatch, useDispatch, useSelector } from '@/store';
 import React, { useEffect, useState } from 'react';
 import { getUser, updateUser } from '@/store/slices/user';
 import { IContactInformationForm } from '@/types/IUser';
+import { Button, Input, Label } from '@codenteq/interfeys';
 
 const UserUpdateSchema: yup.ObjectSchema<IContactInformationForm> = yup
     .object()
@@ -72,17 +70,14 @@ export default function ContactInformation() {
                             <Input
                                 {...register('phone')}
                                 type="tel"
+                                minLength={9}
                                 maxLength={12}
                                 className="block my-1 w-full"
+                                helpText={
+                                    'Ülke kodu ile birlikte (901234567890)'
+                                }
+                                messages={errors.phone?.message}
                             />
-                            <Label className="text-xs">
-                                Ülke kodu ile birlikte (901234567890)
-                            </Label>
-                            {errors.phone?.message && (
-                                <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                                    {errors.phone?.message}
-                                </p>
-                            )}
                         </div>
 
                         <div className="w-full">
@@ -98,10 +93,10 @@ export default function ContactInformation() {
                     <div className="flex justify-end mt-4">
                         <Button
                             isLoading={isLoading}
-                            type="submit"
-                            disabled={!isDirty}>
-                            Kaydet
-                        </Button>
+                            type={'submit'}
+                            label={'Kaydet'}
+                            disabled={!isDirty}
+                        />
                     </div>
                 </form>
             </div>

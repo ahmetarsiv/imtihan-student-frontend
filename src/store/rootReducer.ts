@@ -9,11 +9,15 @@ import city from '@/store/slices/city';
 import state from '@/store/slices/state';
 import staticPage from '@/store/slices/static-page';
 import root from '@/store/slices/root';
+import examType from '@/store/slices/exam-type';
+import exam from '@/store/slices/exam';
 
 interface RootState {
     root: ReturnType<typeof root>;
     user: ReturnType<typeof user>;
     note: ReturnType<typeof note>;
+    exam: ReturnType<typeof exam>;
+    examType: ReturnType<typeof examType>;
     support: ReturnType<typeof support>;
     announcement: ReturnType<typeof announcement>;
     classSchedule: ReturnType<typeof classSchedule>;
@@ -27,6 +31,8 @@ const rootReducer: Reducer<RootState> = combineReducers({
     root,
     user,
     note,
+    exam,
+    examType,
     support,
     announcement,
     classSchedule,

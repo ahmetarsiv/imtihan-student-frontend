@@ -14,7 +14,6 @@ import {
     TabPanels,
     TabPanel,
 } from '@tremor/react';
-import NoContentCard from '@/components/cards/NoContentCard';
 import LottieAnimation from '@/components/LottieAnimation';
 import Exam from '../../../public/lottie/animation_llpjjjsc.json';
 import Note from '../../../public/lottie/animation_llpiacni.json';
@@ -22,6 +21,8 @@ import Calendar from '../../../public/lottie/animation_llpjqp34.json';
 import { AppDispatch, useDispatch } from '@/store';
 import { useEffect } from 'react';
 import { setTitle } from '@/store/slices/root';
+import { Button, InfoCard } from '@codenteq/interfeys';
+import Link from 'next/link';
 
 export default function DashboardPage() {
     const dispatch: AppDispatch = useDispatch();
@@ -136,48 +137,94 @@ export default function DashboardPage() {
                         </TabList>
                         <TabPanels className="pt-2.5">
                             <TabPanel>
-                                <NoContentCard
-                                    className="col-span-full"
-                                    name="Hadi sınavınızı oluşturalım."
-                                    description="Zorluk serviyeleri, soru sayıları ve kayıtlı konulardan oluşan bir sınav oluşturun."
-                                    link={{
-                                        name: 'Sınav Oluştur',
-                                        href: '/exam/test',
-                                    }}>
-                                    <div className="h-72">
-                                        <LottieAnimation animationData={Exam} />
+                                <InfoCard className="!max-w-full !bg-white dark:!bg-black col-span-full">
+                                    <div className="flex flex-col lg:flex-row items-center lg:max-w-4xl h-auto border border-brand rounded-2xl p-5 ">
+                                        <div className="order-last lg:order-first">
+                                            <h3 className="text-2xl font-bold tracking-tight">
+                                                Hadi sınavınızı oluşturalım.
+                                            </h3>
+                                            <p className="text-lg">
+                                                Zorluk serviyeleri, soru
+                                                sayıları ve kayıtlı konulardan
+                                                oluşan bir sınav oluşturun.
+                                            </p>
+                                            <div className="pt-10">
+                                                <Link href={'/exam'}>
+                                                    <Button
+                                                        type={'button'}
+                                                        label={'Sınav Oluştur'}
+                                                    />
+                                                </Link>
+                                            </div>
+                                        </div>
+                                        <div className="h-72">
+                                            <LottieAnimation
+                                                animationData={Exam}
+                                            />
+                                        </div>
                                     </div>
-                                </NoContentCard>
+                                </InfoCard>
                             </TabPanel>
                             <TabPanel>
-                                <NoContentCard
-                                    className="col-span-full"
-                                    name="Hadi notunuzu oluşturalım."
-                                    description="Sınırsız defter, notlarınızı alın ve arkadaşlarınız ile paylaşın."
-                                    link={{
-                                        name: 'Not Oluştur',
-                                        href: '/note',
-                                    }}>
-                                    <div className="h-72">
-                                        <LottieAnimation animationData={Note} />
+                                <InfoCard className="!max-w-full !bg-white dark:!bg-black col-span-full">
+                                    <div className="flex flex-col lg:flex-row items-center lg:max-w-4xl h-auto border border-brand rounded-2xl p-5 ">
+                                        <div className="order-last lg:order-first">
+                                            <h3 className="text-2xl font-bold tracking-tight">
+                                                Hadi notunuzu oluşturalım.
+                                            </h3>
+                                            <p className="text-lg">
+                                                Sınırsız defter, notlarınızı
+                                                alın ve arkadaşlarınız ile
+                                                paylaşın.
+                                            </p>
+                                            <div className="pt-10">
+                                                <Link href={'/note'}>
+                                                    <Button
+                                                        type={'button'}
+                                                        label={'Not Oluştur'}
+                                                    />
+                                                </Link>
+                                            </div>
+                                        </div>
+                                        <div className="h-72">
+                                            <LottieAnimation
+                                                animationData={Note}
+                                            />
+                                        </div>
                                     </div>
-                                </NoContentCard>
+                                </InfoCard>
                             </TabPanel>
                             <TabPanel>
-                                <NoContentCard
-                                    className="col-span-full"
-                                    name="Hadi ders programınızı oluşturalım."
-                                    description="Ders prgoramınızı oluşturarak tarihi, zamanı ve dersi belirleyin."
-                                    link={{
-                                        name: 'Program Oluştur',
-                                        href: '/class-schedule',
-                                    }}>
-                                    <div className="h-72">
-                                        <LottieAnimation
-                                            animationData={Calendar}
-                                        />
+                                <InfoCard className="!max-w-full !bg-white dark:!bg-black col-span-full">
+                                    <div className="flex flex-col lg:flex-row items-center lg:max-w-4xl h-auto border border-brand rounded-2xl p-5 ">
+                                        <div className="order-last lg:order-first">
+                                            <h3 className="text-2xl font-bold tracking-tight">
+                                                Hadi ders programınızı
+                                                oluşturalım.
+                                            </h3>
+                                            <p className="text-lg">
+                                                Ders prgoramınızı oluşturarak
+                                                tarihi, zamanı ve dersi
+                                                belirleyin.
+                                            </p>
+                                            <div className="pt-10">
+                                                <Link href={'/class-schedule'}>
+                                                    <Button
+                                                        type={'button'}
+                                                        label={
+                                                            'Program Oluştur'
+                                                        }
+                                                    />
+                                                </Link>
+                                            </div>
+                                        </div>
+                                        <div className="h-72">
+                                            <LottieAnimation
+                                                animationData={Calendar}
+                                            />
+                                        </div>
                                     </div>
-                                </NoContentCard>
+                                </InfoCard>
                             </TabPanel>
                         </TabPanels>
                     </TabGroup>

@@ -1,15 +1,16 @@
 'use client';
 
-import Card from '@/components/cards/Card';
 import { AppDispatch, useDispatch, useSelector } from '@/store';
-import { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { getAnnouncements } from '@/store/slices/announcement';
 import ViewModal from '@/app/(dashboard)/announcement/_forms/ViewModal';
-import NoContentCard from '@/components/cards/NoContentCard';
 import LottieAnimation from '@/components/LottieAnimation';
 import Lottie from '../../../../public/lottie/animation_llpkgi2z.json';
 import { IAnnouncementResponse } from '@/types/IAnnouncement';
 import { setTitle } from '@/store/slices/root';
+import { Badge, Card, InfoCard } from '@codenteq/interfeys';
+import Image from 'next/image';
+import createImageUrl from '@/lib/image';
 
 export default function AnnouncementPage(): ReactNode {
     const { announcements, isLoading } = useSelector(
@@ -53,39 +54,70 @@ export default function AnnouncementPage(): ReactNode {
                             ) => (
                                 <Card
                                     key={key}
-                                    time={new Date(
-                                        announcement?.created_at,
-                                    ).toLocaleString('tr-TR', {
-                                        year: 'numeric',
-                                        month: 'long',
-                                        day: 'numeric',
-                                        hour: 'numeric',
-                                        minute: 'numeric',
-                                    })}
-                                    badge={'Duyuru'}
-                                    button={{
-                                        name: 'Görüntüle',
-                                        onClick: () =>
-                                            handleView(announcement?.id),
-                                    }}
-                                    title={announcement?.name}>
-                                    <span
-                                        dangerouslySetInnerHTML={{
-                                            __html: announcement?.content,
-                                        }}
-                                    />
+                                    actions={[
+                                        <>
+                                            <div
+                                                onClick={() =>
+                                                    handleView(announcement?.id)
+                                                }>
+                                                Görüntüle
+                                            </div>
+                                        </>,
+                                    ]}>
+                                    <div className="aspect-auto">
+                                        <div>
+                                            <Image
+                                                className="rounded-lg mt-2"
+                                                src={createImageUrl(
+                                                    announcement?.src,
+                                                )}
+                                                width={670}
+                                                height={236}
+                                                alt={announcement?.name}
+                                            />
+                                        </div>
+                                        <div className="my-2">
+                                            <Badge
+                                                name={new Date(
+                                                    announcement?.created_at,
+                                                ).toLocaleString('tr-TR', {
+                                                    year: 'numeric',
+                                                    month: 'long',
+                                                    day: 'numeric',
+                                                    hour: 'numeric',
+                                                    minute: 'numeric',
+                                                })}
+                                            />
+                                        </div>
+                                        <div>
+                                            <h3>{announcement?.name}</h3>
+                                            <p
+                                                dangerouslySetInnerHTML={{
+                                                    __html: announcement?.content,
+                                                }}
+                                            />
+                                        </div>
+                                    </div>
                                 </Card>
                             ),
                         )
                     ) : (
-                        <NoContentCard
-                            className="col-span-full"
-                            name="Henüz görülecek bir şey yok."
-                            description="Şu anda sistemde yayınlanmış bir duyuru bulunmamaktadır.">
-                            <div className="h-72">
-                                <LottieAnimation animationData={Lottie} />
+                        <InfoCard className="!max-w-full !bg-white dark:!bg-black col-span-full">
+                            <div className="flex flex-col lg:flex-row items-center lg:max-w-4xl h-auto border border-brand rounded-2xl p-5 ">
+                                <div className="order-last lg:order-first">
+                                    <h3 className="text-2xl font-bold tracking-tight">
+                                        Henüz görülecek bir şey yok.
+                                    </h3>
+                                    <p className="text-lg">
+                                        Şu anda sistemde yayınlanmış bir duyuru
+                                        bulunmamaktadır.
+                                    </p>
+                                </div>
+                                <div className="h-72">
+                                    <LottieAnimation animationData={Lottie} />
+                                </div>
                             </div>
-                        </NoContentCard>
+                        </InfoCard>
                     )}
 
                     <ViewModal

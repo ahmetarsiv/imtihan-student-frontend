@@ -1,13 +1,12 @@
 'use client';
 
-import NoContentCard from '@/components/cards/NoContentCard';
-
 import React, { ReactNode, useEffect } from 'react';
 import LottieAnimation from '@/components/LottieAnimation';
 import Exam from '../../../../../public/lottie/animation_llpjjjsc.json';
 import { AppDispatch, useDispatch } from '@/store';
 import { setTitle } from '@/store/slices/root';
-import NavLink from "@/components/NavLink";
+import Link from 'next/link';
+import { Button, InfoCard } from '@codenteq/interfeys';
 
 export default function ResultPage(): ReactNode {
     const dispatch: AppDispatch = useDispatch();
@@ -21,20 +20,33 @@ export default function ResultPage(): ReactNode {
             <main>
                 <div className="flex items-center justify-end p-4">
                     <div className="w-full md:w-auto">
-                        <NavLink name="DEMO Detay" href="/exam/1/view"/>
+                        <Link href="/exam/1/view">
+                            <Button
+                                className="w-full"
+                                type={'button'}
+                                label={'Demo Detay'}
+                            />
+                        </Link>
                     </div>
                 </div>
 
                 <div>
-                    <NoContentCard
-                        className="col-span-full"
-                        name="Henüz görülecek bir şey yok."
-                        description="Şu anda sistemde yayınlanmış bir sınav sonucu bulunmamaktadır."
-                    >
-                        <div className="h-72">
-                            <LottieAnimation animationData={Exam}/>
+                    <InfoCard className="!max-w-full !bg-white dark:!bg-black col-span-full">
+                        <div className="flex flex-col lg:flex-row items-center lg:max-w-4xl h-auto border border-brand rounded-2xl p-5 ">
+                            <div className="order-last lg:order-first">
+                                <h3 className="text-2xl font-bold tracking-tight">
+                                    Henüz görülecek bir şey yok.
+                                </h3>
+                                <p className="text-lg">
+                                    Şu anda sistemde yayınlanmış bir sınav
+                                    sonucu bulunmamaktadır.
+                                </p>
+                            </div>
+                            <div className="h-72">
+                                <LottieAnimation animationData={Exam} />
+                            </div>
                         </div>
-                    </NoContentCard>
+                    </InfoCard>
                 </div>
             </main>
         </>

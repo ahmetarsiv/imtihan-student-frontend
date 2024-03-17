@@ -3,17 +3,13 @@
 import ApplicationLogo from '@/components/ApplicationLogo';
 import AuthCard from '@/components/AuthCard';
 import AuthSessionStatus from '@/components/AuthSessionStatus';
-import Button from '@/components/Button';
 import GuestLayout from '@/layouts/GuestLayout';
-import Input from '@/components/elements/Input';
-import InputError from '@/components/elements/InputError';
 import Link from 'next/link';
 import { useAuth } from '@/hooks/auth';
 import React, { useEffect, useState } from 'react';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { useSearchParams } from 'next/navigation';
-import Label from '@/components/Label';
-import Toggle from '@/components/elements/Toggle';
+import { Button, Input, Label, Switch } from '@codenteq/interfeys';
 
 export default function LoginPage() {
     const params = useSearchParams();
@@ -115,9 +111,8 @@ export default function LoginPage() {
                             onChange={event => setEmail(event.target.value)}
                             required
                             autoFocus
+                            messages={errors?.email}
                         />
-
-                        <InputError messages={errors?.email} className="mt-2" />
                     </div>
 
                     {/* Password */}
@@ -131,6 +126,7 @@ export default function LoginPage() {
                             onChange={event => setPassword(event.target.value)}
                             required
                             autoComplete="current-password"
+                            messages={errors.password}
                         />
 
                         <div className="relative">
@@ -147,21 +143,17 @@ export default function LoginPage() {
                             </span>
                         </div>
 
-                        <InputError
-                            messages={errors.password}
-                            className="mt-2"
-                        />
-
                         {/* Session Status */}
                         <AuthSessionStatus className="mt-4" status={status} />
                     </div>
 
                     {/* Remember Me */}
                     <div className="block mt-4">
-                        <label
+                        <Label
                             htmlFor="remember_me"
                             className="inline-flex items-center">
-                            <Toggle
+                            <Switch
+                                type={'checkbox'}
                                 id="remember_me"
                                 name="remember"
                                 onChange={event =>
@@ -172,7 +164,7 @@ export default function LoginPage() {
                             <span className="text-sm text-zinc-600">
                                 Beni hatırla
                             </span>
-                        </label>
+                        </Label>
                     </div>
 
                     {/* Button */}
@@ -183,7 +175,11 @@ export default function LoginPage() {
                             </span>
                         </Link>
 
-                        <Button isLoading={isLoading}>Giriş yap</Button>
+                        <Button
+                            isLoading={isLoading}
+                            type={'submit'}
+                            label={'Giriş yap'}
+                        />
                     </div>
                 </form>
 

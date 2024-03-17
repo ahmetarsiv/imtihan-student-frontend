@@ -1,9 +1,6 @@
 'use client';
 
 import * as yup from 'yup';
-import Label from '@/components/Label';
-import Input from '@/components/elements/Input';
-import Button from '@/components/Button';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import toast from 'react-hot-toast';
@@ -11,29 +8,22 @@ import { AppDispatch, useDispatch, useSelector } from '@/store';
 import React, { useEffect, useState } from 'react';
 import { deleteUser, getUser, updateUser } from '@/store/slices/user';
 import { IMembershipInformationForm } from '@/types/IUser';
-import InputFile from '@/components/elements/InputFile';
-import InputSelect from '@/components/elements/InputSelect';
 import Gender from '@/enums/gender';
-import InfoCard from '@/components/cards/InfoCard';
 import { getCities } from '@/store/slices/city';
 import { getStates } from '@/store/slices/state';
 import { getCountries } from '@/store/slices/country';
 import { ICountryResponse } from '@/types/ICountry';
 import { ICityResponse } from '@/types/ICity';
 import { IStateResponse } from '@/types/IState';
+import { Button, InfoCard, Input, Label, Select } from '@codenteq/interfeys';
+import Link from 'next/link';
+import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 
 const UserUpdateSchema: yup.ObjectSchema<IMembershipInformationForm> = yup
     .object()
     .shape({
         full_name: yup.string().required('Required'),
         address: yup.string(),
-        avatar: yup
-            .mixed()
-            .test(
-                'avatar',
-                'You need to provide a file',
-                (value: any) => value.length > 0,
-            ),
         gender: yup.number().required('Required'),
         country_id: yup.number(),
         city_id: yup.number(),
@@ -57,7 +47,6 @@ export default function MembershipInformation() {
         values: {
             full_name: user?.full_name,
             address: user?.address,
-            avatar: user?.avatar,
             gender: user?.gender,
             country_id: user?.country_id,
             city_id: user?.city_id,
@@ -67,19 +56,7 @@ export default function MembershipInformation() {
 
     const onSubmit = (data: IMembershipInformationForm) => {
         setIsLoading(true);
-        const formData = new FormData();
-
-        if (typeof data.avatar[0] === 'object') {
-            formData.append('avatar', data.avatar[0]);
-        }
-
-        for (const key in data) {
-            if (key !== 'avatar') {
-                const dataKey = data[key as keyof IMembershipInformationForm];
-                formData.append(key, dataKey);
-            }
-        }
-        dispatch(updateUser(formData))
+        dispatch(updateUser(data))
             .then(() => {
                 toast.success('Başarıyla güncellendi!');
             })
@@ -117,7 +94,7 @@ export default function MembershipInformation() {
     return (
         <>
             <div className="mt-16">
-                <div>
+                <div className="mb-6">
                     <h3>Profil bilgileri</h3>
                     <Label>
                         İmtihan’daki deneyiminizi en iyi seviyede tutabilmemiz
@@ -125,23 +102,6 @@ export default function MembershipInformation() {
                     </Label>
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="mb-3">
-                        <InputFile className="my-4">
-                            <Input
-                                {...register('avatar')}
-                                type="file"
-                                className="hidden"
-                                accept="image/*"
-                            />
-                        </InputFile>
-                        {errors.avatar?.message &&
-                            typeof errors.avatar.message === 'string' && (
-                                <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                                    {errors.avatar.message}
-                                </p>
-                            )}
-                    </div>
-
                     <div className="grid gap-4 mb-6 lg:grid-cols-2">
                         <div>
                             <Label>Tam adınız</Label>
@@ -149,28 +109,28 @@ export default function MembershipInformation() {
                                 {...register('full_name')}
                                 type="text"
                                 className="block mt-1 w-full"
+                                messages={errors.full_name?.message}
                             />
-                            {errors.full_name?.message && (
-                                <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                                    {errors.full_name?.message}
-                                </p>
-                            )}
                         </div>
 
                         <div className="w-full">
                             <Label>Cinsiyet</Label>
-                            <InputSelect
-                                defaultOption="Varsayılan"
+                            <Select
                                 {...register('gender')}
-                                className="block mt-1 w-full">
-                                <option value={Gender.MALE}>Erkek</option>
-                                <option value={Gender.FEMALE}>Kadın</option>
-                            </InputSelect>
-                            {errors.gender?.message && (
-                                <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                                    {errors.gender.message}
-                                </p>
-                            )}
+                                className="block mt-1 w-full"
+                                options={[
+                                    {
+                                        label: 'Erkek',
+                                        value: Gender.MALE,
+                                    },
+                                    {
+                                        label: 'Kadın',
+                                        value: Gender.FEMALE,
+                                    },
+                                ]}
+                                placeholder="Choose"
+                                messages={errors.gender?.message}
+                            />
                         </div>
 
                         <div className="w-full">
@@ -179,71 +139,59 @@ export default function MembershipInformation() {
                                 {...register('address')}
                                 type="text"
                                 className="block mt-1 w-full"
+                                messages={errors.address?.message}
                             />
-                            {errors.address?.message && (
-                                <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                                    {errors.address?.message}
-                                </p>
-                            )}
                         </div>
 
                         <div className="w-full">
                             <Label>Ülke</Label>
-                            <InputSelect
-                                defaultOption="Varsayılan"
+                            <Select
                                 {...register('country_id')}
                                 onChange={handleCountryChange}
-                                className="block mt-1 w-full">
-                                {countries.map((country: ICountryResponse) => (
-                                    <option key={country.id} value={country.id}>
-                                        {country.name}
-                                    </option>
-                                ))}
-                            </InputSelect>
-                            {errors.country_id?.message && (
-                                <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                                    {errors.country_id.message}
-                                </p>
-                            )}
+                                className="block mt-1 w-full"
+                                options={countries.map(
+                                    (country: ICountryResponse) => ({
+                                        key: country.id,
+                                        label: country.name,
+                                        value: country.id,
+                                    }),
+                                )}
+                                placeholder="Choose"
+                                messages={errors.country_id?.message}
+                            />
                         </div>
 
                         <div className="w-full">
                             <Label>Şehir</Label>
-                            <InputSelect
-                                defaultOption="Varsayılan"
+                            <Select
                                 {...register('city_id')}
                                 onChange={handleCityChange}
-                                className="block mt-1 w-full">
-                                {cities.map((city: ICityResponse) => (
-                                    <option key={city.id} value={city.id}>
-                                        {city.name}
-                                    </option>
-                                ))}
-                            </InputSelect>
-                            {errors.city_id?.message && (
-                                <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                                    {errors.city_id.message}
-                                </p>
-                            )}
+                                className="block mt-1 w-full"
+                                options={cities.map((city: ICityResponse) => ({
+                                    key: city.id,
+                                    label: city.name,
+                                    value: city.id,
+                                }))}
+                                placeholder="Choose"
+                                messages={errors.city_id?.message}
+                            />
                         </div>
 
                         <div className="w-full">
                             <Label>İlçe</Label>
-                            <InputSelect
-                                defaultOption="Varsayılan"
+                            <Select
                                 {...register('state_id')}
-                                className="block mt-1 w-full">
-                                {states.map((state: IStateResponse) => (
-                                    <option key={state.id} value={state.id}>
-                                        {state.name}
-                                    </option>
-                                ))}
-                            </InputSelect>
-                            {errors.state_id?.message && (
-                                <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                                    {errors.state_id.message}
-                                </p>
-                            )}
+                                className="block mt-1 w-full"
+                                options={states.map(
+                                    (state: IStateResponse) => ({
+                                        key: state.id,
+                                        label: state.name,
+                                        value: state.id,
+                                    }),
+                                )}
+                                placeholder="Choose"
+                                messages={errors.state_id?.message}
+                            />
                         </div>
                     </div>
                     <div className="flex items-center justify-between mt-4">
@@ -255,10 +203,10 @@ export default function MembershipInformation() {
 
                         <Button
                             isLoading={isLoading}
-                            type="submit"
-                            disabled={!isDirty}>
-                            Kaydet
-                        </Button>
+                            type={'submit'}
+                            disabled={!isDirty}
+                            label={'Kaydet'}
+                        />
                     </div>
                 </form>
 
@@ -267,10 +215,18 @@ export default function MembershipInformation() {
                         Sorularınız mı var?
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                        <InfoCard
-                            description="Oturumu nasıl kapatabilirim?"
-                            link="https://support.imtihan.tech/account-help#oturumu-kapatma"
-                        />
+                        <InfoCard>
+                            <p className="mb-5 text-base text-zinc-900 dark:text-zinc-400">
+                                Oturumu nasıl kapatabilirim?
+                            </p>
+                            <Link
+                                href="https://support.imtihan.tech/account-help#oturumu-kapatma"
+                                target="_blank"
+                                className="inline-flex items-center text-blue-500 hover:text-blue-400">
+                                Detaylı bilgi
+                                <ArrowTopRightOnSquareIcon className="w-4 h-4 ml-1.5" />
+                            </Link>
+                        </InfoCard>
                     </div>
                 </div>
             </div>

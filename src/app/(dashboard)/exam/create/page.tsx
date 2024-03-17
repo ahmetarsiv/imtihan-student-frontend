@@ -1,13 +1,9 @@
 'use client';
 
-import Button from '@/components/Button';
 import { ReactNode, useEffect, useState } from 'react';
-import Label from '@/components/Label';
-import InputRange from '@/components/elements/InputRange';
-import InputSelect from '@/components/elements/InputSelect';
-import Input from '@/components/elements/Input';
 import { AppDispatch, useDispatch } from '@/store';
 import { setTitle } from '@/store/slices/root';
+import { Button, Input, Label, Select } from '@codenteq/interfeys';
 
 export default function ExamCreatePage(): ReactNode {
     const dispatch: AppDispatch = useDispatch();
@@ -28,15 +24,15 @@ export default function ExamCreatePage(): ReactNode {
                     <div className="p-3">
                         <form>
                             <div className="flex items-center justify-end my-4">
-                                <Button isLoading={false} type="submit">
-                                    Kaydet
-                                </Button>
+                                <Button type={'submit'} label={'Kaydet'} />
                             </div>
 
                             <div className="flex flex-col gap-5">
                                 <div>
                                     <Label>Zorluk Seviyesi</Label>
-                                    <InputRange
+                                    <Input
+                                        className="w-full"
+                                        type={'range'}
                                         min={0}
                                         max={3}
                                         value={sliderValue}
@@ -52,11 +48,16 @@ export default function ExamCreatePage(): ReactNode {
 
                                 <div>
                                     <Label>Kategori</Label>
-                                    <InputSelect
-                                        defaultOption="Varsayılan"
-                                        className="block mt-1 w-full">
-                                        <option>YKS</option>
-                                    </InputSelect>
+                                    <Select
+                                        className="block mt-1 w-full"
+                                        options={[
+                                            {
+                                                label: 'YKS',
+                                                value: '1',
+                                            },
+                                        ]}
+                                        placeholder="Choose"
+                                    />
                                 </div>
 
                                 <div className="grid lg:grid-cols-2 gap-4">
@@ -65,21 +66,20 @@ export default function ExamCreatePage(): ReactNode {
                                         <Input
                                             type="number"
                                             className="block mt-1 w-full"
+                                            helpText={
+                                                'Toplam sınav süresini belirtin.'
+                                            }
                                         />
-                                        <Label className="text-xs">
-                                            Toplam sınav süresini belirtin.
-                                        </Label>
                                     </div>
                                     <div>
                                         <Label>Adet</Label>
                                         <Input
                                             type="number"
                                             className="block mt-1 w-full"
+                                            helpText={
+                                                'Sınavda kaç adet soru olacağını belirtin.'
+                                            }
                                         />
-                                        <Label className="text-xs">
-                                            Sınavda kaç adet soru olacağını
-                                            belirtin.
-                                        </Label>
                                     </div>
                                 </div>
                             </div>

@@ -16,7 +16,7 @@ export interface IUserResponse {
 export interface IMembershipInformationForm {
     full_name: string;
     address?: string;
-    avatar?: any | null;
+    /*avatar?: any | null;*/
     gender: number;
     country_id?: number;
     city_id?: number;

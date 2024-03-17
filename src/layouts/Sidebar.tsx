@@ -1,11 +1,10 @@
 'use client';
 
-import Avatar from '@/components/Avatar';
 import Link from 'next/link';
-import { useAuth } from '@/hooks/auth';
 import { usePathname } from 'next/navigation';
 import menuConfig, { IMenuItem } from '@/config/menu';
-import {useEffect} from "react";
+import { Avatar } from '@codenteq/interfeys';
+import { useAuth } from '@/hooks/auth';
 
 interface SidebarProps {
     className?: string;
@@ -14,11 +13,22 @@ interface SidebarProps {
 export default function Sidebar({ className }: SidebarProps) {
     const path = usePathname();
     const menus = menuConfig.desktop;
+    const { user } = useAuth();
+
+    const userSplit: string =
+        user?.full_name
+            .split(' ')
+            .map(name => name[0])
+            .join('') || '';
 
     return (
         <aside
             className={`${className} text-zinc-900 dark:text-zinc-300 border-r border-zinc-100 dark:border-zinc-900 drop-shadow-sm bg-white dark:bg-black hidden lg:block w-72 z-10`}>
-            <Avatar className={'my-4'} />
+            <Avatar
+                className={'flex flex-col items-center my-4'}
+                letter={userSplit}
+                name={user?.full_name}
+            />
             <ul className="text-lg">
                 {menus?.map((item: IMenuItem, index: number) => (
                     <Link href={item.path} key={index}>

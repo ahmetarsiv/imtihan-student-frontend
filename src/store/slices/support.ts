@@ -33,6 +33,7 @@ const slice = createSlice({
             action: PayloadAction<IPaginate<ISupportResponse>>,
         ) => {
             state.isLoading = false;
+            state.supports = action.payload.data || [];
             state.meta = {
                 current_page: action.payload.current_page,
                 last_page: action.payload.last_page,

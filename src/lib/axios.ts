@@ -6,6 +6,7 @@ const axios: AxiosInstance = Axios.create({
         'X-Requested-With': 'XMLHttpRequest',
     },
     withCredentials: true,
+    withXSRFToken: true,
 });
 
 axios.interceptors.response.use(

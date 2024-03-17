@@ -1,11 +1,11 @@
 'use client';
 
 import { AppDispatch, useDispatch, useSelector } from '@/store';
-import Modal from '@/components/Modal';
 import { ReactNode, useEffect } from 'react';
 import { getAnnouncement } from '@/store/slices/announcement';
 import Image from 'next/image';
 import createImageUrl from '@/lib/image';
+import { Modal } from '@codenteq/interfeys';
 
 interface IViewModalProps {
     open: boolean;

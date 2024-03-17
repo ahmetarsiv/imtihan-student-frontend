@@ -1,7 +1,7 @@
 {
-  "name": "imtihan",
+  "name": "imtihan-student-frontend",
   "description": "The Next.js E-Exam",
-  "version": "0.21.4",
+  "version": "0.22.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,25 +9,35 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "homepage": "https://open.imtihan.tech",
+  "repository": "github:codenteq/imtihan-student-frontend",
+  "bugs": {
+    "url": "https://github.com/codenteq/imtihan-student-frontend/issues"
+  },
+  "author": "Ahmet Sefa Arşiv <ahmetarsivpm@gmail.com> (https://github.com/ahmetarsiv), Ali Karabay <alikarabaypm@gmail.com> (https://github.com/karabayyazilim)",
+  "keywords": [
+    "e-exam",
+    "nextjs",
+    "frontend"
+  ],
   "dependencies": {
+    "@codenteq/interfeys": "^0.3.5",
     "@fullcalendar/core": "^6.1.9",
     "@fullcalendar/daygrid": "^6.1.9",
     "@fullcalendar/interaction": "^6.1.10",
     "@fullcalendar/list": "^6.1.10",
+    "@fullcalendar/react": "^6.1.9",
     "@fullcalendar/timegrid": "^6.1.10",
     "@fullcalendar/timeline": "^6.1.10",
-    "@fullcalendar/react": "^6.1.9",
     "@heroicons/react": "^2.0.18",
     "@hookform/resolvers": "^3.3.1",
     "@react-hook/media-query": "^1.1.1",
     "@reduxjs/toolkit": "^1.9.6",
-    "@tailwindcss/forms": "^0.5.6",
     "@tremor/react": "^3.8.2",
     "@types/react-lottie": "^1.2.7",
     "@types/react-table": "^7.7.16",
     "axios": "^1.5.1",
     "dotenv": "^16.3.1",
-    "framer-motion": "^10.16.4",
     "next": "^13.5.5",
     "next-themes": "^0.2.1",
     "react": "latest",
@@ -37,8 +47,6 @@
     "react-lottie": "^1.2.3",
     "react-quill": "^2.0.0",
     "react-redux": "^8.1.2",
-    "react-table": "^7.8.0",
-    "swiper": "^10.3.1",
     "swr": "^2.2.4",
     "yup": "^1.3.2"
   },

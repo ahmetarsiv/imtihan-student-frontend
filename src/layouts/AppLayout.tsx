@@ -1,12 +1,11 @@
 'use client';
 
 import Sidebar from '@/layouts/Sidebar';
-import { useAuth } from '@/hooks/auth';
-import Header from '@/components/Header';
-import MobileBar from '@/components/MobileBar';
+import Header from '@/layouts/Header';
+import BottomNavigation from '@/layouts/BottomNavigation';
 import { Toaster } from 'react-hot-toast';
 import BackButton from '@/components/BackButton';
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import NotificationButton from '@/components/NotificationButton';
 import { useSelector } from '@/store';
 
@@ -47,7 +46,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
             </main>
 
             {/* Mobile Menu */}
-            <MobileBar />
+            <BottomNavigation />
 
             <Toaster containerClassName="mb-14" position="bottom-center" />
         </>

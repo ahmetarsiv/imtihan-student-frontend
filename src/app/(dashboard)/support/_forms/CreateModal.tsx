@@ -1,18 +1,14 @@
 'use client';
 
-import Modal from '@/components/Modal';
-import Button from '@/components/Button';
-import Label from '@/components/Label';
-import Input from '@/components/elements/Input';
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { AppDispatch, useDispatch } from '@/store';
 import { postSupport } from '@/store/slices/support';
 import toast from 'react-hot-toast';
-import Textarea from '@/components/elements/Textarea';
 import { ISupportForm } from '@/types/ISupport';
 import { ReactNode, useState } from 'react';
+import { Button, Input, Label, Modal, Textarea } from '@codenteq/interfeys';
 
 const SupportCreateSchema: Yup.ObjectSchema<ISupportForm> = Yup.object().shape({
     subject: Yup.string().required('Required'),
@@ -65,12 +61,8 @@ export default function CreateModal({
                                     {...register('subject')}
                                     type="text"
                                     className="block mt-1 w-full"
+                                    messages={errors.subject?.message}
                                 />
-                                {errors.subject?.message && (
-                                    <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                                        {errors.subject.message}
-                                    </p>
-                                )}
                             </div>
                             <div>
                                 <Label>Mesaj</Label>
@@ -78,18 +70,16 @@ export default function CreateModal({
                                 <Textarea
                                     {...register('message')}
                                     className="block mt-1 w-full"
+                                    messages={errors.message?.message}
                                 />
-                                {errors.message?.message && (
-                                    <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                                        {errors.message.message}
-                                    </p>
-                                )}
                             </div>
                         </div>
                         <div className="flex justify-end w-full">
-                            <Button isLoading={isLoading} type="submit">
-                                Kaydet
-                            </Button>
+                            <Button
+                                isLoading={isLoading}
+                                type={'submit'}
+                                label={'Kaydet'}
+                            />
                         </div>
                     </form>
                 </Modal>

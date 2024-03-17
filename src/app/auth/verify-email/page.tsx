@@ -2,11 +2,11 @@
 
 import ApplicationLogo from '@/components/ApplicationLogo';
 import AuthCard from '@/components/AuthCard';
-import Button from '@/components/Button';
 import GuestLayout from '@/layouts/GuestLayout';
 import Link from 'next/link';
 import { useAuth } from '@/hooks/auth';
 import { useState } from 'react';
+import { Button } from '@codenteq/interfeys';
 
 const VerifyEmail = () => {
     const { logout, resendEmailVerification } = useAuth({
@@ -42,10 +42,10 @@ const VerifyEmail = () => {
 
                 <div className="mt-4 flex items-center justify-between">
                     <Button
-                        isLoading={false}
-                        onClick={() => resendEmailVerification({ setStatus })}>
-                        Doğrulamayı Yeniden Gönder
-                    </Button>
+                        type={'submit'}
+                        label={'Doğrulamayı Yeniden Gönder'}
+                        onClick={() => resendEmailVerification({ setStatus })}
+                    />
 
                     <button
                         type="button"

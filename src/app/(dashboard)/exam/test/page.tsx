@@ -1,16 +1,14 @@
 'use client';
 
 import { ReactNode, useEffect, useState } from 'react';
-import Button from '@/components/Button';
 import { EllipsisVerticalIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import Label from '@/components/Label';
 import Image from 'next/image';
-import Placeholder from '../../../../../public/placeholder.jpg';
 import { AppDispatch, useDispatch, useSelector } from '@/store';
 import { setTitle } from '@/store/slices/root';
 import { IExamAnswer, IOption, IQuestion } from '@/types/IExam';
 import { useRouter } from 'next/navigation';
 import { deleteExam, storeAnswer } from '@/store/slices/exam';
+import { Button, Label } from '@codenteq/interfeys';
 
 export default function TestPage(): ReactNode {
     const dispatch: AppDispatch = useDispatch();
@@ -187,18 +185,18 @@ export default function TestPage(): ReactNode {
                 <div>
                     {exam?.questions.length - 1 !== nextQuestion ? (
                         <Button
-                            isLoading={false}
                             onClick={() => setNextQuestion(nextQuestion + 1)}
-                            className="px-10 text-xl">
-                            Sonraki
-                        </Button>
+                            className="px-10 text-xl"
+                            type={'button'}
+                            label={'Sonraki'}
+                        />
                     ) : (
                         <Button
-                            isLoading={false}
                             onClick={handleFinishExam}
-                            className="px-10 text-xl">
-                            Sınavı Bitir
-                        </Button>
+                            className="px-10 text-xl"
+                            type={'button'}
+                            label={'Sınavı Bitir'}
+                        />
                     )}
                 </div>
             </footer>

@@ -7,7 +7,6 @@ import { usePathname, useRouter } from 'next/navigation';
 import Lottie from '../../../public/lottie/imtihan.json';
 import LottieAnimation from '@/components/LottieAnimation';
 import ApplicationLogo from '@/components/ApplicationLogo';
-import axios from '@/lib/axios';
 
 export default function DashboardLayout(props: { children: ReactNode }) {
     const { user } = useAuth();

@@ -3,15 +3,12 @@
 import ApplicationLogo from '@/components/ApplicationLogo';
 import AuthCard from '@/components/AuthCard';
 import AuthSessionStatus from '@/components/AuthSessionStatus';
-import Button from '@/components/Button';
 import GuestLayout from '@/layouts/GuestLayout';
-import Input from '@/components/elements/Input';
-import InputError from '@/components/elements/InputError';
 import Link from 'next/link';
 import { useAuth } from '@/hooks/auth';
 import { useState } from 'react';
-import Label from '@/components/Label';
 import { useRouter } from 'next/navigation';
+import { Button, Input, Label } from '@codenteq/interfeys';
 
 const ForgotPassword = () => {
     const { forgotPassword } = useAuth({ middleware: 'guest' });
@@ -66,9 +63,8 @@ const ForgotPassword = () => {
                             onChange={event => setEmail(event.target.value)}
                             required
                             autoFocus
+                            messages={errors?.email}
                         />
-
-                        <InputError messages={errors?.email} className="mt-2" />
                     </div>
 
                     <div className="flex items-center justify-between mt-4">
@@ -78,9 +74,11 @@ const ForgotPassword = () => {
                             Vazgeç
                         </Label>
 
-                        <Button isLoading={isLoading}>
-                            Eposta Şifre Sıfırlama Bağlantısı
-                        </Button>
+                        <Button
+                            isLoading={isLoading}
+                            type={'submit'}
+                            label={'Eposta Şifre Sıfırlama Bağlantısı'}
+                        />
                     </div>
                 </form>
             </AuthCard>

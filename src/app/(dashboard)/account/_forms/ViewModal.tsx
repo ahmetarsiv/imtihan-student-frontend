@@ -1,6 +1,5 @@
 'use client';
 
-import Modal from '@/components/Modal';
 import React, { ReactNode, useEffect } from 'react';
 import { IStaticPageResponse } from '@/types/IStaticPage';
 import { getStaticPages } from '@/store/slices/static-page';
@@ -10,6 +9,7 @@ import {
     DocumentTextIcon,
 } from '@heroicons/react/24/outline';
 import { AppDispatch, useDispatch, useSelector } from '@/store';
+import { Modal } from '@codenteq/interfeys';
 
 interface IViewModalProps {
     open: boolean;

@@ -8,7 +8,7 @@ interface IMobileBarProps {
     className?: string;
 }
 
-export default function MobileBar({ className }: IMobileBarProps) {
+export default function BottomNavigation({ className }: IMobileBarProps) {
     const path = usePathname();
     const menus = menuConfig.mobile;
 

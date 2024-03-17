@@ -1,12 +1,14 @@
 'use client';
 
-import { CreditCardIcon } from '@heroicons/react/24/outline';
-import Label from '@/components/Label';
-import NavLink from '@/components/NavLink';
-import InfoCard from '@/components/cards/InfoCard';
+import {
+    ArrowTopRightOnSquareIcon,
+    CreditCardIcon,
+} from '@heroicons/react/24/outline';
 import { ReactNode, useEffect } from 'react';
 import { AppDispatch, useDispatch } from '@/store';
 import { setTitle } from '@/store/slices/root';
+import { Button, InfoCard, Label } from '@codenteq/interfeys';
+import Link from 'next/link';
 
 export default function PlanPage(): ReactNode {
     const dispatch: AppDispatch = useDispatch();
@@ -56,7 +58,11 @@ export default function PlanPage(): ReactNode {
                 </div>
 
                 <div className="py-5 lg:max-w-xs">
-                    <NavLink name="Planı Değiştir" href="#" />
+                    <Button
+                        className="w-full"
+                        type={'button'}
+                        label="Planı Değiştir"
+                    />
                 </div>
 
                 <div>
@@ -64,18 +70,44 @@ export default function PlanPage(): ReactNode {
                         Sorularınız mı var?
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
-                        <InfoCard
-                            description="Premium planımı nasıl iptal edebilirim?"
-                            link="https://support.imtihan.tech/plan-help#premium-planlar%C4%B1n%C4%B1-iptal-etme"
-                        />
-                        <InfoCard
-                            description="Premium planım doğru çalışmıyor. Ne yapmalıyım?"
-                            link="https://support.imtihan.tech/plan-help#premium-%C3%A7al%C4%B1%C5%9Fm%C4%B1yor"
-                        />
-                        <InfoCard
-                            description="Premium fiyatı neden arttı?"
-                            link="https://support.imtihan.tech/payment-help#fiyat-g%C3%BCncellemeri"
-                        />
+                        <InfoCard>
+                            <p className="mb-5 text-base text-zinc-900 dark:text-zinc-400">
+                                Premium planımı nasıl iptal edebilirim?
+                            </p>
+                            <Link
+                                href="https://support.imtihan.tech/plan-help#premium-planlar%C4%B1n%C4%B1-iptal-etme"
+                                target="_blank"
+                                className="inline-flex items-center text-blue-500 hover:text-blue-400">
+                                Detaylı bilgi
+                                <ArrowTopRightOnSquareIcon className="w-4 h-4 ml-1.5" />
+                            </Link>
+                        </InfoCard>
+
+                        <InfoCard>
+                            <p className="mb-5 text-base text-zinc-900 dark:text-zinc-400">
+                                Premium planım doğru çalışmıyor. Ne yapmalıyım?
+                            </p>
+                            <Link
+                                href="https://support.imtihan.tech/plan-help#premium-%C3%A7al%C4%B1%C5%9Fm%C4%B1yor"
+                                target="_blank"
+                                className="inline-flex items-center text-blue-500 hover:text-blue-400">
+                                Detaylı bilgi
+                                <ArrowTopRightOnSquareIcon className="w-4 h-4 ml-1.5" />
+                            </Link>
+                        </InfoCard>
+
+                        <InfoCard>
+                            <p className="mb-5 text-base text-zinc-900 dark:text-zinc-400">
+                                Premium fiyatı neden arttı?
+                            </p>
+                            <Link
+                                href="https://support.imtihan.tech/payment-help#fiyat-g%C3%BCncellemeri"
+                                target="_blank"
+                                className="inline-flex items-center text-blue-500 hover:text-blue-400">
+                                Detaylı bilgi
+                                <ArrowTopRightOnSquareIcon className="w-4 h-4 ml-1.5" />
+                            </Link>
+                        </InfoCard>
                     </div>
                 </div>
             </main>

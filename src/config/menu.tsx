@@ -2,7 +2,7 @@ import {
     BellIcon,
     BookmarkIcon,
     CalendarDaysIcon,
-    ChartPieIcon,
+    WindowIcon,
     CreditCardIcon,
     HomeIcon,
     InformationCircleIcon,
@@ -32,8 +32,8 @@ const menuConfig: IMenuConfig = {
             path: '/',
         },
         {
-            name: 'Sınavlar',
-            icon: <ChartPieIcon className="inline-block w-6 h-6" />,
+            name: 'İmtihanlar',
+            icon: <WindowIcon className="inline-block w-6 h-6" />,
             path: '/exam',
         },
         {
@@ -93,10 +93,8 @@ const menuConfig: IMenuConfig = {
             path: '/account/settings',
         },
         {
-            name: 'Sınavlar',
-            icon: (
-                <ChartPieIcon className="text-brand w-6 h-6 mr-2 float-left" />
-            ),
+            name: 'İmtihanlar',
+            icon: <WindowIcon className="text-brand w-6 h-6 mr-2 float-left" />,
             path: '/exam',
         },
         {

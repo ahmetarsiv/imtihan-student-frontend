@@ -2,15 +2,14 @@
 
 import React, { ReactNode } from 'react';
 import { useEffect, useState } from 'react';
-import Datatable from '@/components/table/Datatable';
 import { AppDispatch, useDispatch, useSelector } from '@/store';
 import { deleteSupport, getSupports } from '@/store/slices/support';
 import { TrashIcon } from '@heroicons/react/24/outline';
-import NoContentCard from '@/components/cards/NoContentCard';
 import LottieAnimation from '@/components/LottieAnimation';
 import Lottie from '../../../../public/lottie/animation_llpjb9vt.json';
 import CreateModal from '@/app/(dashboard)/support/_forms/CreateModal';
 import { setTitle } from '@/store/slices/root';
+import { Button, Datatable, InfoCard } from '@codenteq/interfeys';
 
 export default function SupportPage(): ReactNode {
     const dispatch: AppDispatch = useDispatch();
@@ -55,18 +54,29 @@ export default function SupportPage(): ReactNode {
         <>
             <main>
                 {supports.length === 0 ? (
-                    <NoContentCard
-                        className="col-span-full"
-                        name="Henüz görülecek bir şey yok."
-                        description="Şu anda sistemde yayınlanmış bir destek mesajı bulunmamaktadır."
-                        button={{
-                            name: 'Destek Oluştur',
-                            onClick: () => setOpenCreateModal(true),
-                        }}>
-                        <div className="h-72">
-                            <LottieAnimation animationData={Lottie} />
+                    <InfoCard className="!max-w-full !bg-white dark:!bg-black col-span-full">
+                        <div className="flex flex-col lg:flex-row items-center lg:max-w-4xl h-auto border border-brand rounded-2xl p-5 ">
+                            <div className="order-last lg:order-first">
+                                <h3 className="text-2xl font-bold tracking-tight">
+                                    Henüz görülecek bir şey yok.
+                                </h3>
+                                <p className="text-lg">
+                                    Şu anda sistemde yayınlanmış bir destek
+                                    mesajı bulunmamaktadır.
+                                </p>
+                                <div className="pt-10">
+                                    <Button
+                                        onClick={() => setOpenCreateModal(true)}
+                                        type={'button'}
+                                        label={'Destek Oluştur'}
+                                    />
+                                </div>
+                            </div>
+                            <div className="h-72">
+                                <LottieAnimation animationData={Lottie} />
+                            </div>
                         </div>
-                    </NoContentCard>
+                    </InfoCard>
                 ) : (
                     <Datatable
                         columns={columns}
@@ -75,10 +85,14 @@ export default function SupportPage(): ReactNode {
                         setPagePaginate={setPagePaginate}
                         meta={meta}
                         isLoading={isLoading}
-                        button={{
-                            name: 'Oluştur',
-                            onClick: () => setOpenCreateModal(true),
-                        }}
+                        tableTopRightHeader={
+                            <Button
+                                onClick={() => setOpenCreateModal(true)}
+                                className="w-full"
+                                type={'button'}
+                                label={'Oluştur'}
+                            />
+                        }
                         setSearch={setSearch}
                     />
                 )}

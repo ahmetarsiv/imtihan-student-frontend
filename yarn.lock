@@ -19,10 +19,10 @@
   dependencies:
     regenerator-runtime "^0.14.0"
 
-"@codenteq/interfeys@^0.3.5":
-  version "0.3.5"
-  resolved "https://registry.npmjs.org/@codenteq/interfeys/-/interfeys-0.3.5.tgz"
-  integrity sha512-rmrxoS9rUVP53WGcAcN72z1yi1SeweBEWswn4j/BuMqTeYSS6fiNY3lNJo8qTKGfIi6XqY8ETxOvLHl+gJOXfQ==
+"@codenteq/interfeys@^0.3.7":
+  version "0.3.7"
+  resolved "https://registry.npmjs.org/@codenteq/interfeys/-/interfeys-0.3.7.tgz"
+  integrity sha512-jjjM6QR9O24AP+KBhWolrEgZU0tEkgd+5NYkcmHksI+uS9dDf9uy3d7atCe2wgjYtR2KM81nAyzaslINf3sHSA==
   dependencies:
     "@tailwindcss/forms" "^0.5.7"
     framer-motion "^11.0.8"
@@ -2589,6 +2589,11 @@ minimist@^1.2.0, minimist@^1.2.6:
   version "7.0.4"
   resolved "https://registry.npmjs.org/minipass/-/minipass-7.0.4.tgz"
   integrity sha512-jYofLM5Dam9279rdkWzqHozUo4ybjdZmCsDHePy5V/PbBcVMiSZR97gmAy45aqi8CK1lG2ECd356FU86avfwUQ==
+
+moment@^2.30.1:
+  version "2.30.1"
+  resolved "https://registry.npmjs.org/moment/-/moment-2.30.1.tgz"
+  integrity sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==
 
 ms@^2.1.1, ms@2.1.2:
   version "2.1.2"

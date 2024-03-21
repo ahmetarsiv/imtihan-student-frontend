@@ -14,7 +14,7 @@ interface AppLayoutProps {
 }
 
 export default function AppLayout({ children }: AppLayoutProps) {
-    const [title, setTitle] = useState<string>('');
+    useState<string>('');
 
     const { root } = useSelector(state => state.root);
 

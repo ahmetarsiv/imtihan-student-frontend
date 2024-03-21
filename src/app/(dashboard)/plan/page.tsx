@@ -70,7 +70,7 @@ export default function PlanPage(): ReactNode {
                         Sorularınız mı var?
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
-                        <InfoCard>
+                        <InfoCard className="max-w-sm p-6 bg-zinc-50 dark:bg-zinc-950">
                             <p className="mb-5 text-base text-zinc-900 dark:text-zinc-400">
                                 Premium planımı nasıl iptal edebilirim?
                             </p>
@@ -83,7 +83,7 @@ export default function PlanPage(): ReactNode {
                             </Link>
                         </InfoCard>
 
-                        <InfoCard>
+                        <InfoCard className="max-w-sm p-6 bg-zinc-50 dark:bg-zinc-950">
                             <p className="mb-5 text-base text-zinc-900 dark:text-zinc-400">
                                 Premium planım doğru çalışmıyor. Ne yapmalıyım?
                             </p>
@@ -96,7 +96,7 @@ export default function PlanPage(): ReactNode {
                             </Link>
                         </InfoCard>
 
-                        <InfoCard>
+                        <InfoCard className="max-w-sm p-6 bg-zinc-50 dark:bg-zinc-950">
                             <p className="mb-5 text-base text-zinc-900 dark:text-zinc-400">
                                 Premium fiyatı neden arttı?
                             </p>

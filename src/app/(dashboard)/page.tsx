@@ -137,7 +137,7 @@ export default function DashboardPage() {
                         </TabList>
                         <TabPanels className="pt-2.5">
                             <TabPanel>
-                                <InfoCard className="!max-w-full !bg-white dark:!bg-black col-span-full">
+                                <InfoCard className="col-span-full">
                                     <div className="flex flex-col lg:flex-row items-center lg:max-w-4xl h-auto border border-brand rounded-2xl p-5 ">
                                         <div className="order-last lg:order-first">
                                             <h3 className="text-2xl font-bold tracking-tight">
@@ -166,7 +166,7 @@ export default function DashboardPage() {
                                 </InfoCard>
                             </TabPanel>
                             <TabPanel>
-                                <InfoCard className="!max-w-full !bg-white dark:!bg-black col-span-full">
+                                <InfoCard className="col-span-full">
                                     <div className="flex flex-col lg:flex-row items-center lg:max-w-4xl h-auto border border-brand rounded-2xl p-5 ">
                                         <div className="order-last lg:order-first">
                                             <h3 className="text-2xl font-bold tracking-tight">
@@ -195,7 +195,7 @@ export default function DashboardPage() {
                                 </InfoCard>
                             </TabPanel>
                             <TabPanel>
-                                <InfoCard className="!max-w-full !bg-white dark:!bg-black col-span-full">
+                                <InfoCard className="col-span-full">
                                     <div className="flex flex-col lg:flex-row items-center lg:max-w-4xl h-auto border border-brand rounded-2xl p-5 ">
                                         <div className="order-last lg:order-first">
                                             <h3 className="text-2xl font-bold tracking-tight">

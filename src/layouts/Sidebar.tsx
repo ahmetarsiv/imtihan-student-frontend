@@ -29,7 +29,7 @@ export default function Sidebar({ className }: SidebarProps) {
                 letter={userSplit}
                 name={user?.full_name}
             />
-            <ul className="text-lg">
+            <ul className="text-lg list-none">
                 {menus?.map((item: IMenuItem, index: number) => (
                     <Link href={item.path} key={index}>
                         <li

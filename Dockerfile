@@ -34,6 +34,7 @@ COPY --from=builder /app/entrypoint.sh ./entrypoint.sh
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
 RUN chown -R nextjs:nodejs /app/.next
+RUN chmod +x /app/entrypoint.sh
 
 USER nextjs
 

@@ -5,7 +5,9 @@ export interface IUserResponse {
     email: string;
     address: string;
     avatar: string;
-    gender: number;
+    gender: string;
+    education_level: string;
+    birth_date: Date;
     country_id: number;
     city_id: number;
     state_id: number;
@@ -17,10 +19,12 @@ export interface IMembershipInformationForm {
     full_name: string;
     address?: string;
     /*avatar?: any | null;*/
-    gender: number;
+    gender: string;
     country_id?: number;
     city_id?: number;
     state_id?: number;
+    education_level: string;
+    birth_date: string;
 }
 
 export interface IContactInformationForm {

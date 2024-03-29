@@ -1,10 +1,9 @@
 'use client';
 
-import { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { EllipsisVerticalIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import { AppDispatch, useDispatch, useSelector } from '@/store';
-import { setTitle } from '@/store/slices/root';
 import { IExamAnswer, IOption, IQuestion } from '@/types/IExam';
 import { useRouter } from 'next/navigation';
 import { deleteExam, storeAnswer } from '@/store/slices/exam';
@@ -19,6 +18,9 @@ export default function TestPage(): ReactNode {
     const [answer, setAnswer] = useState<IExamAnswer[]>([]);
     const [nextQuestion, setNextQuestion] = useState<number>(0);
     const [time, setTime] = useState(50);
+
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
 
     const optionChangeColor = (option: any) => {
         if (answer.find(ans => ans.answer_id === option)) {
@@ -52,7 +54,7 @@ export default function TestPage(): ReactNode {
     };
 
     const handleCloseExam = () => {
-        if (confirm('İmtihandan çıkmak istediğinize emin misiniz?')) {
+        if (confirm("İmtihan'dan çıkmak istediğinize emin misiniz?")) {
             dispatch(deleteExam(exam.exam_id)).then(() => router.push('/exam'));
         }
     };
@@ -63,8 +65,12 @@ export default function TestPage(): ReactNode {
         );
     };
 
+    const handleNextQuestion = () => {
+        if (exam?.questions?.length == nextQuestion + 1) return;
+        setNextQuestion(nextQuestion + 1);
+    };
+
     useEffect(() => {
-        dispatch(setTitle('İmtihan'));
         setTime(parseInt(exam.time) * 60);
     }, []);
 
@@ -96,20 +102,16 @@ export default function TestPage(): ReactNode {
         });
     }, []);
 
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
-
     return (
-        <>
-            <main className="min-h-screen bg-white dark:bg-black lg:px-4 px-5 py-16 select-none">
-                {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+        <div className="select-none">
+            <header className="flex justify-between items-center fixed w-full backdrop-blur-sm border-b border-zinc-100 px-2 sm:px-4 py-2.5 dark:bg-black/30 dark:border-zinc-900 z-10">
+                <button className="cursor-pointer" onClick={handleCloseExam}>
+                    <XMarkIcon className="w-6 h-6 z-10 dark:text-white" />
+                </button>
+                <div className="font-medium text-2xl text-center sm:block md:blcok lg:blcok xl:blcok 2xl:blcok block text-zinc-900 dark:text-white">
+                    {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+                </div>
                 <div>
-                    <button onClick={handleCloseExam}>
-                        <div className="fixed flex flex-1 justify-center items-center top-2 left-4 backdrop-blur-sm bg-white/50 rounded-full w-9 h-9 dark:bg-black/20 z-[11]">
-                            <XMarkIcon className="w-6 h-6 z-10 dark:text-white" />
-                        </div>
-                    </button>
-
                     <div
                         className="fixed flex justify-center items-center top-2 right-4 backdrop-blur-sm bg-white/50 rounded-full w-9 h-9 dark:bg-black/20 z-[11] cursor-pointer"
                         onClick={() => setIsOpen(!isOpen)}>
@@ -118,7 +120,7 @@ export default function TestPage(): ReactNode {
 
                     {isOpen && (
                         <div className="fixed top-14 right-2 bg-white rounded-lg shadow-md backdrop-blur-sm bg-white/50 dark:bg-black/50">
-                            <ul className="py-2 px-4">
+                            <ul className="py-2 px-4 list-none">
                                 <li className="text-zinc-900 hover:text-zinc-700 dark:text-zinc-100 dark:hover:text-zinc-400 cursor-pointer">
                                     Hatalı soru bildir
                                 </li>
@@ -126,33 +128,40 @@ export default function TestPage(): ReactNode {
                         </div>
                     )}
                 </div>
-                <div className="flex flex-col gap-5 lg:flex-row justify-around items-center">
+            </header>
+
+            <main className="min-h-screen bg-white dark:bg-black lg:px-4 px-5 py-16">
+                <div className="flex flex-col gap-5 lg:flex-row justify-center items-center">
                     <div className="lg:w-3/6">
-                        <Label className="pb-5">Soru 21/50</Label>
                         {exam?.questions[nextQuestion] && (
                             <div>
-                                {exam?.questions[nextQuestion]
-                                    .is_image_option && (
-                                    <Image
-                                        src={exam?.questions[nextQuestion].src}
-                                        alt="Placeholder"
-                                        className="w-full lg:w-96"
-                                    />
-                                )}
-                                <br />
-                                <h3 className="text-2xl">
-                                    {exam?.questions[nextQuestion].name}
-                                </h3>
-                                <br />
-                                <p className="text-lg">
-                                    {exam?.questions[nextQuestion].description}
-                                </p>
+                                <div>
+                                    {exam?.questions[nextQuestion]
+                                        .is_image_option && (
+                                        <Image
+                                            src={
+                                                exam?.questions[nextQuestion]
+                                                    .src
+                                            }
+                                            alt="Placeholder"
+                                            className="w-full lg:w-96"
+                                        />
+                                    )}
+                                </div>
+                                <h3>{exam?.questions[nextQuestion].name}</h3>
+                                <p
+                                    className="text-zinc-500 dark:text-zinc-400 text-lg"
+                                    dangerouslySetInnerHTML={{
+                                        __html: exam?.questions[nextQuestion]
+                                            .description,
+                                    }}
+                                />
                             </div>
                         )}
                     </div>
 
-                    <div className="lg:w-3/6 gap-3 py-5 flex flex-col">
-                        <ul className="grid grid-cols-1 gap-4">
+                    <div className="w-full lg:w-3/6 py-5">
+                        <ul className="lg:h-[calc(100svh-200px)] grid gap-3 content-center list-none">
                             {exam.questions[nextQuestion]?.options?.map(
                                 (option: IOption) => (
                                     <li
@@ -172,9 +181,9 @@ export default function TestPage(): ReactNode {
                 </div>
             </main>
 
-            <footer className="p-3 select-none flex justify-around items-center bg-white dark:bg-black fixed bottom-0 border-t border-zinc-100 shadow w-full dark:border-zinc-800">
+            <footer className="p-3 flex justify-around items-center gap-2 bg-white dark:bg-black fixed bottom-0 border-t border-zinc-100 shadow w-full dark:border-zinc-800">
                 <div>
-                    <h3 className="text-xl font-bold">
+                    <h3 className="line-clamp-1 font-bold">
                         {exam.questions[nextQuestion]?.category.name}
                     </h3>
                     <Label>
@@ -185,21 +194,21 @@ export default function TestPage(): ReactNode {
                 <div>
                     {exam?.questions.length - 1 !== nextQuestion ? (
                         <Button
-                            onClick={() => setNextQuestion(nextQuestion + 1)}
-                            className="px-10 text-xl"
+                            onClick={handleNextQuestion}
+                            className="px-10"
                             type={'button'}
                             label={'Sonraki'}
                         />
                     ) : (
                         <Button
                             onClick={handleFinishExam}
-                            className="px-10 text-xl"
+                            className="px-10"
                             type={'button'}
                             label={'Sınavı Bitir'}
                         />
                     )}
                 </div>
             </footer>
-        </>
+        </div>
     );
 }

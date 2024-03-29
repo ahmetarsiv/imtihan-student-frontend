@@ -94,7 +94,7 @@ export default function PasswordEdit() {
                         Sorularınız mı var?
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                        <InfoCard>
+                        <InfoCard className="max-w-sm p-6 bg-zinc-50 dark:bg-zinc-950">
                             <p className="mb-5 text-base text-zinc-900 dark:text-zinc-400">
                                 Oturum açma bilgilerini hatırlamıyorum.
                             </p>

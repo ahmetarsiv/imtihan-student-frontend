@@ -18,16 +18,20 @@ import { IStateResponse } from '@/types/IState';
 import { Button, InfoCard, Input, Label, Select } from '@codenteq/interfeys';
 import Link from 'next/link';
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
+import EducationLevel from '@/enums/education-level';
+import moment from 'moment';
 
 const UserUpdateSchema: yup.ObjectSchema<IMembershipInformationForm> = yup
     .object()
     .shape({
         full_name: yup.string().required('Required'),
         address: yup.string(),
-        gender: yup.number().required('Required'),
+        gender: yup.string().required('Required'),
         country_id: yup.number(),
         city_id: yup.number(),
         state_id: yup.number(),
+        birth_date: yup.string().required('Required'),
+        education_level: yup.string().required('Required'),
     });
 
 export default function MembershipInformation() {
@@ -51,10 +55,13 @@ export default function MembershipInformation() {
             country_id: user?.country_id,
             city_id: user?.city_id,
             state_id: user?.state_id,
+            birth_date: user?.birth_date,
+            education_level: user?.education_level,
         },
     });
 
     const onSubmit = (data: IMembershipInformationForm) => {
+        data.birth_date = moment(data.birth_date).format('YYYY-MM-DD');
         setIsLoading(true);
         dispatch(updateUser(data))
             .then(() => {
@@ -193,6 +200,44 @@ export default function MembershipInformation() {
                                 messages={errors.state_id?.message}
                             />
                         </div>
+
+                        <div>
+                            <Label>Eğitim Seviyesi</Label>
+                            <Select
+                                {...register('education_level')}
+                                className="block mt-1 w-full"
+                                options={[
+                                    {
+                                        label: 'İlkokul',
+                                        value: EducationLevel.PRIMARY,
+                                    },
+                                    {
+                                        label: 'Orta okul',
+                                        value: EducationLevel.MIDDLE,
+                                    },
+                                    {
+                                        label: 'Lise',
+                                        value: EducationLevel.HIGH,
+                                    },
+                                    {
+                                        label: 'Üniversite',
+                                        value: EducationLevel.UNIVERSITY,
+                                    },
+                                ]}
+                                placeholder="Choose"
+                                messages={errors.education_level?.message}
+                            />
+                        </div>
+
+                        <div className="w-full">
+                            <Label>Doğum Tarihi</Label>
+                            <Input
+                                {...register('birth_date')}
+                                type="date"
+                                className="block mt-1 w-full"
+                                messages={errors.birth_date?.message}
+                            />
+                        </div>
                     </div>
                     <div className="flex items-center justify-between mt-4">
                         <button
@@ -215,7 +260,7 @@ export default function MembershipInformation() {
                         Sorularınız mı var?
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                        <InfoCard>
+                        <InfoCard className="max-w-sm p-6 bg-zinc-50 dark:bg-zinc-950">
                             <p className="mb-5 text-base text-zinc-900 dark:text-zinc-400">
                                 Oturumu nasıl kapatabilirim?
                             </p>

@@ -14,7 +14,7 @@ export default function BottomNavigation({ className }: IMobileBarProps) {
 
     return (
         <nav className={`${className} bg-white dark:bg-black block lg:hidden`}>
-            <ul className="flex justify-around fixed bottom-0 border-t border-zinc-100 dark:border-zinc-800 bg-white dark:bg-black shadow w-full">
+            <ul className="flex justify-around list-none fixed bottom-0 border-t border-zinc-100 dark:border-zinc-800 bg-white dark:bg-black shadow w-full">
                 {menus?.map((item: IMenuItem, index: number) => (
                     <Link href={item.path} key={index}>
                         <li

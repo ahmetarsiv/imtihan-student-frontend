@@ -32,7 +32,7 @@ export default function NotePage(): ReactNode {
             <main>
                 <div className="flex items-center justify-end p-4">
                     <div className="w-full md:w-auto flex md:flex-row flex-col gap-2">
-                        <Link href={'/note/create'}>
+                        <Link href={'/note/create'} id="create">
                             <Button
                                 className="w-full"
                                 type={'button'}
@@ -65,24 +65,27 @@ export default function NotePage(): ReactNode {
                     ) : notes.length > 0 ? (
                         notes.map((note: INoteResponse, key: number) => (
                             <Card
+                                className="note-card"
                                 key={key}
                                 actions={[
-                                    <>
-                                        <Link
-                                            href={
-                                                '/note/' + note?.id + '/view'
-                                            }>
-                                            Görüntüle
-                                        </Link>
-                                    </>,
-                                    <>
-                                        <div
-                                            onClick={() =>
-                                                handleDelete(note?.id)
-                                            }>
-                                            Kaldır
-                                        </div>
-                                    </>,
+                                    <Link
+                                        id="view"
+                                        key={key}
+                                        href={'/note/' + note?.id + '/view'}>
+                                        Görüntüle
+                                    </Link>,
+                                    <Link
+                                        id="edit"
+                                        key={key}
+                                        href={'/note/' + note?.id + '/edit'}>
+                                        Düzenle
+                                    </Link>,
+                                    <button
+                                        id="remove"
+                                        key={key}
+                                        onClick={() => handleDelete(note?.id)}>
+                                        Kaldır
+                                    </button>,
                                 ]}>
                                 <div>
                                     <Image
@@ -111,7 +114,7 @@ export default function NotePage(): ReactNode {
                             </Card>
                         ))
                     ) : (
-                        <InfoCard className="!max-w-full !bg-white dark:!bg-black col-span-full">
+                        <InfoCard className="col-span-full">
                             <div className="flex flex-col lg:flex-row items-center lg:max-w-4xl h-auto border border-brand rounded-2xl p-5 ">
                                 <div className="order-last lg:order-first">
                                     <h3 className="text-2xl font-bold tracking-tight">

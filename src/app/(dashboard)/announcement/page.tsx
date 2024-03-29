@@ -53,16 +53,17 @@ export default function AnnouncementPage(): ReactNode {
                                 key: number,
                             ) => (
                                 <Card
+                                    className="announcement-card"
                                     key={key}
                                     actions={[
-                                        <>
-                                            <div
-                                                onClick={() =>
-                                                    handleView(announcement?.id)
-                                                }>
-                                                Görüntüle
-                                            </div>
-                                        </>,
+                                        <button
+                                            id="view"
+                                            key={key}
+                                            onClick={() =>
+                                                handleView(announcement?.id)
+                                            }>
+                                            Görüntüle
+                                        </button>,
                                     ]}>
                                     <div className="aspect-auto">
                                         <div>

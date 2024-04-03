@@ -3,7 +3,7 @@ export interface INoteResponse {
     name: string;
     content: string;
     is_everyone: boolean;
-    created_at: Date;
+    created_at: Date | any;
     updated_at: Date;
 }
 

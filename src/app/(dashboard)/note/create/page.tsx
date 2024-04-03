@@ -3,12 +3,12 @@
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { AppDispatch, useDispatch } from '@/store';
+import { AppDispatch, useDispatch, useSelector } from '@/store';
 import { postNote } from '@/store/slices/note';
 import toast from 'react-hot-toast';
 import TextEditor from '@/components/TextEditor';
 import { INoteForm } from '@/types/INote';
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { setTitle } from '@/store/slices/root';
 import { Button, Input, Label, Switch } from '@codenteq/interfeys';
@@ -22,7 +22,7 @@ const NoteCreateSchema: Yup.ObjectSchema<INoteForm> = Yup.object().shape({
 export default function NoteCreatePage(): ReactNode {
     const dispatch: AppDispatch = useDispatch();
     const { push } = useRouter();
-    const [isLoading, setIsLoading] = useState(false);
+    const { isLoading } = useSelector(state => state.note);
 
     const {
         handleSubmit,
@@ -33,7 +33,6 @@ export default function NoteCreatePage(): ReactNode {
     } = useForm<INoteForm>({ resolver: yupResolver(NoteCreateSchema) });
 
     const onSubmit = (data: INoteForm): void => {
-        setIsLoading(true);
         dispatch(postNote(data))
             .then(() => {
                 toast.success('Başarıyla oluşturuldu!');
@@ -73,11 +72,11 @@ export default function NoteCreatePage(): ReactNode {
 
                             <div className="grid gap-4 mb-6">
                                 <div>
-                                    <Label>Adı</Label>
-
+                                    <Label htmlFor="name">Adı</Label>
                                     <Input
                                         {...register('name')}
                                         type="text"
+                                        id="name"
                                         className="block mt-1 w-full"
                                         messages={errors.name?.message}
                                     />
@@ -93,13 +92,8 @@ export default function NoteCreatePage(): ReactNode {
                                             });
                                         }}
                                         className="block mt-1 w-full"
+                                        messages={errors.content?.message}
                                     />
-
-                                    {errors.content?.message && (
-                                        <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                                            {errors.content.message}
-                                        </p>
-                                    )}
                                 </div>
                             </div>
                             <div className="flex justify-end w-full">

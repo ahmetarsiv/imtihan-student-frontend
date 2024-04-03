@@ -10,7 +10,7 @@ import { setTitle } from '@/store/slices/root';
 import Link from 'next/link';
 import { Badge, Button, Card, InfoCard } from '@codenteq/interfeys';
 import Image from 'next/image';
-import Placeholder from '../../../../public/placeholder.jpg';
+import Placeholder from '../../../../public/placeholder.png';
 
 export default function NotePage(): ReactNode {
     const dispatch: AppDispatch = useDispatch();
@@ -104,10 +104,12 @@ export default function NotePage(): ReactNode {
                                     />
                                 </div>
                                 <div>
-                                    <h3>{note?.name}</h3>
+                                    <h3>{note?.name.slice(0, 35)}</h3>
                                     <p
                                         dangerouslySetInnerHTML={{
-                                            __html: note?.content,
+                                            __html: note?.content
+                                                ? note.content.slice(0, 50)
+                                                : '',
                                         }}
                                     />
                                 </div>

@@ -12,7 +12,7 @@ import root from '@/store/slices/root';
 import examType from '@/store/slices/exam-type';
 import exam from '@/store/slices/exam';
 
-interface RootState {
+export interface IRootState {
     root: ReturnType<typeof root>;
     user: ReturnType<typeof user>;
     note: ReturnType<typeof note>;
@@ -27,7 +27,7 @@ interface RootState {
     staticPage: ReturnType<typeof staticPage>;
 }
 
-const rootReducer: Reducer<RootState> = combineReducers({
+const rootReducer: Reducer<IRootState> = combineReducers({
     root,
     user,
     note,

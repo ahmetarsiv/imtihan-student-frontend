@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import toast from 'react-hot-toast';
 import { AppDispatch, useDispatch, useSelector } from '@/store';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { getUser, updateUser } from '@/store/slices/user';
 import { IContactInformationForm } from '@/types/IUser';
 import { Button, Input, Label } from '@codenteq/interfeys';
@@ -21,8 +21,7 @@ const UserUpdateSchema: yup.ObjectSchema<IContactInformationForm> = yup
 
 export default function ContactInformation() {
     const dispatch: AppDispatch = useDispatch();
-    const { user } = useSelector((state: any) => state.user);
-    const [isLoading, setIsLoading] = useState(false);
+    const { isLoading, user } = useSelector((state: any) => state.user);
 
     const {
         handleSubmit,
@@ -36,7 +35,6 @@ export default function ContactInformation() {
     });
 
     const onSubmit = (data: IContactInformationForm) => {
-        setIsLoading(true);
         console.log(data);
         dispatch(updateUser(data))
             .then(() => {
@@ -66,16 +64,18 @@ export default function ContactInformation() {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="grid gap-4 mb-6 lg:grid-cols-2">
                         <div>
-                            <Label>Cep telefon numarası</Label>
+                            <Label htmlFor="phone">Cep telefon numarası</Label>
                             <Input
                                 {...register('phone')}
                                 type="tel"
+                                id="phone"
                                 minLength={9}
                                 maxLength={12}
                                 className="block my-1 w-full"
                                 helpText={
                                     'Ülke kodu ile birlikte (901234567890)'
                                 }
+                                required={true}
                                 messages={errors.phone?.message}
                             />
                         </div>

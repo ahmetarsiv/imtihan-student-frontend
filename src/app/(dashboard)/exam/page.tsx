@@ -4,7 +4,7 @@ import React, { ReactNode, useEffect } from 'react';
 import { AppDispatch, useDispatch, useSelector } from '@/store';
 import { setTitle } from '@/store/slices/root';
 import Image from 'next/image';
-import Placeholder from '../../../../public/placeholder.jpg';
+import Placeholder from '../../../../public/placeholder.png';
 import { getExamTypes } from '@/store/slices/exam-type';
 import { IExamTypeResponse } from '@/types/IExamType';
 import { createExam } from '@/store/slices/exam';

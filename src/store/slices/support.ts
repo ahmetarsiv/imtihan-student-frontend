@@ -8,14 +8,21 @@ export interface SupportState {
     isLoading: boolean;
     supports: ISupportResponse[];
     support: ISupportResponse | null;
-    meta: IBasePaginate | null;
+    meta: IBasePaginate;
 }
 
 const initialState: SupportState = {
     isLoading: false,
     supports: [],
     support: null,
-    meta: null,
+    meta: {
+        current_page: 1,
+        last_page: 1,
+        total: 0,
+        links: {},
+        from: 0,
+        to: 0,
+    },
 };
 
 const slice = createSlice({

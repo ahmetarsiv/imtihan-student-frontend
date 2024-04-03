@@ -98,6 +98,8 @@ export default function AccountPage(): ReactNode {
 
                     <ThemeToggle />
 
+                    <Link href="/account/wizard">Wizard</Link>
+
                     <div
                         onClick={handleView}
                         className="border-b border-zinc-100 dark:border-zinc-900 hover:bg-zinc-100 focus:bg-zinc-100 dark:hover:bg-zinc-900 dark:focus:bg-zinc-900 w-full h-full p-5 cursor-pointer">

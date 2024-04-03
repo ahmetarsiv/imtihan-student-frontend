@@ -9,6 +9,7 @@ import {
     RectangleGroupIcon,
     UserCircleIcon,
     UserIcon,
+    CheckIcon,
 } from '@heroicons/react/24/outline';
 import { ReactNode } from 'react';
 
@@ -60,6 +61,11 @@ const menuConfig: IMenuConfig = {
             name: 'Mevcut Planlar',
             icon: <CreditCardIcon className="inline-block w-6 h-6" />,
             path: '/plan',
+        },
+        {
+            name: 'Wizard',
+            icon: <CheckIcon className="inline-block w-6 h-6" />,
+            path: '/wizard',
         },
         {
             name: 'Hesap',

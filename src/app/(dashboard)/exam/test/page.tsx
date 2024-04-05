@@ -30,6 +30,43 @@ export default function TestPage(): ReactNode {
     };
 
     const [isOpen, setIsOpen] = useState(false);
+    const handleOptionSelect = (option: IOption) => {
+        console.log(
+            answer,
+            ...answer.filter(d => d.question_id !== option.question_id),
+        );
+        setAnswer([
+            {
+                question_id: option.question_id,
+                answer_id: option.id,
+            },
+            ...answer.filter(d => d.question_id !== option.question_id),
+        ]);
+        console.log('finish', answer);
+    };
+
+    const handleCloseExam = () => {
+        if (exam) {
+            if (confirm("İmtihan'dan çıkmak istediğinize emin misiniz?")) {
+                dispatch(deleteExam(exam.exam_id)).then(() =>
+                    router.push('/exam'),
+                );
+            }
+        }
+    };
+
+    const handleFinishExam = () => {
+        if (exam) {
+            dispatch(storeAnswer(exam?.exam_id, answer)).then(() =>
+                router.push('/exam/result'),
+            );
+        }
+    };
+
+    const handleNextQuestion = () => {
+        if (exam?.questions?.length == nextQuestion + 1) return;
+        setNextQuestion(nextQuestion + 1);
+    };
 
     useEffect(() => {
         function handleContextMenu(e: any) {
@@ -43,35 +80,8 @@ export default function TestPage(): ReactNode {
         };
     }, []);
 
-    const handleOptionSelect = (option: IOption) => {
-        setAnswer([
-            {
-                question_id: option.question_id,
-                answer_id: option.id,
-            },
-            ...answer.filter(d => d.question_id !== option.question_id),
-        ]);
-    };
-
-    const handleCloseExam = () => {
-        if (confirm("İmtihan'dan çıkmak istediğinize emin misiniz?")) {
-            dispatch(deleteExam(exam.exam_id)).then(() => router.push('/exam'));
-        }
-    };
-
-    const handleFinishExam = () => {
-        dispatch(storeAnswer(exam.exam_id, answer)).then(() =>
-            router.push('/exam/result'),
-        );
-    };
-
-    const handleNextQuestion = () => {
-        if (exam?.questions?.length == nextQuestion + 1) return;
-        setNextQuestion(nextQuestion + 1);
-    };
-
     useEffect(() => {
-        setTime(parseInt(exam.time) * 60);
+        if (exam) setTime(parseInt(exam?.time) * 60);
     }, []);
 
     useEffect(() => {
@@ -91,15 +101,12 @@ export default function TestPage(): ReactNode {
     }, [time]);
 
     useEffect(() => {
-        exam?.questions?.map((question: IQuestion) => {
-            setAnswer([
-                {
-                    question_id: question.id,
-                    answer_id: null,
-                },
-                ...answer,
-            ]);
-        });
+        const initialAnswers = exam?.questions?.map((question: IQuestion) => ({
+            question_id: question.id,
+            answer_id: null,
+        }));
+
+        setAnswer(initialAnswers || []);
     }, []);
 
     return (
@@ -141,7 +148,7 @@ export default function TestPage(): ReactNode {
                                         <Image
                                             src={
                                                 exam?.questions[nextQuestion]
-                                                    .src
+                                                    .src || ''
                                             }
                                             alt="Placeholder"
                                             className="w-full lg:w-96"
@@ -162,7 +169,7 @@ export default function TestPage(): ReactNode {
 
                     <div className="w-full lg:w-3/6 py-5">
                         <ul className="lg:h-[calc(100svh-200px)] grid gap-3 content-center list-none">
-                            {exam.questions[nextQuestion]?.options?.map(
+                            {exam?.questions[nextQuestion]?.options?.map(
                                 (option: IOption) => (
                                     <li
                                         key={option.id}
@@ -184,15 +191,15 @@ export default function TestPage(): ReactNode {
             <footer className="p-3 flex justify-around items-center gap-2 bg-white dark:bg-black fixed bottom-0 border-t border-zinc-100 shadow w-full dark:border-zinc-800">
                 <div>
                     <h3 className="line-clamp-1 font-bold">
-                        {exam.questions[nextQuestion]?.category.name}
+                        {exam?.questions[nextQuestion]?.category.name}
                     </h3>
                     <Label>
-                        Soru {nextQuestion + 1}/{exam.questions.length}
+                        Soru {nextQuestion + 1}/{exam?.questions.length}
                     </Label>
                 </div>
 
                 <div>
-                    {exam?.questions.length - 1 !== nextQuestion ? (
+                    {exam && exam?.questions?.length - 1 !== nextQuestion ? (
                         <Button
                             onClick={handleNextQuestion}
                             className="px-10"

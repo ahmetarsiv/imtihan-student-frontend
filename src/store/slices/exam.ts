@@ -4,12 +4,12 @@ import { IExamAnswer, IExamForm, IExamResponse } from '@/types/IExam';
 
 export interface IExam {
     isLoading: boolean;
-    exam: IExamResponse[];
+    exam: IExamResponse | null;
 }
 
 const initialState: IExam = {
     isLoading: false,
-    exam: [],
+    exam: null,
 };
 
 const slice = createSlice({
@@ -22,7 +22,7 @@ const slice = createSlice({
         endLoading: state => {
             state.isLoading = false;
         },
-        create: (state, action: PayloadAction<IExamResponse[]>) => {
+        create: (state, action: PayloadAction<IExamResponse>) => {
             state.isLoading = false;
             state.exam = action.payload;
         },

@@ -19,7 +19,7 @@ export default function StaticPageViewPage() {
     }, [dispatch, id]);
 
     useEffect(() => {
-        dispatch(setTitle(staticPage?.name));
+        dispatch(setTitle(staticPage?.name as string));
     }, [staticPage]);
 
     return (
@@ -54,10 +54,13 @@ export default function StaticPageViewPage() {
                                     {staticPage?.name}
                                 </h1>
                             </div>
-                            <span
+                            <p
                                 className="font-light text-zinc-500 dark:text-zinc-400"
                                 dangerouslySetInnerHTML={{
-                                    __html: staticPage?.content,
+                                    __html:
+                                        typeof staticPage?.content === 'string'
+                                            ? staticPage.content
+                                            : '',
                                 }}
                             />
                         </div>

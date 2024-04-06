@@ -56,7 +56,7 @@ export default function ViewModal({
                                     {announcement?.name}
                                 </h1>
 
-                                <span
+                                <p
                                     className="text-zinc-500 dark:text-zinc-400"
                                     dangerouslySetInnerHTML={{
                                         __html: announcement?.content,

@@ -1,7 +1,7 @@
 export interface IExamResponse {
     exam_id: number;
     time: string;
-    questions: IQuestion;
+    questions: IQuestion[];
 }
 
 export interface IQuestion {

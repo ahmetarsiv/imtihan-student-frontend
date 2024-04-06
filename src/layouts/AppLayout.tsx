@@ -8,6 +8,8 @@ import BackButton from '@/components/BackButton';
 import React, { ReactNode, useState } from 'react';
 import NotificationButton from '@/components/NotificationButton';
 import { useSelector } from '@/store';
+import moment from 'moment/moment';
+import 'moment/locale/tr';
 
 interface AppLayoutProps {
     children: ReactNode;
@@ -15,6 +17,8 @@ interface AppLayoutProps {
 
 export default function AppLayout({ children }: AppLayoutProps) {
     useState<string>('');
+
+    moment.locale('tr');
 
     const { root } = useSelector(state => state.root);
 

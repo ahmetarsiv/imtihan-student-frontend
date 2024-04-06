@@ -3,11 +3,11 @@
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { AppDispatch, useDispatch } from '@/store';
+import { AppDispatch, useDispatch, useSelector } from '@/store';
 import { postSupport } from '@/store/slices/support';
 import toast from 'react-hot-toast';
 import { ISupportForm } from '@/types/ISupport';
-import { ReactNode, useState } from 'react';
+import { ReactNode } from 'react';
 import { Button, Input, Label, Modal, Textarea } from '@codenteq/interfeys';
 
 const SupportCreateSchema: Yup.ObjectSchema<ISupportForm> = Yup.object().shape({
@@ -31,12 +31,10 @@ export default function CreateModal({
         register,
         formState: { errors },
     } = useForm({ resolver: yupResolver(SupportCreateSchema) });
-
     const dispatch: AppDispatch = useDispatch();
-    const [isLoading, setIsLoading] = useState(false);
+    const { isLoading } = useSelector(state => state.support);
 
     const onSubmit = (data: ISupportForm) => {
-        setIsLoading(true);
         dispatch(postSupport(data))
             .then(() => {
                 toast.success('Başarıyla oluşturuldu!');
@@ -44,7 +42,6 @@ export default function CreateModal({
             })
             .catch(err => {
                 toast.error(err?.response?.data?.message);
-                console.log('err');
             });
     };
 
@@ -55,20 +52,22 @@ export default function CreateModal({
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="grid gap-4 mb-6">
                             <div>
-                                <Label>Konu</Label>
+                                <Label htmlFor="subject">Konu</Label>
 
                                 <Input
                                     {...register('subject')}
                                     type="text"
+                                    id="subject"
                                     className="block mt-1 w-full"
                                     messages={errors.subject?.message}
                                 />
                             </div>
                             <div>
-                                <Label>Mesaj</Label>
+                                <Label htmlFor="message">Mesaj</Label>
 
                                 <Textarea
                                     {...register('message')}
+                                    id="message"
                                     className="block mt-1 w-full"
                                     messages={errors.message?.message}
                                 />

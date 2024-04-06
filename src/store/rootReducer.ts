@@ -3,7 +3,7 @@ import user from '@/store/slices/user';
 import note from '@/store/slices/note';
 import support from '@/store/slices/support';
 import announcement from '@/store/slices/announcement';
-import classSchedule from '@/store/slices/classSchedule';
+import classSchedule from '@/store/slices/class-schedule';
 import country from '@/store/slices/country';
 import city from '@/store/slices/city';
 import state from '@/store/slices/state';
@@ -11,13 +11,15 @@ import staticPage from '@/store/slices/static-page';
 import root from '@/store/slices/root';
 import examType from '@/store/slices/exam-type';
 import exam from '@/store/slices/exam';
+import examResult from '@/store/slices/exam-result';
 
-interface RootState {
+export interface IRootState {
     root: ReturnType<typeof root>;
     user: ReturnType<typeof user>;
     note: ReturnType<typeof note>;
     exam: ReturnType<typeof exam>;
     examType: ReturnType<typeof examType>;
+    examResult: ReturnType<typeof examResult>;
     support: ReturnType<typeof support>;
     announcement: ReturnType<typeof announcement>;
     classSchedule: ReturnType<typeof classSchedule>;
@@ -27,12 +29,13 @@ interface RootState {
     staticPage: ReturnType<typeof staticPage>;
 }
 
-const rootReducer: Reducer<RootState> = combineReducers({
+const rootReducer: Reducer<IRootState> = combineReducers({
     root,
     user,
     note,
     exam,
     examType,
+    examResult,
     support,
     announcement,
     classSchedule,

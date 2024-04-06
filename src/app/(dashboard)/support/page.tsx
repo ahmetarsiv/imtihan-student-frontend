@@ -10,6 +10,8 @@ import Lottie from '../../../../public/lottie/animation_llpjb9vt.json';
 import CreateModal from '@/app/(dashboard)/support/_forms/CreateModal';
 import { setTitle } from '@/store/slices/root';
 import { Button, Datatable, InfoCard } from '@codenteq/interfeys';
+import { format } from 'date-fns';
+import { tr } from 'date-fns/locale';
 
 export default function SupportPage(): ReactNode {
     const dispatch: AppDispatch = useDispatch();
@@ -33,8 +35,16 @@ export default function SupportPage(): ReactNode {
             accessor: 'subject',
         },
         {
-            Header: 'Durum',
-            accessor: 'is_active',
+            Header: 'Oluşturma tarihi',
+            accessor: 'created_at',
+            Cell: ({ value }: any) => {
+                const formattedDate = format(
+                    new Date(value),
+                    'd MMM yyyy HH:mm',
+                    { locale: tr },
+                );
+                return <div>{formattedDate}</div>;
+            },
         },
         {
             Header: 'İşlemler',

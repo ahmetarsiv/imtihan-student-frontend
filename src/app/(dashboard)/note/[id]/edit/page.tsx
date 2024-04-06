@@ -6,9 +6,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { AppDispatch, useDispatch, useSelector } from '@/store';
 import { updateNote, getNote } from '@/store/slices/note';
 import toast from 'react-hot-toast';
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { INoteForm } from '@/types/INote';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import TextEditor from '@/components/TextEditor';
 import { setTitle } from '@/store/slices/root';
 import { Button, Input, Label, Switch } from '@codenteq/interfeys';
@@ -20,11 +20,9 @@ const NoteUpdateSchema: Yup.ObjectSchema<INoteForm> = Yup.object().shape({
 });
 export default function NoteEditPage(): ReactNode {
     const { id } = useParams();
-    const { push } = useRouter();
     const noteId: number = parseInt(id.toString(), 10);
     const dispatch: AppDispatch = useDispatch();
-    const { note } = useSelector(state => state.note);
-    const [isLoading, setIsLoading] = useState(false);
+    const { isLoading, note } = useSelector(state => state.note);
 
     const {
         handleSubmit,
@@ -38,20 +36,19 @@ export default function NoteEditPage(): ReactNode {
             ...note,
         },
         values: {
-            ...note,
+            name: note?.name || '',
+            content: note?.content || '',
+            is_everyone: note?.is_everyone || false,
         },
     });
 
     const onSubmit = (data: INoteForm): void => {
-        setIsLoading(true);
         dispatch(updateNote(noteId, data))
             .then(() => {
                 toast.success('Başarıyla güncellendi!');
-                push('/note');
             })
             .catch(err => {
                 toast.error(err?.response?.data?.message);
-                console.log(err);
             });
     };
 
@@ -86,11 +83,11 @@ export default function NoteEditPage(): ReactNode {
 
                             <div className="grid gap-4 mb-6">
                                 <div>
-                                    <Label>Adı</Label>
-
+                                    <Label htmlFor="mame">Adı</Label>
                                     <Input
                                         {...register('name')}
                                         type="text"
+                                        id="name"
                                         className="block mt-1 w-full"
                                         messages={errors.name?.message}
                                     />
@@ -106,13 +103,8 @@ export default function NoteEditPage(): ReactNode {
                                             });
                                         }}
                                         className="block mt-1 w-full"
+                                        messages={errors.content?.message}
                                     />
-
-                                    {errors.content?.message && (
-                                        <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                                            {errors.content.message}
-                                        </p>
-                                    )}
                                 </div>
                             </div>
                             <div className="flex justify-end w-full">

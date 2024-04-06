@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import {
     AreaChart,
     Card,
@@ -15,8 +15,16 @@ import {
     TabPanels,
     Text,
 } from '@tremor/react';
+import { dispatch, useSelector } from '@/store';
+import { getExamResult } from '@/store/slices/exam-result';
+import { useParams } from 'next/navigation';
 
 export default function NoteViewPage(): ReactNode {
+    const { id } = useParams();
+    const examId: number = parseInt(id.toString(), 10);
+
+    const { examResult } = useSelector(state => state.examResult);
+
     const chartdata = [
         {
             date: 'Haz 22',
@@ -38,19 +46,23 @@ export default function NoteViewPage(): ReactNode {
     const dataFormatter = (number: number | bigint) =>
         '% ' + Intl.NumberFormat('tr').format(number).toString();
 
-    const cities = [
+    const exam = [
         {
-            name: 'Genel Sınav',
-            sales: 56,
+            name: 'Doğru Sayısı',
+            sales: examResult?.correct,
         },
         {
-            name: 'Genel İlerleme',
-            sales: 83,
+            name: 'Yanlış Sayısı',
+            sales: examResult?.in_correct,
         },
     ];
 
     const valueFormatter = (number: number | bigint) =>
         `% ${Intl.NumberFormat('tr').format(number).toString()}`;
+
+    useEffect(() => {
+        dispatch(getExamResult(examId));
+    }, [dispatch]);
 
     return (
         <>
@@ -59,11 +71,13 @@ export default function NoteViewPage(): ReactNode {
                     <Grid numItems={2} className="gap-4">
                         <Card decoration="top" decorationColor="sky">
                             <Text>Soru</Text>
-                            <Metric>50</Metric>
+                            <Metric>{examResult?.length}</Metric>
                         </Card>
                         <Card decoration="top" decorationColor="sky">
                             <Text>Puan</Text>
-                            <Metric>50 / 100</Metric>
+                            <Metric>
+                                {examResult?.point} / {examResult?.max_score}
+                            </Metric>
                         </Card>
                         <Card decoration="top" decorationColor="sky">
                             <Text>Sonuç</Text>
@@ -92,24 +106,36 @@ export default function NoteViewPage(): ReactNode {
                                             numColSpanLg={2}
                                             className="flex items-center">
                                             <ul className="flex flex-col gap-4">
-                                                <li>Soru sayısı: 12</li>
-                                                <li>Doğru sayısı: 11</li>
-                                                <li>Yanlış sayısı: 1</li>
-                                                <li>Boş sayısı: 0</li>
+                                                <li>
+                                                    Soru sayısı:{' '}
+                                                    {examResult?.length}
+                                                </li>
+                                                <li>
+                                                    Doğru sayısı:{' '}
+                                                    {examResult?.correct}
+                                                </li>
+                                                <li>
+                                                    Yanlış sayısı:{' '}
+                                                    {examResult?.in_correct}
+                                                </li>
+                                                <li>
+                                                    Boş sayısı:{' '}
+                                                    {examResult?.blank}
+                                                </li>
                                             </ul>
                                         </Col>
                                         <DonutChart
                                             className="h-72"
-                                            data={cities}
+                                            data={exam}
                                             category="sales"
                                             index="name"
                                             valueFormatter={valueFormatter}
                                             colors={[
-                                                'slate',
-                                                'violet',
-                                                'indigo',
-                                                'rose',
                                                 'cyan',
+                                                'indigo',
+                                                'green',
+                                                'violet',
+                                                'rose',
                                                 'amber',
                                             ]}
                                         />

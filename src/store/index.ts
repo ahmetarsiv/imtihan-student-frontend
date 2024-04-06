@@ -4,7 +4,7 @@ import {
     useSelector as useAppSelector,
     TypedUseSelectorHook,
 } from 'react-redux';
-import { rootReducer } from '@/store/rootReducer';
+import { rootReducer, IRootState } from '@/store/rootReducer';
 
 const store = configureStore({
     reducer: rootReducer,
@@ -12,7 +12,8 @@ const store = configureStore({
 
 const { dispatch } = store;
 
-const useSelector: TypedUseSelectorHook<any> = useAppSelector;
+const useSelector: TypedUseSelectorHook<IRootState> = useAppSelector;
+//const useSelector: TypedUseSelectorHook<any> = useAppSelector;
 
 const useDispatch = () => useAppDispatch();
 

@@ -4,8 +4,8 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import toast from 'react-hot-toast';
-import { AppDispatch, useDispatch } from '@/store';
-import React, { useState } from 'react';
+import { AppDispatch, useDispatch, useSelector } from '@/store';
+import React from 'react';
 import { updatePassword } from '@/store/slices/user';
 import { IUpdatePasswordForm } from '@/types/IUser';
 import { Button, InfoCard, Input, Label } from '@codenteq/interfeys';
@@ -22,7 +22,7 @@ const UserUpdateSchema: yup.ObjectSchema<IUpdatePasswordForm> = yup
 
 export default function PasswordEdit() {
     const dispatch: AppDispatch = useDispatch();
-    const [isLoading, setIsLoading] = useState(false);
+    const { isLoading } = useSelector(state => state.user);
 
     const {
         handleSubmit,
@@ -33,7 +33,6 @@ export default function PasswordEdit() {
     });
 
     const onSubmit = (data: IUpdatePasswordForm) => {
-        setIsLoading(true);
         dispatch(updatePassword(data))
             .then(() => {
                 toast.success('Başarıyla güncellendi!');
@@ -50,30 +49,38 @@ export default function PasswordEdit() {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="flex flex-col gap-4 mb-6">
                         <div>
-                            <Label>Mevcut şifre</Label>
+                            <Label htmlFor="current_password">
+                                Mevcut şifre
+                            </Label>
                             <Input
                                 {...register('current_password')}
                                 type="password"
+                                id="current_password"
                                 className="block mt-1 w-full"
                                 messages={errors.current_password?.message}
                             />
                         </div>
 
                         <div>
-                            <Label>Yeni şifre</Label>
+                            <Label htmlFor="password">Yeni şifre</Label>
                             <Input
                                 {...register('password')}
                                 type="password"
+                                id="password"
                                 className="block mt-1 w-full"
+                                helpText="Güvenliğiniz için adınız, soyadınız ve doğum tarihinizi içermeyen bir şifre belirleyin."
                                 messages={errors.password?.message}
                             />
                         </div>
 
                         <div>
-                            <Label>Yeni şifre tekrar</Label>
+                            <Label htmlFor="password_confirmation">
+                                Yeni şifre tekrar
+                            </Label>
                             <Input
                                 {...register('password_confirmation')}
                                 type="password"
+                                id="password_confirmation"
                                 className="block mt-1 w-full"
                                 messages={errors.password_confirmation?.message}
                             />

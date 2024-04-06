@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import toast from 'react-hot-toast';
 import { AppDispatch, useDispatch, useSelector } from '@/store';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { deleteUser, getUser, updateUser } from '@/store/slices/user';
 import { IMembershipInformationForm } from '@/types/IUser';
 import Gender from '@/enums/gender';
@@ -36,11 +36,10 @@ const UserUpdateSchema: yup.ObjectSchema<IMembershipInformationForm> = yup
 
 export default function MembershipInformation() {
     const dispatch: AppDispatch = useDispatch();
-    const { user } = useSelector((state: any) => state.user);
+    const { isLoading, user } = useSelector((state: any) => state.user);
     const { countries } = useSelector(state => state.country);
     const { cities } = useSelector(state => state.city);
     const { states } = useSelector(state => state.state);
-    const [isLoading, setIsLoading] = useState(false);
 
     const {
         handleSubmit,
@@ -62,7 +61,6 @@ export default function MembershipInformation() {
 
     const onSubmit = (data: IMembershipInformationForm) => {
         data.birth_date = moment(data.birth_date).format('YYYY-MM-DD');
-        setIsLoading(true);
         dispatch(updateUser(data))
             .then(() => {
                 toast.success('Başarıyla güncellendi!');
@@ -111,19 +109,21 @@ export default function MembershipInformation() {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="grid gap-4 mb-6 lg:grid-cols-2">
                         <div>
-                            <Label>Tam adınız</Label>
+                            <Label htmlFor="full_name">Tam adınız</Label>
                             <Input
                                 {...register('full_name')}
                                 type="text"
+                                id="full_name"
                                 className="block mt-1 w-full"
                                 messages={errors.full_name?.message}
                             />
                         </div>
 
                         <div className="w-full">
-                            <Label>Cinsiyet</Label>
+                            <Label htmlFor="gender">Cinsiyet</Label>
                             <Select
                                 {...register('gender')}
+                                id="gender"
                                 className="block mt-1 w-full"
                                 options={[
                                     {
@@ -141,19 +141,21 @@ export default function MembershipInformation() {
                         </div>
 
                         <div className="w-full">
-                            <Label>Adres</Label>
+                            <Label htmlFor="address">Adres</Label>
                             <Input
                                 {...register('address')}
                                 type="text"
+                                id="address"
                                 className="block mt-1 w-full"
                                 messages={errors.address?.message}
                             />
                         </div>
 
                         <div className="w-full">
-                            <Label>Ülke</Label>
+                            <Label htmlFor="country_id">Ülke</Label>
                             <Select
                                 {...register('country_id')}
+                                id="country_id"
                                 onChange={handleCountryChange}
                                 className="block mt-1 w-full"
                                 options={countries.map(
@@ -169,9 +171,10 @@ export default function MembershipInformation() {
                         </div>
 
                         <div className="w-full">
-                            <Label>Şehir</Label>
+                            <Label htmlFor="city_id">Şehir</Label>
                             <Select
                                 {...register('city_id')}
+                                id="city_id"
                                 onChange={handleCityChange}
                                 className="block mt-1 w-full"
                                 options={cities.map((city: ICityResponse) => ({
@@ -185,9 +188,10 @@ export default function MembershipInformation() {
                         </div>
 
                         <div className="w-full">
-                            <Label>İlçe</Label>
+                            <Label htmlFor="state_id">İlçe</Label>
                             <Select
                                 {...register('state_id')}
+                                id="state_id"
                                 className="block mt-1 w-full"
                                 options={states.map(
                                     (state: IStateResponse) => ({
@@ -202,9 +206,12 @@ export default function MembershipInformation() {
                         </div>
 
                         <div>
-                            <Label>Eğitim Seviyesi</Label>
+                            <Label htmlFor="education_level">
+                                Eğitim Seviyesi
+                            </Label>
                             <Select
                                 {...register('education_level')}
+                                id="education_level"
                                 className="block mt-1 w-full"
                                 options={[
                                     {
@@ -230,10 +237,11 @@ export default function MembershipInformation() {
                         </div>
 
                         <div className="w-full">
-                            <Label>Doğum Tarihi</Label>
+                            <Label htmlFor="birth_date">Doğum Tarihi</Label>
                             <Input
                                 {...register('birth_date')}
                                 type="date"
+                                id="birth_date"
                                 className="block mt-1 w-full"
                                 messages={errors.birth_date?.message}
                             />

@@ -106,7 +106,7 @@ export default function PasswordEdit() {
                                 Oturum açma bilgilerini hatırlamıyorum.
                             </p>
                             <Link
-                                href="https://support.imtihan.tech/account-help#oturum-a%C3%A7ma-bilgilerini-hat%C4%B1rlam%C4%B1yorum"
+                                href="https://support.imtihantech.com/account-help#oturum-a%C3%A7ma-bilgilerini-hat%C4%B1rlam%C4%B1yorum"
                                 target="_blank"
                                 className="inline-flex items-center text-blue-500 hover:text-blue-400">
                                 Detaylı bilgi

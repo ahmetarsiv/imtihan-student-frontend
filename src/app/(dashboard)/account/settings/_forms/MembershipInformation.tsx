@@ -273,7 +273,7 @@ export default function MembershipInformation() {
                                 Oturumu nasıl kapatabilirim?
                             </p>
                             <Link
-                                href="https://support.imtihan.tech/account-help#oturumu-kapatma"
+                                href="https://support.imtihantech.com/account-help#oturumu-kapatma"
                                 target="_blank"
                                 className="inline-flex items-center text-blue-500 hover:text-blue-400">
                                 Detaylı bilgi

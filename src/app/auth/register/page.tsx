@@ -174,14 +174,14 @@ const Register = () => {
                         <Label className="text-xs">
                             Kaydol'a tıklayarak İmtihan'ın{' '}
                             <Link
-                                href="https://imtihan.tech/terms-of-services"
+                                href="https://imtihantech.com/terms-of-services"
                                 className="underline"
                                 target="_blank">
                                 Şartlarını
                             </Link>{' '}
                             ve{' '}
                             <Link
-                                href="https://imtihan.tech/privacy-policy"
+                                href="https://imtihantech.com/privacy-policy"
                                 className="underline"
                                 target="_blank">
                                 Gizlilik Politikasını

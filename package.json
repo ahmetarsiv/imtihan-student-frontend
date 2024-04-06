@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "homepage": "https://open.imtihan.tech",
+  "homepage": "https://open.imtihantech.com",
   "repository": "github:codenteq/imtihan-student-frontend",
   "bugs": {
     "url": "https://github.com/codenteq/imtihan-student-frontend/issues"

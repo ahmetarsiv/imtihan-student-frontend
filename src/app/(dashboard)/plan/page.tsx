@@ -30,7 +30,7 @@ export default function PlanPage(): ReactNode {
                                 ilerleme takibi hakkı.
                             </p>
                             <a
-                                href="https://support.imtihan.tech/plan-help#premium-planlar%C4%B1"
+                                href="https://support.imtihantech.com/plan-help#premium-planlar%C4%B1"
                                 target="_blank"
                                 rel="noreferrer">
                                 <span className="underline">
@@ -75,7 +75,7 @@ export default function PlanPage(): ReactNode {
                                 Premium planımı nasıl iptal edebilirim?
                             </p>
                             <Link
-                                href="https://support.imtihan.tech/plan-help#premium-planlar%C4%B1n%C4%B1-iptal-etme"
+                                href="https://support.imtihantech.com/plan-help#premium-planlar%C4%B1n%C4%B1-iptal-etme"
                                 target="_blank"
                                 className="inline-flex items-center text-blue-500 hover:text-blue-400">
                                 Detaylı bilgi
@@ -88,7 +88,7 @@ export default function PlanPage(): ReactNode {
                                 Premium planım doğru çalışmıyor. Ne yapmalıyım?
                             </p>
                             <Link
-                                href="https://support.imtihan.tech/plan-help#premium-%C3%A7al%C4%B1%C5%9Fm%C4%B1yor"
+                                href="https://support.imtihantech.com/plan-help#premium-%C3%A7al%C4%B1%C5%9Fm%C4%B1yor"
                                 target="_blank"
                                 className="inline-flex items-center text-blue-500 hover:text-blue-400">
                                 Detaylı bilgi
@@ -101,7 +101,7 @@ export default function PlanPage(): ReactNode {
                                 Premium fiyatı neden arttı?
                             </p>
                             <Link
-                                href="https://support.imtihan.tech/payment-help#fiyat-g%C3%BCncellemeri"
+                                href="https://support.imtihantech.com/payment-help#fiyat-g%C3%BCncellemeri"
                                 target="_blank"
                                 className="inline-flex items-center text-blue-500 hover:text-blue-400">
                                 Detaylı bilgi

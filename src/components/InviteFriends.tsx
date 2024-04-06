@@ -8,7 +8,7 @@ export default function InviteFriends() {
     const shareConfig = {
         title: 'İmtihan',
         text: 'Arkadaşını imtihan\'a davet et, kazan!',
-        url: 'https://open.imtihan.tech/auth/register'
+        url: 'https://open.imtihantech.com/auth/register'
     }
 
     const share = async () => {

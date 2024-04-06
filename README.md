@@ -24,4 +24,4 @@ NEXT_PUBLIC_IMAGE_URL=http://localhost:9000
 
 ## Useful Links
 
-* [Imtihan Documentation](https://docs.imtihan.tech/)
+* [Imtihan Documentation](https://docs.imtihantech.com/)

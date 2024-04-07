@@ -1,4 +1,3 @@
-import { IExamResponse } from '@/types/IExam';
 import { IExamTypeResponse } from '@/types/IExamType';
 
 export interface IExamResultResponse {

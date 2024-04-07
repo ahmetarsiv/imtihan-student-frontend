@@ -1,7 +1,7 @@
 'use client';
 
 import React, { ReactNode } from 'react';
-import { Button, Input, Label, Select } from '@codenteq/interfeys';
+import { Button, Input, Select } from '@codenteq/interfeys';
 import EducationLevel from '@/enums/education-level';
 import Gender from '@/enums/gender';
 
@@ -18,19 +18,27 @@ export default function Step1({ onNext }: Step1Props): ReactNode {
 
             <div className="grid gap-4 mb-6 lg:grid-cols-2">
                 <div>
-                    <Label>Telefon</Label>
-                    <Input className="w-full" type="tel" name="phone" />
+                    <Input
+                        className="w-full"
+                        type="tel"
+                        name="phone"
+                        label="Telefon"
+                    />
                 </div>
 
                 <div>
-                    <Label>Doğum tarihi</Label>
-                    <Input className="w-full" type="date" name="birth_date" />
+                    <Input
+                        className="w-full"
+                        type="date"
+                        name="birth_date"
+                        label="Doğum tarihi"
+                    />
                 </div>
 
                 <div>
-                    <Label>Eğitim Seviyesi</Label>
                     <Select
                         name="education_level"
+                        label="Eğitim Seviyesi"
                         className="w-full"
                         options={[
                             {
@@ -55,9 +63,9 @@ export default function Step1({ onNext }: Step1Props): ReactNode {
                 </div>
 
                 <div>
-                    <Label htmlFor="gender">Cinsiyet</Label>
                     <Select
                         name="gender"
+                        label="Cinsiyet"
                         className="w-full"
                         options={[
                             {
@@ -74,9 +82,9 @@ export default function Step1({ onNext }: Step1Props): ReactNode {
                 </div>
 
                 <div>
-                    <Label>Dil</Label>
                     <Select
                         name="language_id"
+                        label="Dil"
                         className="w-full"
                         options={[
                             {

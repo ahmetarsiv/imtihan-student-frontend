@@ -11,7 +11,7 @@ import { INoteForm } from '@/types/INote';
 import { useParams } from 'next/navigation';
 import TextEditor from '@/components/TextEditor';
 import { setTitle } from '@/store/slices/root';
-import { Button, Input, Label, Switch } from '@codenteq/interfeys';
+import { Button, Input, Switch } from '@codenteq/interfeys';
 
 const NoteUpdateSchema: Yup.ObjectSchema<INoteForm> = Yup.object().shape({
     name: Yup.string().required('Required'),
@@ -67,35 +67,29 @@ export default function NoteEditPage(): ReactNode {
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="flex items-center justify-between my-4">
                                 <div className="mt-3">
-                                    <label className="inline-flex items-center">
-                                        <Switch
-                                            type={'checkbox'}
-                                            {...register('is_everyone')}
-                                            defaultValue={1}
-                                        />
-
-                                        <span className="ml-2 text-sm text-zinc-600">
-                                            Herkesin görmesine izin ver
-                                        </span>
-                                    </label>
+                                    <Switch
+                                        id="is_everyone"
+                                        label="Herkesin görmesine izin ver"
+                                        {...register('is_everyone')}
+                                        defaultValue={1}
+                                    />
                                 </div>
                             </div>
 
                             <div className="grid gap-4 mb-6">
                                 <div>
-                                    <Label htmlFor="mame">Adı</Label>
                                     <Input
                                         {...register('name')}
                                         type="text"
                                         id="name"
+                                        label="Adı"
                                         className="block mt-1 w-full"
                                         messages={errors.name?.message}
                                     />
                                 </div>
                                 <div>
-                                    <Label>İçerik</Label>
-
                                     <TextEditor
+                                        label="İçerik"
                                         value={getValues('content') || ''}
                                         onChange={content => {
                                             setValue('content', content, {

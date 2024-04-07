@@ -8,7 +8,7 @@ import { postSupport } from '@/store/slices/support';
 import toast from 'react-hot-toast';
 import { ISupportForm } from '@/types/ISupport';
 import { ReactNode } from 'react';
-import { Button, Input, Label, Modal, Textarea } from '@codenteq/interfeys';
+import { Button, Input, Modal, Textarea } from '@codenteq/interfeys';
 
 const SupportCreateSchema: Yup.ObjectSchema<ISupportForm> = Yup.object().shape({
     subject: Yup.string().required('Required'),
@@ -52,22 +52,20 @@ export default function CreateModal({
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="grid gap-4 mb-6">
                             <div>
-                                <Label htmlFor="subject">Konu</Label>
-
                                 <Input
                                     {...register('subject')}
                                     type="text"
                                     id="subject"
+                                    label="Konu"
                                     className="block mt-1 w-full"
                                     messages={errors.subject?.message}
                                 />
                             </div>
                             <div>
-                                <Label htmlFor="message">Mesaj</Label>
-
                                 <Textarea
                                     {...register('message')}
                                     id="message"
+                                    label="Mesaj"
                                     className="block mt-1 w-full"
                                     messages={errors.message?.message}
                                 />

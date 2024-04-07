@@ -7,7 +7,6 @@ import GuestLayout from '@/layouts/GuestLayout';
 import Link from 'next/link';
 import { useAuth } from '@/hooks/auth';
 import React, { useEffect, useState } from 'react';
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { useSearchParams } from 'next/navigation';
 import { Button, Input, Label, Switch } from '@codenteq/interfeys';
 
@@ -24,7 +23,7 @@ export default function LoginPage() {
         redirectIfAuthenticated: '/',
     });
 
-    const [isRevealPassword, setIsRevealPassword] = useState(false);
+    const [isRevealPassword] = useState(false);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -129,42 +128,21 @@ export default function LoginPage() {
                             messages={errors.password}
                         />
 
-                        <div className="relative">
-                            <span
-                                className="absolute -top-9 right-0 flex pr-2 text-zinc-900 dark:text-zinc-300"
-                                onClick={() =>
-                                    setIsRevealPassword(prevState => !prevState)
-                                }>
-                                {isRevealPassword ? (
-                                    <EyeIcon className="w-6 h-6" />
-                                ) : (
-                                    <EyeSlashIcon className="w-6 h-6" />
-                                )}
-                            </span>
-                        </div>
-
                         {/* Session Status */}
                         <AuthSessionStatus className="mt-4" status={status} />
                     </div>
 
                     {/* Remember Me */}
                     <div className="block mt-4">
-                        <Label
-                            htmlFor="remember_me"
-                            className="inline-flex items-center">
-                            <Switch
-                                type={'checkbox'}
-                                id="remember_me"
-                                name="remember"
-                                onChange={event =>
-                                    setShouldRemember(event.target.checked)
-                                }
-                            />
-
-                            <span className="text-sm text-zinc-600">
-                                Beni hatırla
-                            </span>
-                        </Label>
+                        <Switch
+                            type={'checkbox'}
+                            id="remember_me"
+                            name="remember"
+                            label="Beni hatırla"
+                            onChange={event =>
+                                setShouldRemember(event.target.checked)
+                            }
+                        />
                     </div>
 
                     {/* Button */}

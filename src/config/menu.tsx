@@ -10,6 +10,7 @@ import {
     UserCircleIcon,
     UserIcon,
     CheckIcon,
+    SparklesIcon,
 } from '@heroicons/react/24/outline';
 import { ReactNode } from 'react';
 
@@ -66,6 +67,11 @@ const menuConfig: IMenuConfig = {
             name: 'Wizard',
             icon: <CheckIcon className="inline-block w-6 h-6" />,
             path: '/wizard',
+        },
+        {
+            name: 'Muin',
+            icon: <SparklesIcon className="inline-block w-6 h-6" />,
+            path: '/muin',
         },
         {
             name: 'Hesap',
@@ -130,6 +136,13 @@ const menuConfig: IMenuConfig = {
                 <InformationCircleIcon className="text-brand w-6 h-6 mr-2 float-left" />
             ),
             path: '/support',
+        },
+        {
+            name: 'Muin',
+            icon: (
+                <SparklesIcon className="text-brand w-6 h-6 mr-2 float-left" />
+            ),
+            path: '/muin',
         },
         {
             name: 'Mevcut Planlar',

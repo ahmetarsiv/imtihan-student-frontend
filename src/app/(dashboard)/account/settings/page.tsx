@@ -19,9 +19,9 @@ export default function AccountSettingPage(): ReactNode {
             <main className="lg:max-w-4xl">
                 <TabGroup>
                     <TabList className="mt-8">
-                        <Tab>Üyelik bilgilerim</Tab>
-                        <Tab>Şifre değişikliği</Tab>
-                        <Tab>İletişim tercihlerim</Tab>
+                        <Tab id="membership-tab">Üyelik bilgilerim</Tab>
+                        <Tab id="password-tab">Şifre değişikliği</Tab>
+                        <Tab id="contact-tab">İletişim tercihlerim</Tab>
                     </TabList>
                     <TabPanels>
                         <TabPanel>

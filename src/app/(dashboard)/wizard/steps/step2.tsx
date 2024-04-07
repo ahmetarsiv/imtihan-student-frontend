@@ -1,7 +1,7 @@
 'use client';
 
 import React, { ReactNode } from 'react';
-import { Button, Input, Label, Select } from '@codenteq/interfeys';
+import { Button, Input, Select } from '@codenteq/interfeys';
 
 interface Step2Props {
     onNext: () => void;
@@ -17,14 +17,18 @@ export default function Step2({ onNext, onPrev }: Step2Props): ReactNode {
 
             <div className="grid gap-4 mb-6 lg:grid-cols-2">
                 <div>
-                    <Label>Adres</Label>
-                    <Input name="address" type="text" className="w-full" />
+                    <Input
+                        name="address"
+                        type="text"
+                        className="w-full"
+                        label="Adres"
+                    />
                 </div>
 
                 <div>
-                    <Label>Ülke</Label>
                     <Select
                         name="country_id"
+                        label="Ülke"
                         className="w-full"
                         options={[
                             {
@@ -37,9 +41,9 @@ export default function Step2({ onNext, onPrev }: Step2Props): ReactNode {
                 </div>
 
                 <div>
-                    <Label>Şehir</Label>
                     <Select
                         name="city_id"
+                        label="Şehir"
                         className="w-full"
                         options={[
                             {
@@ -52,9 +56,9 @@ export default function Step2({ onNext, onPrev }: Step2Props): ReactNode {
                 </div>
 
                 <div>
-                    <Label>İlçe</Label>
                     <Select
                         name="state_id"
+                        label="İlçe"
                         className="w-full"
                         options={[
                             {

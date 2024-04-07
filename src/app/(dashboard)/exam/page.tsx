@@ -97,7 +97,9 @@ export default function ClassSchedulePage(): ReactNode {
                                             />
                                         </div>
                                         <div className="my-2">
-                                            <Badge name={examType.name} />
+                                            <Badge className="bg-blue-100 text-blue-800 text-xs">
+                                                {examType.name}
+                                            </Badge>
                                         </div>
                                         <div>
                                             <h3>Hazırlık Sınavı</h3>

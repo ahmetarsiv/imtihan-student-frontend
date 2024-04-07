@@ -2,13 +2,13 @@
 
 import React, { ReactNode, useEffect, useState } from 'react';
 import LottieAnimation from '@/components/LottieAnimation';
-import Exam from '../../../../../public/lottie/animation_llpjjjsc.json';
+import ExamResults from '../../../../../public/lottie/Animation - 1712518772284.json';
 import { AppDispatch, useDispatch, useSelector } from '@/store';
 import { setTitle } from '@/store/slices/root';
 import Link from 'next/link';
-import { Button, Datatable, InfoCard } from '@codenteq/interfeys';
+import { Datatable, InfoCard } from '@codenteq/interfeys';
 import { getExamResults } from '@/store/slices/exam-result';
-import { EyeIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { EyeIcon } from '@heroicons/react/24/outline';
 import moment from 'moment';
 
 export default function ResultPage(): ReactNode {
@@ -56,50 +56,34 @@ export default function ResultPage(): ReactNode {
 
     return (
         <>
-            <main>
-                <div className="flex items-center justify-end p-4">
-                    <div className="w-full md:w-auto">
-                        <Link href="/exam/1/view">
-                            <Button
-                                className="w-full"
-                                type={'button'}
-                                label={'Demo Detay'}
-                            />
-                        </Link>
+            {examResults.length == 0 ? (
+                <InfoCard className="col-span-full">
+                    <div className="flex flex-col lg:flex-row items-center lg:max-w-4xl h-auto border border-brand rounded-2xl p-5 ">
+                        <div className="order-last lg:order-first">
+                            <h3 className="text-2xl font-bold tracking-tight">
+                                Henüz görülecek bir şey yok.
+                            </h3>
+                            <p className="text-lg">
+                                Şu anda sistemde yayınlanmış bir sınav sonucu
+                                bulunmamaktadır.
+                            </p>
+                        </div>
+                        <div className="h-72">
+                            <LottieAnimation animationData={ExamResults} />
+                        </div>
                     </div>
-                </div>
-
-                <div>
-                    {examResults.length == 0 ? (
-                        <InfoCard className="col-span-full">
-                            <div className="flex flex-col lg:flex-row items-center lg:max-w-4xl h-auto border border-brand rounded-2xl p-5 ">
-                                <div className="order-last lg:order-first">
-                                    <h3 className="text-2xl font-bold tracking-tight">
-                                        Henüz görülecek bir şey yok.
-                                    </h3>
-                                    <p className="text-lg">
-                                        Şu anda sistemde yayınlanmış bir sınav
-                                        sonucu bulunmamaktadır.
-                                    </p>
-                                </div>
-                                <div className="h-72">
-                                    <LottieAnimation animationData={Exam} />
-                                </div>
-                            </div>
-                        </InfoCard>
-                    ) : (
-                        <Datatable
-                            columns={columns}
-                            data={examResults}
-                            pagePaginate={pagePaginate}
-                            setPagePaginate={setPagePaginate}
-                            meta={meta}
-                            isLoading={isLoading}
-                            setSearch={setSearch}
-                        />
-                    )}
-                </div>
-            </main>
+                </InfoCard>
+            ) : (
+                <Datatable
+                    columns={columns}
+                    data={examResults}
+                    pagePaginate={pagePaginate}
+                    setPagePaginate={setPagePaginate}
+                    meta={meta}
+                    isLoading={isLoading}
+                    setSearch={setSearch}
+                />
+            )}
         </>
     );
 }

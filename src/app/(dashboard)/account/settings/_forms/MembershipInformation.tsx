@@ -109,21 +109,21 @@ export default function MembershipInformation() {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="grid gap-4 mb-6 lg:grid-cols-2">
                         <div>
-                            <Label htmlFor="full_name">Tam adınız</Label>
                             <Input
                                 {...register('full_name')}
                                 type="text"
                                 id="full_name"
+                                label="Tam adınız"
                                 className="block mt-1 w-full"
                                 messages={errors.full_name?.message}
                             />
                         </div>
 
                         <div className="w-full">
-                            <Label htmlFor="gender">Cinsiyet</Label>
                             <Select
                                 {...register('gender')}
                                 id="gender"
+                                label="Cinsiyet"
                                 className="block mt-1 w-full"
                                 options={[
                                     {
@@ -141,21 +141,21 @@ export default function MembershipInformation() {
                         </div>
 
                         <div className="w-full">
-                            <Label htmlFor="address">Adres</Label>
                             <Input
                                 {...register('address')}
                                 type="text"
                                 id="address"
+                                label="Adres"
                                 className="block mt-1 w-full"
                                 messages={errors.address?.message}
                             />
                         </div>
 
                         <div className="w-full">
-                            <Label htmlFor="country_id">Ülke</Label>
                             <Select
                                 {...register('country_id')}
                                 id="country_id"
+                                label="Ülke"
                                 onChange={handleCountryChange}
                                 className="block mt-1 w-full"
                                 options={countries.map(
@@ -171,10 +171,10 @@ export default function MembershipInformation() {
                         </div>
 
                         <div className="w-full">
-                            <Label htmlFor="city_id">Şehir</Label>
                             <Select
                                 {...register('city_id')}
                                 id="city_id"
+                                label="Şehir"
                                 onChange={handleCityChange}
                                 className="block mt-1 w-full"
                                 options={cities.map((city: ICityResponse) => ({
@@ -188,10 +188,10 @@ export default function MembershipInformation() {
                         </div>
 
                         <div className="w-full">
-                            <Label htmlFor="state_id">İlçe</Label>
                             <Select
                                 {...register('state_id')}
                                 id="state_id"
+                                label="İlçe"
                                 className="block mt-1 w-full"
                                 options={states.map(
                                     (state: IStateResponse) => ({
@@ -206,12 +206,10 @@ export default function MembershipInformation() {
                         </div>
 
                         <div>
-                            <Label htmlFor="education_level">
-                                Eğitim Seviyesi
-                            </Label>
                             <Select
                                 {...register('education_level')}
                                 id="education_level"
+                                label="Eğitim Seviyesi"
                                 className="block mt-1 w-full"
                                 options={[
                                     {
@@ -237,11 +235,11 @@ export default function MembershipInformation() {
                         </div>
 
                         <div className="w-full">
-                            <Label htmlFor="birth_date">Doğum Tarihi</Label>
                             <Input
                                 {...register('birth_date')}
                                 type="date"
                                 id="birth_date"
+                                label="Doğum tarihi"
                                 className="block mt-1 w-full"
                                 messages={errors.birth_date?.message}
                             />

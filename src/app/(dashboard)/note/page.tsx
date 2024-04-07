@@ -95,13 +95,11 @@ export default function NotePage(): ReactNode {
                                     />
                                 </div>
                                 <div className="my-2">
-                                    <Badge
-                                        name={
-                                            note?.is_everyone == true
-                                                ? 'Herkes'
-                                                : 'Sadece Ben'
-                                        }
-                                    />
+                                    <Badge className="bg-indigo-100 text-indigo-800 text-xs">
+                                        {note?.is_everyone == true
+                                            ? 'Herkes'
+                                            : 'Sadece Ben'}
+                                    </Badge>
                                 </div>
                                 <div>
                                     <h3>{note?.name.slice(0, 35)}</h3>

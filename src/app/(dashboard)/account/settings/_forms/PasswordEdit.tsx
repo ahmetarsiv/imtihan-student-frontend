@@ -8,7 +8,7 @@ import { AppDispatch, useDispatch, useSelector } from '@/store';
 import React from 'react';
 import { updatePassword } from '@/store/slices/user';
 import { IUpdatePasswordForm } from '@/types/IUser';
-import { Button, InfoCard, Input, Label } from '@codenteq/interfeys';
+import { Button, InfoCard, Input } from '@codenteq/interfeys';
 import Link from 'next/link';
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 
@@ -49,24 +49,22 @@ export default function PasswordEdit() {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="flex flex-col gap-4 mb-6">
                         <div>
-                            <Label htmlFor="current_password">
-                                Mevcut şifre
-                            </Label>
                             <Input
                                 {...register('current_password')}
                                 type="password"
                                 id="current_password"
+                                label="Mevcut şifre"
                                 className="block mt-1 w-full"
                                 messages={errors.current_password?.message}
                             />
                         </div>
 
                         <div>
-                            <Label htmlFor="password">Yeni şifre</Label>
                             <Input
                                 {...register('password')}
                                 type="password"
                                 id="password"
+                                label="Yeni şifre"
                                 className="block mt-1 w-full"
                                 helpText="Güvenliğiniz için adınız, soyadınız ve doğum tarihinizi içermeyen bir şifre belirleyin."
                                 messages={errors.password?.message}
@@ -74,13 +72,11 @@ export default function PasswordEdit() {
                         </div>
 
                         <div>
-                            <Label htmlFor="password_confirmation">
-                                Yeni şifre tekrar
-                            </Label>
                             <Input
                                 {...register('password_confirmation')}
                                 type="password"
                                 id="password_confirmation"
+                                label="Yeni şifre tekrar"
                                 className="block mt-1 w-full"
                                 messages={errors.password_confirmation?.message}
                             />

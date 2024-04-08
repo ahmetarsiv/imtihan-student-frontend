@@ -2,9 +2,7 @@
 
 import { AppDispatch, useDispatch, useSelector } from '@/store';
 import React, { ReactNode, useEffect } from 'react';
-import { getAnnouncement } from '@/store/slices/announcement';
-import Image from 'next/image';
-import createImageUrl from '@/lib/image';
+import { getSupport } from '@/store/slices/support';
 import { Badge, Modal } from '@codenteq/interfeys';
 
 interface IViewModalProps {
@@ -20,21 +18,19 @@ export default function ViewModal({
     id,
 }: IViewModalProps): ReactNode {
     const dispatch: AppDispatch = useDispatch();
-    const { announcement, isLoading } = useSelector(
-        state => state.announcement,
-    );
+    const { support, isLoading } = useSelector(state => state.support);
 
     useEffect(() => {
         if (id) {
-            dispatch(getAnnouncement(id));
+            dispatch(getSupport(id));
         }
     }, [dispatch, id]);
 
     return (
         <>
-            {open && announcement && (
+            {open && support && (
                 <Modal
-                    title={announcement?.name}
+                    title={support?.subject}
                     isOpen={open}
                     setIsOpen={setIsOpen}>
                     <div className="bg-white p-8 dark:bg-black">
@@ -47,17 +43,9 @@ export default function ViewModal({
                             </div>
                         ) : (
                             <>
-                                <Image
-                                    src={createImageUrl(announcement?.src)}
-                                    width={670}
-                                    height={236}
-                                    alt={announcement?.name}
-                                    className="max-w-full h-auto rounded-lg duration-300 filter grayscale hover:grayscale-0"
-                                />
-
                                 <Badge className="my-2 bg-indigo-100 text-indigo-800 text-xs">
                                     {new Date(
-                                        announcement?.created_at,
+                                        support?.created_at,
                                     ).toLocaleString('tr-TR', {
                                         year: 'numeric',
                                         month: 'long',
@@ -68,15 +56,12 @@ export default function ViewModal({
                                 </Badge>
 
                                 <h1 className="mb-4 text-3xl font-extrabold md:text-3xl lg:text-4xl text-zinc-900 dark:text-zinc-200">
-                                    {announcement?.name}
+                                    {support?.subject}
                                 </h1>
 
-                                <p
-                                    className="text-zinc-500 dark:text-zinc-400"
-                                    dangerouslySetInnerHTML={{
-                                        __html: announcement?.content,
-                                    }}
-                                />
+                                <p className="text-zinc-500 dark:text-zinc-400">
+                                    {support?.message}
+                                </p>
                             </>
                         )}
                     </div>

@@ -29,13 +29,13 @@ export default function ExamCreatePage(): ReactNode {
 
                             <div className="flex flex-col gap-5">
                                 <div>
-                                    <Label>Zorluk Seviyesi</Label>
                                     <Input
                                         className="w-full"
                                         type={'range'}
                                         min={0}
                                         max={3}
                                         value={sliderValue}
+                                        label="Zorluk Seviyesi"
                                         onChange={handleSliderChange}
                                     />
                                     <div className="flex justify-between">
@@ -47,8 +47,8 @@ export default function ExamCreatePage(): ReactNode {
                                 </div>
 
                                 <div>
-                                    <Label>Kategori</Label>
                                     <Select
+                                        label="Kategori"
                                         className="block mt-1 w-full"
                                         options={[
                                             {
@@ -62,19 +62,19 @@ export default function ExamCreatePage(): ReactNode {
 
                                 <div className="grid lg:grid-cols-2 gap-4">
                                     <div>
-                                        <Label>Süre</Label>
                                         <Input
                                             type="number"
                                             className="block mt-1 w-full"
+                                            label="Süre"
                                             helpText={
                                                 'Toplam sınav süresini belirtin.'
                                             }
                                         />
                                     </div>
                                     <div>
-                                        <Label>Adet</Label>
                                         <Input
                                             type="number"
+                                            label="Adet"
                                             className="block mt-1 w-full"
                                             helpText={
                                                 'Sınavda kaç adet soru olacağını belirtin.'

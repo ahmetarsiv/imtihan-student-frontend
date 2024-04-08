@@ -1,9 +1,10 @@
 'use client';
 
-import { ReactNode, useEffect } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { AppDispatch, useDispatch, useSelector } from '@/store';
 import { getNote } from '@/store/slices/note';
+import { Badge } from '@codenteq/interfeys';
 
 export default function NoteViewPage(): ReactNode {
     const { id } = useParams();
@@ -29,7 +30,7 @@ export default function NoteViewPage(): ReactNode {
                     <div className="max-w-4xl">
                         <div>
                             <div className="flex items-center mb-2.5">
-                                <span className="bg-gray-100 text-gray-800 text-sm font-medium inline-flex items-center px-2.5 py-0.5 rounded mr-2 dark:bg-gray-700 dark:text-gray-300">
+                                <Badge className="bg-indigo-100 text-indigo-800 text-xs">
                                     {new Date(note?.created_at).toLocaleString(
                                         'tr-TR',
                                         {
@@ -40,12 +41,12 @@ export default function NoteViewPage(): ReactNode {
                                             minute: 'numeric',
                                         },
                                     )}
-                                </span>
-                                <span className="bg-blue-700 text-white text-sm font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+                                </Badge>
+                                <Badge className="bg-red-100 text-red-800 text-xs">
                                     {note?.is_everyone == true
                                         ? 'Herkes'
                                         : 'Sadece Ben'}
-                                </span>
+                                </Badge>
                             </div>
 
                             <div>

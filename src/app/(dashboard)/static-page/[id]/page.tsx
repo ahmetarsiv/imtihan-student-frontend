@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import { AppDispatch, useDispatch, useSelector } from '@/store';
 import { getStaticPage } from '@/store/slices/static-page';
 import { setTitle } from '@/store/slices/root';
+import { Badge } from '@codenteq/interfeys';
 
 export default function StaticPageViewPage() {
     const { id } = useParams();
@@ -35,17 +36,15 @@ export default function StaticPageViewPage() {
                         <div>
                             <div className="mb-2.5">
                                 <div>
-                                    <span className="bg-gray-100 text-gray-800 text-sm font-medium inline-flex items-center px-2.5 py-0.5 rounded mr-2 dark:bg-gray-700 dark:text-gray-300">
+                                    <Badge className="bg-indigo-100 text-indigo-800 text-xs">
                                         {new Date(
                                             staticPage?.created_at,
                                         ).toLocaleString('tr-TR', {
                                             year: 'numeric',
                                             month: 'long',
                                             day: 'numeric',
-                                            hour: 'numeric',
-                                            minute: 'numeric',
                                         })}
-                                    </span>
+                                    </Badge>
                                 </div>
                             </div>
 

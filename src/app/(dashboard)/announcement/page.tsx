@@ -78,8 +78,8 @@ export default function AnnouncementPage(): ReactNode {
                                             />
                                         </div>
                                         <div className="my-2">
-                                            <Badge
-                                                name={new Date(
+                                            <Badge className="bg-indigo-100 text-indigo-800 text-xs">
+                                                {new Date(
                                                     announcement?.created_at,
                                                 ).toLocaleString('tr-TR', {
                                                     year: 'numeric',
@@ -88,13 +88,23 @@ export default function AnnouncementPage(): ReactNode {
                                                     hour: 'numeric',
                                                     minute: 'numeric',
                                                 })}
-                                            />
+                                            </Badge>
                                         </div>
                                         <div>
-                                            <h3>{announcement?.name}</h3>
+                                            <h3>
+                                                {announcement?.name.slice(
+                                                    0,
+                                                    35,
+                                                )}
+                                            </h3>
                                             <p
                                                 dangerouslySetInnerHTML={{
-                                                    __html: announcement?.content,
+                                                    __html: announcement?.content
+                                                        ? announcement.content.slice(
+                                                              0,
+                                                              50,
+                                                          )
+                                                        : '',
                                                 }}
                                             />
                                         </div>

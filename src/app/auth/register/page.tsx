@@ -6,7 +6,6 @@ import GuestLayout from '@/layouts/GuestLayout';
 import Link from 'next/link';
 import { useAuth } from '@/hooks/auth';
 import React, { useState, useEffect } from 'react';
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { useSearchParams } from 'next/navigation';
 import { Button, Input, Label } from '@codenteq/interfeys';
 
@@ -23,7 +22,7 @@ const Register = () => {
         redirectIfAuthenticated: '/',
     });
 
-    const [isRevealPassword, setIsRevealPassword] = useState(false);
+    const [isRevealPassword] = useState(false);
 
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
@@ -138,20 +137,6 @@ const Register = () => {
                             autoComplete="new-password"
                             messages={errors.password}
                         />
-
-                        <div className="relative">
-                            <span
-                                className="absolute -top-9 right-0 flex pr-2 text-zinc-900 dark:text-zinc-300"
-                                onClick={() =>
-                                    setIsRevealPassword(prevState => !prevState)
-                                }>
-                                {isRevealPassword ? (
-                                    <EyeIcon className="w-6 h-6" />
-                                ) : (
-                                    <EyeSlashIcon className="w-6 h-6" />
-                                )}
-                            </span>
-                        </div>
                     </div>
 
                     {/* Confirm Password */}

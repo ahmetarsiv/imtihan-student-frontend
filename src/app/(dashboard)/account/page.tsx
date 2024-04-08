@@ -40,7 +40,9 @@ export default function AccountPage(): ReactNode {
                 <div className="grid grid-cols-1 gap-1">
                     <div className="border-b border-zinc-100 dark:border-zinc-900 p-5">
                         <div className="float-right cursor-pointer w-10 h-10 p-2">
-                            <Link href="/account/settings">
+                            <Link
+                                href="/account/settings"
+                                id="account-edit-btn">
                                 <PencilSquareIcon className="text-brand w-6 h-6" />
                             </Link>
                         </div>
@@ -109,6 +111,7 @@ export default function AccountPage(): ReactNode {
                     </div>
 
                     <div
+                        id={'logout-btn'}
                         onClick={logout}
                         className="border-b border-zinc-100 dark:border-zinc-900 hover:bg-zinc-100 focus:bg-zinc-100 dark:hover:bg-zinc-900 dark:focus:bg-zinc-900 w-full h-full p-5 cursor-pointer">
                         <ArrowLeftOnRectangleIcon className="text-brand w-6 h-6 mr-2 float-left" />

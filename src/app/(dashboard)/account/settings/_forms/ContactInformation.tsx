@@ -64,11 +64,11 @@ export default function ContactInformation() {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="grid gap-4 mb-6 lg:grid-cols-2">
                         <div>
-                            <Label htmlFor="phone">Cep telefon numarası</Label>
                             <Input
                                 {...register('phone')}
                                 type="tel"
                                 id="phone"
+                                label="Cep telefon numarası"
                                 minLength={9}
                                 maxLength={12}
                                 className="block my-1 w-full"
@@ -81,11 +81,11 @@ export default function ContactInformation() {
                         </div>
 
                         <div className="w-full">
-                            <Label>E-posta adresi</Label>
                             <Input
                                 value={user?.email}
                                 disabled
                                 type="email"
+                                label="E-posta adresi"
                                 className="block my-1 w-full"
                             />
                         </div>

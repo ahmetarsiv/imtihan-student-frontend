@@ -44,6 +44,7 @@ export default function MembershipInformation() {
     const {
         handleSubmit,
         register,
+        setValue,
         formState: { errors, isDirty },
     } = useForm<IMembershipInformationForm>({
         resolver: yupResolver(UserUpdateSchema),
@@ -54,7 +55,7 @@ export default function MembershipInformation() {
             country_id: user?.country_id,
             city_id: user?.city_id,
             state_id: user?.state_id,
-            birth_date: user?.birth_date,
+            birth_date: moment(user?.birth_date).format('YYYY-MM-DD') || '',
             education_level: user?.education_level,
         },
     });
@@ -91,6 +92,11 @@ export default function MembershipInformation() {
         }
         dispatch(getUser());
     }, [dispatch]);
+
+    useEffect(() => {
+        setValue('city_id', user?.city_id);
+        setValue('state_id', user?.state_id);
+    }, [user]);
 
     const handleDelete = () => {
         confirm('Emin misiniz?') && dispatch(deleteUser());

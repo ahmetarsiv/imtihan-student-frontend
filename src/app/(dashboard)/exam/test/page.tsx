@@ -56,6 +56,7 @@ export default function TestPage(): ReactNode {
     };
 
     const handleFinishExam = () => {
+        console.log('merh', exam?.exam_id);
         if (exam) {
             dispatch(storeAnswer(exam?.exam_id, answer)).then(() =>
                 router.push('/exam/result'),

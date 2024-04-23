@@ -11,7 +11,7 @@ import { Button, Input, Label } from '@codenteq/interfeys';
 import { useAuthContext } from '@/auth/hooks/useAuthContext';
 
 const ForgotPassword = () => {
-    const { forgotPassword } = useAuthContext();
+    const { forgotPassword, errorMessages } = useAuthContext();
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
 
@@ -20,16 +20,19 @@ const ForgotPassword = () => {
     };
 
     const [email, setEmail] = useState<string>('');
-    const [errors, setErrors] = useState<any>([]);
-    const [status, setStatus] = useState(null);
+    const [status, setStatus] = useState<string | null>(null);
 
     const submitForm = (event: { preventDefault: () => void }) => {
         setIsLoading(true);
         event.preventDefault();
 
         forgotPassword({ email })
+            .then(res => setStatus(res?.data?.status))
             .then(() => setIsLoading(false))
-            .catch(() => setIsLoading(false));
+            .catch(err => {
+                console.log(err);
+                setIsLoading(false);
+            });
     };
 
     return (
@@ -65,7 +68,7 @@ const ForgotPassword = () => {
                             onChange={event => setEmail(event.target.value)}
                             required
                             autoFocus
-                            messages={errors?.email}
+                            messages={errorMessages?.email}
                         />
                     </div>
 

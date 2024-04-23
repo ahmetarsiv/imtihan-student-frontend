@@ -57,21 +57,15 @@ export function AuthProvider({ children }: IAuthProviderProps) {
     }
 
     async function forgotPassword(data: IForgotPasswordForm) {
-        forgotPasswordAPI(data)
-            .then(data => data)
-            .catch(err => {
-                setErrorMessages(err.errors);
-                return err.response.data;
-            });
+        return forgotPasswordAPI(data).catch(err => {
+            setErrorMessages(err.errors);
+        });
     }
 
     async function resetPassword(data: IResetPasswordForm) {
-        resetPasswordAPI(data)
-            .then(data => data)
-            .catch(err => {
-                setErrorMessages(err.errors);
-                return err.response.data;
-            });
+        return resetPasswordAPI(data).catch(err => {
+            setErrorMessages(err.errors);
+        });
     }
 
     async function resendEmailVerification() {

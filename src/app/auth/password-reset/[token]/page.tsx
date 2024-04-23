@@ -6,19 +6,23 @@ import AuthSessionStatus from '@/components/AuthSessionStatus';
 import GuestLayout from '@/layouts/GuestLayout';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { Button, Input } from '@codenteq/interfeys';
 import { useAuthContext } from '@/auth/hooks/useAuthContext';
 
 const PasswordReset = () => {
     const searchParams = useSearchParams();
+    const { push } = useRouter();
     const [isLoading, setIsLoading] = useState(false);
+    const { token } = useParams();
+    const passwordResetToken = token as string;
 
-    const { resetPassword, status, errorMessages } = useAuthContext();
+    const { resetPassword, errorMessages } = useAuthContext();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
+    const [status, setStatus] = useState<string | null>(null);
 
     const submitForm = (event: React.FormEvent) => {
         setIsLoading(true);
@@ -28,8 +32,17 @@ const PasswordReset = () => {
             email,
             password,
             password_confirmation: passwordConfirmation,
+            token: passwordResetToken,
         })
-            .then(() => setIsLoading(false))
+            .then(res => {
+                setStatus(res?.data?.status);
+                setIsLoading(false);
+                if (res.status === 200) {
+                    setTimeout(() => {
+                        push('/auth/login');
+                    }, 1500);
+                }
+            })
             .catch(() => setIsLoading(false));
     };
 
@@ -62,7 +75,7 @@ const PasswordReset = () => {
                             onChange={event => setEmail(event.target.value)}
                             required
                             autoFocus
-                            messages={errorMessages.email}
+                            messages={errorMessages?.email}
                         />
                     </div>
 
@@ -76,7 +89,7 @@ const PasswordReset = () => {
                             placeholder="Şifre"
                             onChange={event => setPassword(event.target.value)}
                             required
-                            messages={errorMessages.password}
+                            messages={errorMessages?.password}
                         />
                     </div>
 
@@ -92,7 +105,7 @@ const PasswordReset = () => {
                                 setPasswordConfirmation(event.target.value)
                             }
                             required
-                            messages={errorMessages.password_confirmation}
+                            messages={errorMessages?.password_confirmation}
                         />
                     </div>
 

@@ -5,13 +5,13 @@ import AuthCard from '@/components/AuthCard';
 import AuthSessionStatus from '@/components/AuthSessionStatus';
 import GuestLayout from '@/layouts/GuestLayout';
 import Link from 'next/link';
-import { useAuth } from '@/hooks/auth';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button, Input, Label } from '@codenteq/interfeys';
+import { useAuthContext } from '@/auth/hooks/useAuthContext';
 
 const ForgotPassword = () => {
-    const { forgotPassword } = useAuth({ middleware: 'guest' });
+    const { forgotPassword } = useAuthContext();
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
 
@@ -27,7 +27,9 @@ const ForgotPassword = () => {
         setIsLoading(true);
         event.preventDefault();
 
-        forgotPassword({ email, setErrors, setStatus });
+        forgotPassword({ email })
+            .then(() => setIsLoading(false))
+            .catch(() => setIsLoading(false));
     };
 
     return (

@@ -5,24 +5,20 @@ import AuthCard from '@/components/AuthCard';
 import AuthSessionStatus from '@/components/AuthSessionStatus';
 import GuestLayout from '@/layouts/GuestLayout';
 import Link from 'next/link';
-import { useAuth } from '@/hooks/auth';
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Button, Input } from '@codenteq/interfeys';
+import { useAuthContext } from '@/auth/hooks/useAuthContext';
 
 const PasswordReset = () => {
     const searchParams = useSearchParams();
     const [isLoading, setIsLoading] = useState(false);
 
-    const { resetPassword } = useAuth({
-        middleware: 'guest',
-    });
+    const { resetPassword, status, errorMessages } = useAuthContext();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
-    const [errors, setErrors] = useState<any>([]);
-    const [status, setStatus] = useState<string | null>(null);
 
     const submitForm = (event: React.FormEvent) => {
         setIsLoading(true);
@@ -32,9 +28,9 @@ const PasswordReset = () => {
             email,
             password,
             password_confirmation: passwordConfirmation,
-            setErrors,
-            setStatus,
-        });
+        })
+            .then(() => setIsLoading(false))
+            .catch(() => setIsLoading(false));
     };
 
     useEffect(() => {
@@ -66,7 +62,7 @@ const PasswordReset = () => {
                             onChange={event => setEmail(event.target.value)}
                             required
                             autoFocus
-                            messages={errors.email}
+                            messages={errorMessages.email}
                         />
                     </div>
 
@@ -80,7 +76,7 @@ const PasswordReset = () => {
                             placeholder="Şifre"
                             onChange={event => setPassword(event.target.value)}
                             required
-                            messages={errors.password}
+                            messages={errorMessages.password}
                         />
                     </div>
 
@@ -96,7 +92,7 @@ const PasswordReset = () => {
                                 setPasswordConfirmation(event.target.value)
                             }
                             required
-                            messages={errors.password_confirmation}
+                            messages={errorMessages.password_confirmation}
                         />
                     </div>
 

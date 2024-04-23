@@ -4,23 +4,21 @@ import ApplicationLogo from '@/components/ApplicationLogo';
 import AuthCard from '@/components/AuthCard';
 import GuestLayout from '@/layouts/GuestLayout';
 import Link from 'next/link';
-import { useAuth } from '@/hooks/auth';
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Button, Input, Label } from '@codenteq/interfeys';
+import { useAuthContext } from '@/auth/hooks/useAuthContext';
 
 const Register = () => {
     const searchParams = useSearchParams();
     const [isLoading, setIsLoading] = useState(false);
+    const { push } = useRouter();
 
     const handleGoogleLogin = () => {
         window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/google`;
     };
 
-    const { register } = useAuth({
-        middleware: 'guest',
-        redirectIfAuthenticated: '/',
-    });
+    const { register, errorMessages } = useAuthContext();
 
     const [isRevealPassword] = useState(false);
 
@@ -28,7 +26,6 @@ const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
-    const [errors, setErrors] = useState<any>([]);
 
     const submitForm = (event: { preventDefault: () => void }) => {
         setIsLoading(true);
@@ -39,8 +36,12 @@ const Register = () => {
             email,
             password,
             password_confirmation: passwordConfirmation,
-            setErrors,
-        });
+        })
+            .then(() => {
+                setIsLoading(false);
+                push('/');
+            })
+            .catch(() => setIsLoading(false));
     };
 
     useEffect(() => {
@@ -106,7 +107,7 @@ const Register = () => {
                             onChange={event => setFullName(event.target.value)}
                             required
                             autoFocus
-                            messages={errors.name}
+                            messages={errorMessages.name}
                         />
                     </div>
 
@@ -120,7 +121,7 @@ const Register = () => {
                             placeholder="Eposta"
                             onChange={event => setEmail(event.target.value)}
                             required
-                            messages={errors.email}
+                            messages={errorMessages.email}
                         />
                     </div>
 
@@ -135,7 +136,7 @@ const Register = () => {
                             onChange={event => setPassword(event.target.value)}
                             required
                             autoComplete="new-password"
-                            messages={errors.password}
+                            messages={errorMessages.password}
                         />
                     </div>
 
@@ -151,7 +152,7 @@ const Register = () => {
                                 setPasswordConfirmation(event.target.value)
                             }
                             required
-                            messages={errors.password_confirmation}
+                            messages={errorMessages.password_confirmation}
                         />
                     </div>
 

@@ -4,10 +4,10 @@ import ApplicationLogo from '@/components/ApplicationLogo';
 import AuthCard from '@/components/AuthCard';
 import GuestLayout from '@/layouts/GuestLayout';
 import Link from 'next/link';
-import { useAuth } from '@/hooks/auth';
+import { useAuthContext } from '@/auth/hooks/useAuthContext';
 
 const WaitList = () => {
-    const { logout } = useAuth();
+    const { logout } = useAuthContext();
     return (
         <GuestLayout>
             <AuthCard

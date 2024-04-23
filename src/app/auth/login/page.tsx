@@ -5,35 +5,33 @@ import AuthCard from '@/components/AuthCard';
 import AuthSessionStatus from '@/components/AuthSessionStatus';
 import GuestLayout from '@/layouts/GuestLayout';
 import Link from 'next/link';
-import { useAuth } from '@/hooks/auth';
 import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Button, Input, Label, Switch } from '@codenteq/interfeys';
+import { useAuthContext } from '@/auth/hooks/useAuthContext';
 
 export default function LoginPage() {
     const params = useSearchParams();
+    const { push } = useRouter();
     const [isLoading, setIsLoading] = useState(false);
+
+    const { login, errorMessages } = useAuthContext();
 
     const handleGoogleLogin = () => {
         window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/google`;
     };
-
-    const { login } = useAuth({
-        middleware: 'guest',
-        redirectIfAuthenticated: '/',
-    });
 
     const [isRevealPassword] = useState(false);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [shouldRemember, setShouldRemember] = useState(false);
-    const [errors, setErrors] = useState<any>([]);
+
     const [status, setStatus] = useState<string | null>(null);
 
     useEffect(() => {
         const reset = params.get('reset');
-        if (reset && reset.length > 0 && errors.length === 0) {
+        if (reset && reset.length > 0 && errorMessages?.length === 0) {
             setStatus(atob(reset as string));
         } else {
             setStatus(null);
@@ -41,17 +39,24 @@ export default function LoginPage() {
     }, []);
 
     const submitForm = async (event: React.FormEvent<HTMLFormElement>) => {
-        setIsLoading(true);
         event.preventDefault();
+        setIsLoading(true);
 
-        await login({
+        login({
             email,
             password,
             remember: shouldRemember,
-            setErrors,
-            setStatus,
-        });
+        })
+            .then(() => {
+                push('/');
+                setIsLoading(false);
+            })
+            .catch(() => setIsLoading(false));
     };
+
+    useEffect(() => {
+        console.log(errorMessages);
+    }, [errorMessages]);
 
     return (
         <GuestLayout>
@@ -110,7 +115,7 @@ export default function LoginPage() {
                             onChange={event => setEmail(event.target.value)}
                             required
                             autoFocus
-                            messages={errors?.email}
+                            messages={errorMessages?.email}
                         />
                     </div>
 
@@ -125,7 +130,7 @@ export default function LoginPage() {
                             onChange={event => setPassword(event.target.value)}
                             required
                             autoComplete="current-password"
-                            messages={errors.password}
+                            messages={errorMessages?.password}
                         />
 
                         {/* Session Status */}

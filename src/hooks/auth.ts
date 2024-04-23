@@ -2,31 +2,10 @@ import useSWR from 'swr';
 import axios from '@/lib/axios';
 import { useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-
-interface IUser {
-    id: number;
-    full_name: string;
-    email: string;
-    phone: string;
-    address: string;
-    birth_date: Date;
-    country_id: number;
-    city_id: number;
-    state_id: number;
-    is_active: boolean;
-    language_id: number;
-    avatar: string;
-    gender: string;
-    education_level: string;
-    email_verified_at: Date;
-    role: string;
-    created_at: Date;
-    updated_at: Date;
-    deleted_at: Date;
-}
+import { IAuthUserResponse } from '@/types/IAuth';
 
 export interface AuthHook {
-    user: IUser | null;
+    user: IAuthUserResponse | null;
     // eslint-disable-next-line no-unused-vars
     register: (args: any) => Promise<void>;
     // eslint-disable-next-line no-unused-vars
@@ -56,7 +35,7 @@ export const useAuth = ({
         data: user,
         error,
         mutate,
-    } = useSWR<IUser | null>('/api/user', () =>
+    } = useSWR<IAuthUserResponse | null>('/api/user', () =>
         axios
             .get('/api/user')
             .then((res: any) => res.data)

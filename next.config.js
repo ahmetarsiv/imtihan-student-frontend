@@ -3,7 +3,7 @@ require('dotenv').config();
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     output: 'standalone',
-    reactStrictMode: true,
+    reactStrictMode: false,
     i18n: {
         locales: ['tr'],
         defaultLocale: 'tr',

@@ -4,17 +4,20 @@ import ApplicationLogo from '@/components/ApplicationLogo';
 import AuthCard from '@/components/AuthCard';
 import GuestLayout from '@/layouts/GuestLayout';
 import Link from 'next/link';
-import { useAuth } from '@/hooks/auth';
 import { useState } from 'react';
 import { Button } from '@codenteq/interfeys';
+import { useAuthContext } from '@/auth/hooks/useAuthContext';
 
 const VerifyEmail = () => {
-    const { logout, resendEmailVerification } = useAuth({
-        middleware: 'auth',
-        redirectIfAuthenticated: '/',
-    });
+    const { logout, resendEmailVerification } = useAuthContext();
 
     const [status, setStatus] = useState(null);
+
+    const handleResendEmailVerification = () => {
+        resendEmailVerification().then(res => {
+            setStatus(res.data.status);
+        });
+    };
 
     return (
         <GuestLayout>
@@ -44,7 +47,7 @@ const VerifyEmail = () => {
                     <Button
                         type={'submit'}
                         label={'Doğrulamayı Yeniden Gönder'}
-                        onClick={() => resendEmailVerification({ setStatus })}
+                        onClick={handleResendEmailVerification}
                     />
 
                     <button

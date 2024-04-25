@@ -9,17 +9,14 @@ const axios: AxiosInstance = Axios.create({
     withXSRFToken: true,
 });
 
+/*
 axios.interceptors.response.use(
-    response => response,
-    error => {
-        if (error.response.status === 403) {
-            axios.post('/logout').then(() => {
-                window.location.href = '/auth/login';
-            });
-        }
-
-        return Promise.reject(error);
-    },
+    res => res,
+    error =>
+        Promise.reject(
+            (error.response && error.response.data) || 'Something went wrong',
+        ),
 );
+*/
 
 export default axios;

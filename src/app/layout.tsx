@@ -7,6 +7,9 @@ import { Progress } from '@/components/progress/Progress';
 import { Provider as ReduxProvider } from 'react-redux';
 import { store } from '@/store';
 import { ThemeProvider } from 'next-themes';
+import { AuthProvider } from '@/auth/context/AuthProvider';
+import AxiosWrapper from '@/components/AxiosWrapper';
+import { AuthConsumer } from '@/auth/context/AuthConsumer';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -16,8 +19,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <body className={inter.className}>
                 <ThemeProvider enableSystem={true} attribute="class">
                     <ReduxProvider store={store}>
-                        <Progress />
-                        {children}
+                        <AuthProvider>
+                            <AuthConsumer>
+                                <AxiosWrapper>
+                                    <Progress />
+                                    {children}
+                                </AxiosWrapper>
+                            </AuthConsumer>
+                        </AuthProvider>
                     </ReduxProvider>
                 </ThemeProvider>
             </body>

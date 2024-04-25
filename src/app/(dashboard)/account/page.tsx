@@ -10,7 +10,6 @@ import {
     PencilSquareIcon,
     UserIcon,
 } from '@heroicons/react/24/outline';
-import { useAuth } from '@/hooks/auth';
 import Footer from '@/layouts/Footer';
 import ThemeToggle from '@/components/ThemeToggle';
 import config from '@/config/menu';
@@ -20,9 +19,10 @@ import { AppDispatch, useDispatch } from '@/store';
 import { setTitle } from '@/store/slices/root';
 import InviteFriends from '@/components/InviteFriends';
 import ViewModal from '@/app/(dashboard)/account/_forms/ViewModal';
+import { useAuthContext } from '@/auth/hooks/useAuthContext';
 
 export default function AccountPage(): ReactNode {
-    const { user, logout } = useAuth();
+    const { user, logout } = useAuthContext();
     const dispatch: AppDispatch = useDispatch();
     const [openViewModal, setOpenViewModal] = useState<boolean>(false);
 

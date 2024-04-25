@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import menuConfig, { IMenuItem } from '@/config/menu';
 import { Avatar } from '@codenteq/interfeys';
-import { useAuth } from '@/hooks/auth';
+import { useAuthContext } from '@/auth/hooks/useAuthContext';
 
 interface SidebarProps {
     className?: string;
@@ -13,12 +13,12 @@ interface SidebarProps {
 export default function Sidebar({ className }: SidebarProps) {
     const path = usePathname();
     const menus = menuConfig.desktop;
-    const { user } = useAuth();
+    const { user } = useAuthContext();
 
     const userSplit: string =
         user?.full_name
             .split(' ')
-            .map(name => name[0])
+            .map((name: any) => name[0])
             .join('') || '';
 
     return (

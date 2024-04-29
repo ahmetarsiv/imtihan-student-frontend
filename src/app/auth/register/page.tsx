@@ -107,7 +107,7 @@ const Register = () => {
                             onChange={event => setFullName(event.target.value)}
                             required
                             autoFocus
-                            messages={errorMessages.name}
+                            messages={errorMessages?.name}
                         />
                     </div>
 
@@ -121,7 +121,7 @@ const Register = () => {
                             placeholder="Eposta"
                             onChange={event => setEmail(event.target.value)}
                             required
-                            messages={errorMessages.email}
+                            messages={errorMessages?.email}
                         />
                     </div>
 
@@ -136,7 +136,7 @@ const Register = () => {
                             onChange={event => setPassword(event.target.value)}
                             required
                             autoComplete="new-password"
-                            messages={errorMessages.password}
+                            messages={errorMessages?.password}
                         />
                     </div>
 
@@ -152,7 +152,7 @@ const Register = () => {
                                 setPasswordConfirmation(event.target.value)
                             }
                             required
-                            messages={errorMessages.password_confirmation}
+                            messages={errorMessages?.password_confirmation}
                         />
                     </div>
 

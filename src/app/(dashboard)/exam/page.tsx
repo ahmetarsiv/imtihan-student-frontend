@@ -88,7 +88,7 @@ export default function ClassSchedulePage(): ReactNode {
                                     onClick={() =>
                                         handleExamCreate(examType.id)
                                     }>
-                                    <Card>
+                                    <Card className="exam">
                                         <div>
                                             <Image
                                                 className="rounded-lg mt-2"

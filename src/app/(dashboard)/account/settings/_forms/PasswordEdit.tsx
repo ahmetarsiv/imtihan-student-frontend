@@ -38,8 +38,8 @@ export default function PasswordEdit() {
                 toast.success('Başarıyla güncellendi!');
             })
             .catch((err: any) => {
-                toast.error(err?.response?.data?.message);
                 console.log(err);
+                toast.error(err?.message);
             });
     };
 

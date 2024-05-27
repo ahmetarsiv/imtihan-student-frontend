@@ -1,7 +1,7 @@
 {
   "name": "imtihan-student-frontend",
   "description": "The Next.js E-Exam",
-  "version": "0.22.0",
+  "version": "0.24.0",
   "private": true,
   "scripts": {
     "dev": "next dev",

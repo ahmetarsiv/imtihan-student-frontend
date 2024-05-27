@@ -1,6 +1,6 @@
 'use client';
 
-import React, { ReactNode, useEffect } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { AppDispatch, useDispatch, useSelector } from '@/store';
 import { setTitle } from '@/store/slices/root';
 import Image from 'next/image';
@@ -14,12 +14,15 @@ import Link from 'next/link';
 import { Badge, Button, Card, InfoCard, Label } from '@codenteq/interfeys';
 import LottieAnimation from '@/components/LottieAnimation';
 import Lottie from '../../../../public/lottie/animation_llpjjjsc.json';
+import CreateCustomExamModal from '@/app/(dashboard)/exam/_modal/CreateCustomExam';
 
 export default function ClassSchedulePage(): ReactNode {
     const dispatch: AppDispatch = useDispatch();
     const router = useRouter();
 
     const { examTypes, isLoading } = useSelector(state => state.examType);
+    const [openCreateCustomExamModal, setOpenCreateCustomExamModal] =
+        useState<boolean>(false);
 
     useEffect(() => {
         dispatch(setTitle('İmtihanlar'));
@@ -47,6 +50,11 @@ export default function ClassSchedulePage(): ReactNode {
     return (
         <>
             <main>
+                <CreateCustomExamModal
+                    open={openCreateCustomExamModal}
+                    setIsOpen={setOpenCreateCustomExamModal}
+                />
+
                 <div className="flex items-center justify-end p-4">
                     <div className="w-full md:w-auto flex md:flex-row flex-col gap-2">
                         <Link href={'/exam/result'}>
@@ -56,13 +64,13 @@ export default function ClassSchedulePage(): ReactNode {
                                 label={'Sonuçlarım'}
                             />
                         </Link>
-                        <Link href={'/exam/create'}>
-                            <Button
-                                className="w-full"
-                                type={'button'}
-                                label={'İmtihan ol'}
-                            />
-                        </Link>
+                        <Button
+                            id="custom-exam-btn"
+                            className="w-full"
+                            type={'button'}
+                            onClick={() => setOpenCreateCustomExamModal(true)}
+                            label={'İmtihan ol'}
+                        />
                     </div>
                 </div>
 

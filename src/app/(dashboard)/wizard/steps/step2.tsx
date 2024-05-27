@@ -30,14 +30,9 @@ export default function Step2({ onNext, onPrev }: Step2Props): ReactNode {
                         name="country_id"
                         label="Ülke"
                         className="w-full"
-                        options={[
-                            {
-                                label: 'Türkiye',
-                                value: 0,
-                            },
-                        ]}
-                        placeholder="Choose"
-                    />
+                        placeholder="Choose">
+                        <option value="0">Türkiye</option>
+                    </Select>
                 </div>
 
                 <div>
@@ -45,14 +40,9 @@ export default function Step2({ onNext, onPrev }: Step2Props): ReactNode {
                         name="city_id"
                         label="Şehir"
                         className="w-full"
-                        options={[
-                            {
-                                label: 'Adana',
-                                value: 0,
-                            },
-                        ]}
-                        placeholder="Choose"
-                    />
+                        placeholder="Choose">
+                        <option value="0">Adana</option>
+                    </Select>
                 </div>
 
                 <div>
@@ -60,14 +50,9 @@ export default function Step2({ onNext, onPrev }: Step2Props): ReactNode {
                         name="state_id"
                         label="İlçe"
                         className="w-full"
-                        options={[
-                            {
-                                label: 'Merkez',
-                                value: 0,
-                            },
-                        ]}
-                        placeholder="Choose"
-                    />
+                        placeholder="Choose">
+                        <option value="0">Seyhan</option>
+                    </Select>
                 </div>
             </div>
 

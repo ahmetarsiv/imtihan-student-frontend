@@ -12,6 +12,7 @@ import root from '@/store/slices/root';
 import examType from '@/store/slices/exam-type';
 import exam from '@/store/slices/exam';
 import examResult from '@/store/slices/exam-result';
+import questionCategory from '@/store/slices/question-category';
 
 export interface IRootState {
     root: ReturnType<typeof root>;
@@ -20,6 +21,7 @@ export interface IRootState {
     exam: ReturnType<typeof exam>;
     examType: ReturnType<typeof examType>;
     examResult: ReturnType<typeof examResult>;
+    questionCategory: ReturnType<typeof questionCategory>;
     support: ReturnType<typeof support>;
     announcement: ReturnType<typeof announcement>;
     classSchedule: ReturnType<typeof classSchedule>;
@@ -36,6 +38,7 @@ const rootReducer: Reducer<IRootState> = combineReducers({
     exam,
     examType,
     examResult,
+    questionCategory,
     support,
     announcement,
     classSchedule,

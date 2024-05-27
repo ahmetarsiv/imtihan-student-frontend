@@ -169,7 +169,9 @@ export default function TestPage(): ReactNode {
                     </div>
 
                     <div className="w-full lg:w-3/6 py-5">
-                        <ul className="lg:h-[calc(100svh-200px)] grid gap-3 content-center list-none">
+                        <ul
+                            id="answers"
+                            className="lg:h-[calc(100svh-200px)] grid gap-3 content-center list-none">
                             {exam?.questions[nextQuestion]?.options?.map(
                                 (option: IOption) => (
                                     <li
@@ -195,7 +197,7 @@ export default function TestPage(): ReactNode {
                         {exam?.questions[nextQuestion]?.category.name}
                     </h3>
                     <Label>
-                        Soru {nextQuestion + 1}/{exam?.questions.length}
+                        Soru {nextQuestion + 1}/{exam?.questions?.length}
                     </Label>
                 </div>
 

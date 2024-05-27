@@ -36,8 +36,9 @@ export function createExam(data: IExamForm) {
         await dispatch(slice.actions.startLoading());
         try {
             const res = await axios.post('/api/student/exams/', data);
+            console.log(res.data);
             dispatch(slice.actions.create(res.data));
-        } catch (error) {
+        } finally {
             dispatch(slice.actions.endLoading());
         }
     };
@@ -51,7 +52,7 @@ export function storeAnswer(exam_id: number, data: IExamAnswer[]) {
                 answers: data,
             });
             dispatch(slice.actions.endLoading());
-        } catch (error) {
+        } finally {
             dispatch(slice.actions.endLoading());
         }
     };
@@ -63,7 +64,7 @@ export function deleteExam(exam_id: number) {
         try {
             await axios.delete('/api/student/exams/' + exam_id);
             dispatch(slice.actions.endLoading());
-        } catch (error) {
+        } finally {
             dispatch(slice.actions.endLoading());
         }
     };

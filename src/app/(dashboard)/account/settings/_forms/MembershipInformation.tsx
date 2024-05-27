@@ -131,19 +131,11 @@ export default function MembershipInformation() {
                                 id="gender"
                                 label="Cinsiyet"
                                 className="block mt-1 w-full"
-                                options={[
-                                    {
-                                        label: 'Erkek',
-                                        value: Gender.MALE,
-                                    },
-                                    {
-                                        label: 'Kadın',
-                                        value: Gender.FEMALE,
-                                    },
-                                ]}
                                 placeholder="Choose"
-                                messages={errors.gender?.message}
-                            />
+                                messages={errors.gender?.message}>
+                                <option value={Gender.MALE}>Erkek</option>
+                                <option value={Gender.FEMALE}>Kadın</option>
+                            </Select>
                         </div>
 
                         <div className="w-full">
@@ -164,16 +156,14 @@ export default function MembershipInformation() {
                                 label="Ülke"
                                 onChange={handleCountryChange}
                                 className="block mt-1 w-full"
-                                options={countries.map(
-                                    (country: ICountryResponse) => ({
-                                        key: country.id,
-                                        label: country.name,
-                                        value: country.id,
-                                    }),
-                                )}
                                 placeholder="Choose"
-                                messages={errors.country_id?.message}
-                            />
+                                messages={errors.country_id?.message}>
+                                {countries.map((country: ICountryResponse) => (
+                                    <option key={country.id} value={country.id}>
+                                        {country.name}
+                                    </option>
+                                ))}
+                            </Select>
                         </div>
 
                         <div className="w-full">
@@ -183,14 +173,14 @@ export default function MembershipInformation() {
                                 label="Şehir"
                                 onChange={handleCityChange}
                                 className="block mt-1 w-full"
-                                options={cities.map((city: ICityResponse) => ({
-                                    key: city.id,
-                                    label: city.name,
-                                    value: city.id,
-                                }))}
                                 placeholder="Choose"
-                                messages={errors.city_id?.message}
-                            />
+                                messages={errors.city_id?.message}>
+                                {cities.map((city: ICityResponse) => (
+                                    <option key={city.id} value={city.id}>
+                                        {city.name}
+                                    </option>
+                                ))}
+                            </Select>
                         </div>
 
                         <div className="w-full">
@@ -199,16 +189,14 @@ export default function MembershipInformation() {
                                 id="state_id"
                                 label="İlçe"
                                 className="block mt-1 w-full"
-                                options={states.map(
-                                    (state: IStateResponse) => ({
-                                        key: state.id,
-                                        label: state.name,
-                                        value: state.id,
-                                    }),
-                                )}
                                 placeholder="Choose"
-                                messages={errors.state_id?.message}
-                            />
+                                messages={errors.state_id?.message}>
+                                {states.map((state: IStateResponse) => (
+                                    <option key={state.id} value={state.id}>
+                                        {state.name}
+                                    </option>
+                                ))}
+                            </Select>
                         </div>
 
                         <div>
@@ -217,27 +205,21 @@ export default function MembershipInformation() {
                                 id="education_level"
                                 label="Eğitim Seviyesi"
                                 className="block mt-1 w-full"
-                                options={[
-                                    {
-                                        label: 'İlkokul',
-                                        value: EducationLevel.PRIMARY,
-                                    },
-                                    {
-                                        label: 'Orta okul',
-                                        value: EducationLevel.MIDDLE,
-                                    },
-                                    {
-                                        label: 'Lise',
-                                        value: EducationLevel.HIGH,
-                                    },
-                                    {
-                                        label: 'Üniversite',
-                                        value: EducationLevel.UNIVERSITY,
-                                    },
-                                ]}
                                 placeholder="Choose"
-                                messages={errors.education_level?.message}
-                            />
+                                messages={errors.education_level?.message}>
+                                <option value={EducationLevel.PRIMARY}>
+                                    İlkokul
+                                </option>
+                                <option value={EducationLevel.MIDDLE}>
+                                    Ortaokul
+                                </option>
+                                <option value={EducationLevel.HIGH}>
+                                    Lise
+                                </option>
+                                <option value={EducationLevel.UNIVERSITY}>
+                                    Üniversite
+                                </option>
+                            </Select>
                         </div>
 
                         <div className="w-full">

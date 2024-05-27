@@ -40,26 +40,14 @@ export default function Step1({ onNext }: Step1Props): ReactNode {
                         name="education_level"
                         label="Eğitim Seviyesi"
                         className="w-full"
-                        options={[
-                            {
-                                label: 'İlkokul',
-                                value: EducationLevel.PRIMARY,
-                            },
-                            {
-                                label: 'Orta okul',
-                                value: EducationLevel.MIDDLE,
-                            },
-                            {
-                                label: 'Lise',
-                                value: EducationLevel.HIGH,
-                            },
-                            {
-                                label: 'Üniversite',
-                                value: EducationLevel.UNIVERSITY,
-                            },
-                        ]}
-                        placeholder="Choose"
-                    />
+                        placeholder="Choose">
+                        <option value={EducationLevel.PRIMARY}>İlkokul</option>
+                        <option value={EducationLevel.MIDDLE}>Ortaokul</option>
+                        <option value={EducationLevel.HIGH}>Lise</option>
+                        <option value={EducationLevel.UNIVERSITY}>
+                            Üniversite
+                        </option>
+                    </Select>
                 </div>
 
                 <div>
@@ -67,18 +55,10 @@ export default function Step1({ onNext }: Step1Props): ReactNode {
                         name="gender"
                         label="Cinsiyet"
                         className="w-full"
-                        options={[
-                            {
-                                label: 'Erkek',
-                                value: Gender.MALE,
-                            },
-                            {
-                                label: 'Kadın',
-                                value: Gender.FEMALE,
-                            },
-                        ]}
-                        placeholder="Choose"
-                    />
+                        placeholder="Choose">
+                        <option value={Gender.MALE}>Erkek</option>
+                        <option value={Gender.FEMALE}>Kadın</option>
+                    </Select>
                 </div>
 
                 <div>
@@ -86,14 +66,9 @@ export default function Step1({ onNext }: Step1Props): ReactNode {
                         name="language_id"
                         label="Dil"
                         className="w-full"
-                        options={[
-                            {
-                                label: 'Türkçe',
-                                value: 0,
-                            },
-                        ]}
-                        placeholder="Choose"
-                    />
+                        placeholder="Choose">
+                        <option value="1">Türkçe</option>
+                    </Select>
                 </div>
             </div>
 

@@ -9,6 +9,7 @@ import {
     DevicePhoneMobileIcon,
     PencilSquareIcon,
     UserIcon,
+    XCircleIcon,
 } from '@heroicons/react/24/outline';
 import Footer from '@/layouts/Footer';
 import ThemeToggle from '@/components/ThemeToggle';
@@ -64,7 +65,7 @@ export default function AccountPage(): ReactNode {
                             </span>
                         ) : (
                             <span className="text-red-600 dark:text-red-500 float-right">
-                                <CheckCircleIcon className="w-6 h-6" />
+                                <XCircleIcon className="w-6 h-6" />
                             </span>
                         )}
                     </div>

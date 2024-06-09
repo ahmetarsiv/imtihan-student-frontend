@@ -4,7 +4,6 @@ import React, { ReactNode, useEffect, useState } from 'react';
 import { AppDispatch, useDispatch, useSelector } from '@/store';
 import { setTitle } from '@/store/slices/root';
 import Image from 'next/image';
-import Placeholder from '../../../../public/placeholder.png';
 import { getExamTypes } from '@/store/slices/exam-type';
 import { IExamTypeResponse } from '@/types/IExamType';
 import { createExam } from '@/store/slices/exam';
@@ -100,7 +99,11 @@ export default function ClassSchedulePage(): ReactNode {
                                         <div>
                                             <Image
                                                 className="rounded-lg mt-2"
-                                                src={Placeholder}
+                                                src={
+                                                    'https://via.placeholder.com/1400x800?text=imtihan'
+                                                }
+                                                width={1400}
+                                                height={800}
                                                 alt={'Placeholder'}
                                             />
                                         </div>

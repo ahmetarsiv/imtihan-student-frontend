@@ -8,7 +8,7 @@ import { AppDispatch, useDispatch, useSelector } from '@/store';
 import React from 'react';
 import { updatePassword } from '@/store/slices/user';
 import { IUpdatePasswordForm } from '@/types/IUser';
-import { Button, InfoCard, Input } from '@codenteq/interfeys';
+import { Button, InfoCard, Input, Label } from '@codenteq/interfeys';
 import Link from 'next/link';
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 
@@ -46,6 +46,10 @@ export default function PasswordEdit() {
     return (
         <>
             <div className="mt-16">
+                <Label className="mb-6">
+                    Şifreniz en az bir harf, rakam veya özel karakter içermeli.
+                    Ayrıca şifreniz en az 8 karakterden oluşmalı.
+                </Label>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="flex flex-col gap-4 mb-6">
                         <div>

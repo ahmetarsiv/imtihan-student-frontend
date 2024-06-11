@@ -29,6 +29,7 @@ export interface IMembershipInformationForm {
 
 export interface IContactInformationForm {
     phone: string;
+    email: string;
 }
 
 export interface IUpdatePasswordForm {

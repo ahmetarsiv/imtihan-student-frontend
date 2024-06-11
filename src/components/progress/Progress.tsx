@@ -1,24 +1,40 @@
 'use client';
 
-import React, { useState, useEffect, ReactNode } from 'react';
+import { useEffect } from 'react';
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
+import { usePathname, useSearchParams } from 'next/navigation';
 
-export const Progress = (): ReactNode => {
-    const [isLoading, setIsLoading] = useState(false);
+const Progress = () => {
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
 
     useEffect(() => {
-        const startLoading = () => setIsLoading(true);
-        const stopLoading = () => setIsLoading(false);
+        const handleStart = () => {
+            NProgress.start();
+        };
+        const handleStop = () => {
+            NProgress.done();
+        };
 
-        window.addEventListener('load', stopLoading);
-        window.addEventListener('beforeunload', startLoading);
+        handleStart();
+        handleStop();
 
         return () => {
-            window.removeEventListener('load', stopLoading);
-            window.removeEventListener('beforeunload', startLoading);
+            handleStop();
         };
-    }, []);
+    }, [pathname, searchParams]);
 
-    return isLoading ? (
-        <div className="bg-brand h-1 w-full fixed left-0 top-0 z-[100]" />
-    ) : null;
+    return (
+        <style jsx global>{`
+            #nprogress .bar {
+                z-index: 50;
+                width: 100%;
+                height: 0.25rem;
+                background: #0c6ba8;
+            }
+        `}</style>
+    );
 };
+
+export default Progress;

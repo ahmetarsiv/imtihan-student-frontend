@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Input, Modal, Select, Textarea } from '@codenteq/interfeys';
+import { Button, Modal, Select } from '@codenteq/interfeys';
 import { useEffect, useState } from 'react';
 import { createExam } from '@/store/slices/exam';
 import toast from 'react-hot-toast';

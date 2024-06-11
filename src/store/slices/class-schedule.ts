@@ -1,17 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppDispatch } from '@/store';
 import axios from '@/lib/axios';
-import { IClassScheduleResponse } from '@/types/IClassSchedule';
+import {
+    IClassScheduleForm,
+    IClassScheduleResponse,
+} from '@/types/IClassSchedule';
 import { IBasePaginate, IPaginate } from '@/types/IPaginate';
 
-interface ClassScheduleState {
+export interface IClassSchedulesState {
     isLoading: boolean;
     classSchedules: IClassScheduleResponse[];
     classSchedule: IClassScheduleResponse | null;
     meta: IBasePaginate | null;
 }
 
-const initialState: ClassScheduleState = {
+const initialState: IClassSchedulesState = {
     isLoading: false,
     classSchedules: [],
     classSchedule: null,
@@ -33,6 +36,7 @@ const slice = createSlice({
             action: PayloadAction<IPaginate<IClassScheduleResponse>>,
         ) => {
             state.isLoading = false;
+            state.classSchedules = action.payload.data || [];
             state.meta = {
                 current_page: action.payload.current_page,
                 last_page: action.payload.last_page,
@@ -68,12 +72,12 @@ const slice = createSlice({
                 ),
             ];
         },
-        deleteClassSchedule: (state, action: PayloadAction<any>) => {
+        deleteClassSchedule: (state, action: PayloadAction<{ id: number }>) => {
             state.isLoading = false;
             state.classSchedules = state.classSchedules.filter(
                 classSchedule => classSchedule.id !== action.payload.id,
             );
-            if (state.meta && state.meta.total) {
+            if (state.meta) {
                 state.meta.total = state.meta.total - 1;
             }
         },
@@ -82,18 +86,20 @@ const slice = createSlice({
 
 export default slice.reducer;
 
-export const getClassSchedules = () => async (dispatch: AppDispatch) => {
-    await dispatch(slice.actions.startLoading());
-    try {
-        const response = await axios.get('/api/student/class-schedules/');
-        dispatch(slice.actions.getClassSchedules(response.data));
-    } finally {
-        dispatch(slice.actions.endLoading());
-    }
-};
+export function getClassSchedules() {
+    return async (dispatch: AppDispatch) => {
+        await dispatch(slice.actions.startLoading());
+        try {
+            const response = await axios.get('/api/student/class-schedules/');
+            dispatch(slice.actions.getClassSchedules(response.data));
+        } finally {
+            dispatch(slice.actions.endLoading());
+        }
+    };
+}
 
-export const getClassSchedule =
-    (id: number) => async (dispatch: AppDispatch) => {
+export function getClassSchedule(id: number | string[]) {
+    return async (dispatch: AppDispatch) => {
         await dispatch(slice.actions.startLoading());
         try {
             const response = await axios.get(
@@ -104,9 +110,10 @@ export const getClassSchedule =
             dispatch(slice.actions.endLoading());
         }
     };
+}
 
-export const postClassSchedule =
-    (data: IClassScheduleResponse) => async (dispatch: AppDispatch) => {
+export function postClassSchedule(data: IClassScheduleForm) {
+    return async (dispatch: AppDispatch) => {
         dispatch(slice.actions.startLoading());
         try {
             const response = await axios.post(
@@ -118,10 +125,10 @@ export const postClassSchedule =
             dispatch(slice.actions.endLoading());
         }
     };
+}
 
-export const updateClassSchedule =
-    (id: number, data: IClassScheduleResponse) =>
-    async (dispatch: AppDispatch) => {
+export function updateClassSchedule(id: number, data: IClassScheduleForm) {
+    return async (dispatch: AppDispatch) => {
         dispatch(slice.actions.startLoading());
         try {
             const response = await axios.put(
@@ -133,16 +140,18 @@ export const updateClassSchedule =
             dispatch(slice.actions.endLoading());
         }
     };
+}
 
-export const deleteClassSchedule =
-    (id: number) => async (dispatch: AppDispatch) => {
-        dispatch(slice.actions.startLoading());
+export function deleteClassSchedule(id: number) {
+    return async (dispatch: AppDispatch) => {
+        dispatch(slice.actions.startLoading);
         try {
-            const response = await axios.delete(
+            const res = await axios.delete(
                 '/api/student/class-schedules/' + id,
             );
-            dispatch(slice.actions.deleteClassSchedule(response.data));
+            dispatch(slice.actions.deleteClassSchedule(res.data));
         } finally {
             dispatch(slice.actions.endLoading());
         }
     };
+}

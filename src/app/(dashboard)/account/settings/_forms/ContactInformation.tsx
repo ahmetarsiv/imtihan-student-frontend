@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import toast from 'react-hot-toast';
 import { AppDispatch, useDispatch, useSelector } from '@/store';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getUser, updateUser } from '@/store/slices/user';
 import { IContactInformationForm } from '@/types/IUser';
 import { Button, Input, Label } from '@codenteq/interfeys';
@@ -17,11 +17,17 @@ const UserUpdateSchema: yup.ObjectSchema<IContactInformationForm> = yup
             .string()
             .matches(/^(\d{12})$/, 'Enter a valid phone number')
             .required('Required'),
+        email: yup
+            .string()
+            .email('Enter a valid email address')
+            .optional()
+            .required('Required'),
     });
 
 export default function ContactInformation() {
     const dispatch: AppDispatch = useDispatch();
-    const { isLoading, user } = useSelector((state: any) => state.user);
+    const { user, isLoading } = useSelector(state => state.user);
+    const [isEditingEmail, setIsEditingEmail] = useState(false);
 
     const {
         handleSubmit,
@@ -30,25 +36,29 @@ export default function ContactInformation() {
     } = useForm<IContactInformationForm, any>({
         resolver: yupResolver(UserUpdateSchema),
         values: {
-            phone: user?.phone,
+            phone: user?.phone || '',
+            email: user?.email || '',
         },
     });
 
     const onSubmit = (data: IContactInformationForm) => {
-        console.log(data);
         dispatch(updateUser(data))
             .then(() => {
                 toast.success('Başarıyla güncellendi!');
             })
             .catch((err: any) => {
                 toast.error(err?.response?.data?.message);
-                console.log(err);
             });
     };
 
     useEffect(() => {
         dispatch(getUser());
     }, [dispatch]);
+
+    const handleEmailEdit = () => {
+        setIsEditingEmail(true);
+    };
+
     return (
         <>
             <div className="mt-16">
@@ -57,7 +67,8 @@ export default function ContactInformation() {
                     <Label>
                         Bilgilendirme Metni kapsamında önemli kampanyalardan
                         haberdar olmak için tercih ettiğiniz yöntemleri
-                        belirtebilirsiniz.
+                        belirtebilirsiniz. (Mobil bildirimler İleti Yönetim
+                        Sistemi kapsamında değildir.)
                     </Label>
                 </div>
 
@@ -75,27 +86,42 @@ export default function ContactInformation() {
                                 helpText={
                                     'Ülke kodu ile birlikte (901234567890)'
                                 }
-                                required={true}
                                 messages={errors.phone?.message}
                             />
                         </div>
 
-                        <div className="w-full">
+                        <div>
+                            <Label className="flex justify-between">
+                                E-posta adresi
+                                {!isEditingEmail && (
+                                    <button
+                                        type="button"
+                                        onClick={handleEmailEdit}
+                                        className="text-brand font-bold">
+                                        Değiştir
+                                    </button>
+                                )}
+                            </Label>
                             <Input
-                                value={user?.email}
-                                disabled
+                                {...register('email')}
+                                value={isEditingEmail ? undefined : user?.email}
+                                disabled={!isEditingEmail}
                                 type="email"
-                                label="E-posta adresi"
+                                id="email"
                                 className="block my-1 w-full"
+                                helpText={
+                                    'Bu bilgileri değiştirebilmek için yeni e-posta adresini doğrulamanızı isteyeceğiz.'
+                                }
+                                messages={errors.email?.message}
                             />
                         </div>
                     </div>
                     <div className="flex justify-end mt-4">
                         <Button
                             isLoading={isLoading}
-                            type={'submit'}
-                            label={'Kaydet'}
+                            type="submit"
                             disabled={!isDirty}
+                            label="Kaydet"
                         />
                     </div>
                 </form>

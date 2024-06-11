@@ -10,7 +10,6 @@ import { setTitle } from '@/store/slices/root';
 import Link from 'next/link';
 import { Badge, Button, Card, InfoCard } from '@codenteq/interfeys';
 import Image from 'next/image';
-import Placeholder from '../../../../public/placeholder.png';
 
 export default function NotePage(): ReactNode {
     const dispatch: AppDispatch = useDispatch();
@@ -90,7 +89,11 @@ export default function NotePage(): ReactNode {
                                 <div>
                                     <Image
                                         className="rounded-lg mt-2"
-                                        src={Placeholder}
+                                        src={
+                                            'https://via.placeholder.com/1400x800?text=imtihan'
+                                        }
+                                        width={1400}
+                                        height={800}
                                         alt={'Placeholder'}
                                     />
                                 </div>

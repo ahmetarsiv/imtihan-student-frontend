@@ -60,6 +60,7 @@ export default function PasswordEdit() {
                                 id="current_password"
                                 label="Mevcut şifre"
                                 className="block mt-1 w-full"
+                                minLength={8}
                                 messages={errors.current_password?.message}
                             />
                         </div>
@@ -72,6 +73,7 @@ export default function PasswordEdit() {
                                 label="Yeni şifre"
                                 className="block mt-1 w-full"
                                 helpText="Güvenliğiniz için adınız, soyadınız ve doğum tarihinizi içermeyen bir şifre belirleyin."
+                                minLength={8}
                                 messages={errors.password?.message}
                             />
                         </div>
@@ -83,6 +85,7 @@ export default function PasswordEdit() {
                                 id="password_confirmation"
                                 label="Yeni şifre tekrar"
                                 className="block mt-1 w-full"
+                                minLength={8}
                                 messages={errors.password_confirmation?.message}
                             />
                         </div>

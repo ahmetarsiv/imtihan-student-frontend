@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import menuConfig, { IMenuItem } from '@/config/menu';
 import { Avatar } from '@codenteq/interfeys';
 import { useAuthContext } from '@/auth/hooks/useAuthContext';
+import React from 'react';
 
 interface SidebarProps {
     className?: string;
@@ -24,11 +25,19 @@ export default function Sidebar({ className }: SidebarProps) {
     return (
         <aside
             className={`${className} text-zinc-900 dark:text-zinc-300 border-r border-zinc-100 dark:border-zinc-900 drop-shadow-sm bg-white dark:bg-black hidden lg:block w-72 z-10`}>
-            <Avatar
-                className={'flex flex-col items-center my-4'}
-                letter={userSplit}
-                name={user?.full_name}
-            />
+            {user?.avatar ? (
+                <Avatar
+                    className={'text-center my-4'}
+                    src={user.avatar}
+                    name={user?.full_name}
+                />
+            ) : (
+                <Avatar
+                    className={'text-center my-4'}
+                    letter={userSplit}
+                    name={user?.full_name}
+                />
+            )}
             <ul className="text-lg list-none">
                 {menus?.map((item: IMenuItem, index: number) => (
                     <Link href={item.path} key={index}>

@@ -46,6 +46,7 @@ export default function PasswordEdit() {
     return (
         <>
             <div className="mt-16">
+                <h3>Parolanı güncelle</h3>
                 <Label className="mb-6">
                     Şifreniz en az bir harf, rakam veya özel karakter içermeli.
                     Ayrıca şifreniz en az 8 karakterden oluşmalı.

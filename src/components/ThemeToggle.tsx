@@ -6,7 +6,7 @@ import {
     MoonIcon,
     SunIcon,
     ComputerDesktopIcon,
-} from '@heroicons/react/24/solid';
+} from '@heroicons/react/24/outline';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 
 export default function ThemeToggle() {

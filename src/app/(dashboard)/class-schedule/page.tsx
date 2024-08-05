@@ -11,7 +11,7 @@ import LottieAnimation from '@/components/LottieAnimation';
 import { IClassScheduleResponse } from '@/types/IClassSchedule';
 import { setTitle } from '@/store/slices/root';
 import { Button, Card, InfoCard } from '@codenteq/interfeys';
-import { BookOpenIcon } from '@heroicons/react/24/outline';
+import { CalendarDaysIcon } from '@heroicons/react/24/outline';
 import CreateModal from '@/app/(dashboard)/class-schedule/_forms/CreateModal';
 import EditModal from '@/app/(dashboard)/class-schedule/_forms/EditModal';
 import ViewModal from '@/app/(dashboard)/class-schedule/_forms/ViewModal';
@@ -113,7 +113,7 @@ export default function ClassSchedulePage(): ReactNode {
                                     <div className="p-4">
                                         <div className="flex items-center">
                                             <div className="w-16 h-16 mr-4 bg-zinc-100 dark:bg-zinc-900 rounded-lg flex items-center justify-center">
-                                                <BookOpenIcon className="w-8 h-8" />
+                                                <CalendarDaysIcon className="w-8 h-8" />
                                             </div>
                                             <div>
                                                 <h3 className="text-xl font-semibold">

@@ -71,7 +71,7 @@ export default function NoteViewPage(): ReactNode {
                     <Grid numItems={2} className="gap-4">
                         <Card decoration="top" decorationColor="sky">
                             <Text>Soru</Text>
-                            <Metric>{examResult?.length}</Metric>
+                            <Metric>{examResult?.total_questions}</Metric>
                         </Card>
                         <Card decoration="top" decorationColor="sky">
                             <Text>Puan</Text>
@@ -108,7 +108,9 @@ export default function NoteViewPage(): ReactNode {
                                             <ul className="flex flex-col gap-4">
                                                 <li>
                                                     Soru sayısı:{' '}
-                                                    {examResult?.length}
+                                                    {
+                                                        examResult?.total_questions
+                                                    }
                                                 </li>
                                                 <li>
                                                     Doğru sayısı:{' '}

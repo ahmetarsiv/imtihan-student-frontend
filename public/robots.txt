@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://open.imtihantech.com
+
+# Sitemaps
+Sitemap: https://open.imtihantech.com/sitemap.xml

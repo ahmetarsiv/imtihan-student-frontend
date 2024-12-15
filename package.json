@@ -22,7 +22,7 @@
     "frontend"
   ],
   "dependencies": {
-    "@codenteq/interfeys": "^0.5.1",
+    "@codenteq/interfeys": "file:../interfeys",
     "@fullcalendar/core": "^6.1.9",
     "@fullcalendar/daygrid": "^6.1.9",
     "@fullcalendar/interaction": "^6.1.10",
@@ -45,8 +45,8 @@
     "next-sitemap": "^4.2.3",
     "next-themes": "^0.2.1",
     "nprogress": "^0.2.0",
-    "react": "latest",
-    "react-dom": "latest",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "react-hook-form": "^7.46.2",
     "react-hot-toast": "^2.4.1",
     "react-lottie": "^1.2.3",
@@ -61,7 +61,7 @@
     "@types/nprogress": "^0.2.3",
     "@types/react": "^18.2.28",
     "@types/react-dom": "^18.2.13",
-    "autoprefixer": "latest",
+    "autoprefixer": "^10.4.20",
     "eslint": "^8.50.0",
     "eslint-config-next": "^13.5.5",
     "eslint-config-prettier": "^8.5.0",
@@ -69,9 +69,9 @@
     "eslint-import-resolver-webpack": "^0.13.2",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-react": "^7.31.11",
-    "postcss": "latest",
+    "postcss": "^8.4.49",
     "prettier": "^3.0.3",
-    "tailwindcss": "latest",
-    "typescript": "latest"
+    "tailwindcss": "^3.4.16",
+    "typescript": "^5.7.2"
   }
 }

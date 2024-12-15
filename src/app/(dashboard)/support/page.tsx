@@ -3,16 +3,23 @@
 import React, { ReactNode } from 'react';
 import { useEffect, useState } from 'react';
 import { AppDispatch, useDispatch, useSelector } from '@/store';
-import { deleteSupport, getSupport, getSupports } from '@/store/slices/support';
-import { EyeIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { deleteSupport, getSupports } from '@/store/slices/support';
+import { TrashIcon } from '@heroicons/react/24/outline';
 import LottieAnimation from '@/components/LottieAnimation';
 import Lottie from '../../../../public/lottie/animation_llpjb9vt.json';
 import CreateModal from '@/app/(dashboard)/support/_forms/CreateModal';
 import { setTitle } from '@/store/slices/root';
-import { Button, Datatable, InfoCard } from '@codenteq/interfeys';
+import {
+    Button,
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+    Datatable,
+} from '@codenteq/interfeys';
 import { format } from 'date-fns';
 import { tr } from 'date-fns/locale';
-import ViewModal from '@/app/(dashboard)/support/_forms/ViewModal';
 
 export default function SupportPage(): ReactNode {
     const dispatch: AppDispatch = useDispatch();
@@ -20,8 +27,6 @@ export default function SupportPage(): ReactNode {
     const [search, setSearch] = useState('');
     const [openCreateModal, setOpenCreateModal] = useState(false);
     const { supports, meta, isLoading } = useSelector(state => state.support);
-    const [openViewModal, setOpenViewModal] = useState(false);
-    const [id, setId] = useState<number | null>(null);
 
     useEffect(() => {
         dispatch(setTitle('Destekler'));
@@ -32,16 +37,6 @@ export default function SupportPage(): ReactNode {
         confirm('Emin misin?') && dispatch(deleteSupport(id));
     };
 
-    const handleView = (id: number) => {
-        setOpenViewModal(true);
-        setId(id);
-    };
-
-    useEffect(() => {
-        if (id) {
-            dispatch(getSupport(id));
-        }
-    }, [dispatch, id]);
     const columns = [
         {
             Header: 'Konu',
@@ -64,11 +59,6 @@ export default function SupportPage(): ReactNode {
             Cell: ({ row }: any) => (
                 <div className="flex items-center space-x-2">
                     <button
-                        onClick={() => handleView(row?.original?.id)}
-                        className="text-sm text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-300">
-                        <EyeIcon className="h-5 w-5" />
-                    </button>
-                    <button
                         onClick={() => handleDelete(row?.original?.id)}
                         className="text-sm text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-300">
                         <TrashIcon className="h-5 w-5" />
@@ -82,29 +72,25 @@ export default function SupportPage(): ReactNode {
         <>
             <main>
                 {supports.length === 0 ? (
-                    <InfoCard>
-                        <div className="flex flex-col lg:flex-row items-center lg:max-w-4xl h-auto border border-brand rounded-2xl p-5 ">
-                            <div className="order-last lg:order-first">
-                                <h3 className="text-2xl font-bold tracking-tight">
-                                    Henüz görülecek bir şey yok.
-                                </h3>
-                                <p className="text-lg">
-                                    Şu anda sistemde yayınlanmış bir destek
-                                    mesajı bulunmamaktadır.
-                                </p>
-                                <div className="pt-10">
-                                    <Button
-                                        onClick={() => setOpenCreateModal(true)}
-                                        type={'button'}
-                                        label={'Destek Oluştur'}
-                                    />
-                                </div>
-                            </div>
+                    <Card className="flex flex-col lg:flex-row items-center justify-between lg:max-w-4xl">
+                        <CardHeader className="order-last lg:order-first">
+                            <CardTitle>Henüz görülecek bir şey yok.</CardTitle>
+                            <CardDescription>
+                                Şu anda sistemde yayınlanmış bir destek mesajı
+                                bulunmamaktadır.
+                                <Button
+                                    className="w-full lg:max-w-xs mt-4"
+                                    onClick={() => setOpenCreateModal(true)}>
+                                    Destek Oluştur
+                                </Button>
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent>
                             <div className="h-72">
                                 <LottieAnimation animationData={Lottie} />
                             </div>
-                        </div>
-                    </InfoCard>
+                        </CardContent>
+                    </Card>
                 ) : (
                     <Datatable
                         columns={columns}
@@ -114,12 +100,9 @@ export default function SupportPage(): ReactNode {
                         meta={meta}
                         isLoading={isLoading}
                         tableTopRightHeader={
-                            <Button
-                                onClick={() => setOpenCreateModal(true)}
-                                className="w-full"
-                                type={'button'}
-                                label={'Oluştur'}
-                            />
+                            <Button onClick={() => setOpenCreateModal(true)}>
+                                Oluştur
+                            </Button>
                         }
                         setSearch={setSearch}
                     />
@@ -128,13 +111,6 @@ export default function SupportPage(): ReactNode {
                     open={openCreateModal}
                     setIsOpen={setOpenCreateModal}
                 />
-                {id && (
-                    <ViewModal
-                        open={openViewModal}
-                        setIsOpen={setOpenViewModal}
-                        id={id}
-                    />
-                )}
             </main>
         </>
     );

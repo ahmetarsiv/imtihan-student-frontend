@@ -6,7 +6,14 @@ import ExamResults from '../../../../../public/lottie/Animation - 1712518772284.
 import { AppDispatch, useDispatch, useSelector } from '@/store';
 import { setTitle } from '@/store/slices/root';
 import Link from 'next/link';
-import { Datatable, InfoCard } from '@codenteq/interfeys';
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+    Datatable,
+} from '@codenteq/interfeys';
 import { getExamResults } from '@/store/slices/exam-result';
 import { EyeIcon } from '@heroicons/react/24/outline';
 import moment from 'moment';
@@ -57,22 +64,20 @@ export default function ResultPage(): ReactNode {
     return (
         <>
             {examResults.length == 0 ? (
-                <InfoCard className="col-span-full">
-                    <div className="flex flex-col lg:flex-row items-center lg:max-w-4xl h-auto border border-brand rounded-2xl p-5 ">
-                        <div className="order-last lg:order-first">
-                            <h3 className="text-2xl font-bold tracking-tight">
-                                Henüz görülecek bir şey yok.
-                            </h3>
-                            <p className="text-lg">
-                                Şu anda sistemde yayınlanmış bir sınav sonucu
-                                bulunmamaktadır.
-                            </p>
-                        </div>
+                <Card className="flex flex-col lg:flex-row items-center justify-between lg:max-w-4xl">
+                    <CardHeader className="order-last lg:order-first">
+                        <CardTitle>Henüz görülecek bir şey yok.</CardTitle>
+                        <CardDescription>
+                            Şu anda sistemde yayınlanmış bir sınav sonucu
+                            bulunmamaktadır.
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent>
                         <div className="h-72">
                             <LottieAnimation animationData={ExamResults} />
                         </div>
-                    </div>
-                </InfoCard>
+                    </CardContent>
+                </Card>
             ) : (
                 <Datatable
                     columns={columns}

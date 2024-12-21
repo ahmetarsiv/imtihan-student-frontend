@@ -4,7 +4,6 @@ import React, { ReactNode, useEffect } from 'react';
 import { AppDispatch, useDispatch, useSelector } from '@/store';
 import { deleteNote, getNotes } from '@/store/slices/note';
 import Lottie from '../../../../public/lottie/animation_llpiacni.json';
-import LottieAnimation from '@/components/LottieAnimation';
 import { INoteResponse } from '@/types/INote';
 import { setTitle } from '@/store/slices/root';
 import Link from 'next/link';
@@ -20,6 +19,10 @@ import {
 } from '@codenteq/interfeys';
 import Image from 'next/image';
 import { TrashIcon } from '@heroicons/react/24/outline';
+import dynamic from 'next/dynamic';
+const LottieAnimation = dynamic(() => import('@/components/LottieAnimation'), {
+    ssr: false,
+});
 
 export default function NotePage(): ReactNode {
     const dispatch: AppDispatch = useDispatch();
@@ -65,7 +68,7 @@ export default function NotePage(): ReactNode {
                         </div>
                     ) : notes.length > 0 ? (
                         notes.map((note: INoteResponse, key: number) => (
-                            <Card className="announcement-card" key={key}>
+                            <Card className="note-card" key={key}>
                                 <div className="relative">
                                     <Image
                                         className="rounded-t-lg object-cover"

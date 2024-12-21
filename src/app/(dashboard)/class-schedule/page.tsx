@@ -7,7 +7,6 @@ import {
     getClassSchedules,
 } from '@/store/slices/class-schedule';
 import Lottie from '../../../../public/lottie/animation_llpjqp34.json';
-import LottieAnimation from '@/components/LottieAnimation';
 import { IClassScheduleResponse } from '@/types/IClassSchedule';
 import { setTitle } from '@/store/slices/root';
 import {
@@ -23,6 +22,10 @@ import { TrashIcon } from '@heroicons/react/24/outline';
 import CreateModal from '@/app/(dashboard)/class-schedule/_forms/CreateModal';
 import EditModal from '@/app/(dashboard)/class-schedule/_forms/EditModal';
 import ViewModal from '@/app/(dashboard)/class-schedule/_forms/ViewModal';
+import dynamic from 'next/dynamic';
+const LottieAnimation = dynamic(() => import('@/components/LottieAnimation'), {
+    ssr: false,
+});
 
 export default function ClassSchedulePage(): ReactNode {
     const dispatch: AppDispatch = useDispatch();

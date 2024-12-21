@@ -15,8 +15,11 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from '@codenteq/interfeys';
-import LottieAnimation from '@/components/LottieAnimation';
 import Muin from '../../../../public/lottie/Animation - 1712519369192.json';
+import dynamic from 'next/dynamic';
+const LottieAnimation = dynamic(() => import('@/components/LottieAnimation'), {
+    ssr: false,
+});
 
 export default function MuinPage(): ReactNode {
     const dispatch: AppDispatch = useDispatch();

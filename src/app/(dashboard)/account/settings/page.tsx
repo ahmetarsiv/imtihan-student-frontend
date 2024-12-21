@@ -25,13 +25,13 @@ export default function AccountSettingPage(): ReactNode {
             <main className="w-full lg:max-w-4xl">
                 <TabGroup>
                     <TabList className="w-full">
-                        <TabsTrigger className="w-full">
+                        <TabsTrigger className=" w-full">
                             Üyelik bilgilerim
                         </TabsTrigger>
-                        <TabsTrigger className="w-full">
+                        <TabsTrigger className="password-tab w-full">
                             Şifre değişikliği
                         </TabsTrigger>
-                        <TabsTrigger className="w-full">
+                        <TabsTrigger className="contact-tab w-full">
                             İletişim tercihlerim
                         </TabsTrigger>
                     </TabList>

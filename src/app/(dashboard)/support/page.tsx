@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import { AppDispatch, useDispatch, useSelector } from '@/store';
 import { deleteSupport, getSupports } from '@/store/slices/support';
 import { TrashIcon } from '@heroicons/react/24/outline';
-import LottieAnimation from '@/components/LottieAnimation';
 import Lottie from '../../../../public/lottie/animation_llpjb9vt.json';
 import CreateModal from '@/app/(dashboard)/support/_forms/CreateModal';
 import { setTitle } from '@/store/slices/root';
@@ -20,6 +19,10 @@ import {
 } from '@codenteq/interfeys';
 import { format } from 'date-fns';
 import { tr } from 'date-fns/locale';
+import dynamic from 'next/dynamic';
+const LottieAnimation = dynamic(() => import('@/components/LottieAnimation'), {
+    ssr: false,
+});
 
 export default function SupportPage(): ReactNode {
     const dispatch: AppDispatch = useDispatch();

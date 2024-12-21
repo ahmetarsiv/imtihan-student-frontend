@@ -20,10 +20,13 @@ import {
     CardHeader,
     CardTitle,
 } from '@codenteq/interfeys';
-import LottieAnimation from '@/components/LottieAnimation';
 import Lottie from '../../../../public/lottie/animation_llpjjjsc.json';
 import CreateCustomExamModal from '@/app/(dashboard)/exam/_modal/CreateCustomExam';
 import createImageUrl from '@/lib/image';
+import dynamic from 'next/dynamic';
+const LottieAnimation = dynamic(() => import('@/components/LottieAnimation'), {
+    ssr: false,
+});
 
 export default function ExamPage(): ReactNode {
     const dispatch: AppDispatch = useDispatch();
@@ -125,7 +128,7 @@ export default function ExamPage(): ReactNode {
                                     </CardHeader>
                                     <CardFooter>
                                         <Button
-                                            className="w-full"
+                                            className="exam w-full"
                                             onClick={() =>
                                                 handleExamCreate(examType.id)
                                             }>

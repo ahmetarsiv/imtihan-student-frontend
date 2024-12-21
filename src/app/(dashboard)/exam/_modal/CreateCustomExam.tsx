@@ -102,6 +102,7 @@ export default function CreateCustomExamModal({
                         </div>
                         <div className="flex justify-end w-full">
                             <Button
+                                type="button"
                                 isLoading={isLoading}
                                 loader="Lütfen bekleyin"
                                 onClick={handleExamCreate}>

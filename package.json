@@ -22,7 +22,7 @@
     "frontend"
   ],
   "dependencies": {
-    "@codenteq/interfeys": "../interfeys",
+    "@codenteq/interfeys": "^0.9.1",
     "@fullcalendar/core": "^6.1.9",
     "@fullcalendar/daygrid": "^6.1.9",
     "@fullcalendar/interaction": "^6.1.10",

@@ -4,7 +4,6 @@ import { AppDispatch, useDispatch, useSelector } from '@/store';
 import React, { ReactNode, useEffect, useState } from 'react';
 import { getAnnouncements } from '@/store/slices/announcement';
 import ViewModal from '@/app/(dashboard)/announcement/_forms/ViewModal';
-import LottieAnimation from '@/components/LottieAnimation';
 import Lottie from '../../../../public/lottie/animation_llpkgi2z.json';
 import { IAnnouncementResponse } from '@/types/IAnnouncement';
 import { setTitle } from '@/store/slices/root';
@@ -19,6 +18,10 @@ import {
 } from '@codenteq/interfeys';
 import Image from 'next/image';
 import createImageUrl from '@/lib/image';
+import dynamic from 'next/dynamic';
+const LottieAnimation = dynamic(() => import('@/components/LottieAnimation'), {
+    ssr: false,
+});
 
 export default function AnnouncementPage(): ReactNode {
     const { announcements, isLoading } = useSelector(

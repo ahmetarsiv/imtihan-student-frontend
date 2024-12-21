@@ -1,7 +1,6 @@
 'use client';
 
 import React, { ReactNode, useEffect } from 'react';
-import LottieAnimation from '@/components/LottieAnimation';
 import Lottie from '../../../../public/lottie/animation_llpkgi2z.json';
 import { AppDispatch, useDispatch } from '@/store';
 import { setTitle } from '@/store/slices/root';
@@ -12,6 +11,10 @@ import {
     CardHeader,
     CardTitle,
 } from '@codenteq/interfeys';
+import dynamic from 'next/dynamic';
+const LottieAnimation = dynamic(() => import('@/components/LottieAnimation'), {
+    ssr: false,
+});
 
 export default function NotificationPage(): ReactNode {
     const dispatch: AppDispatch = useDispatch();

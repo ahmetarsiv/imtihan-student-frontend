@@ -9,7 +9,6 @@ import {
     Text,
     Metric,
 } from '@tremor/react';
-import LottieAnimation from '@/components/LottieAnimation';
 import Exam from '../../../public/lottie/animation_llpjjjsc.json';
 import Note from '../../../public/lottie/animation_llpiacni.json';
 import Calendar from '../../../public/lottie/animation_llpjqp34.json';
@@ -30,6 +29,10 @@ import {
     CardContent,
 } from '@codenteq/interfeys';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
+const LottieAnimation = dynamic(() => import('@/components/LottieAnimation'), {
+    ssr: false,
+});
 
 export default function DashboardPage() {
     const dispatch: AppDispatch = useDispatch();

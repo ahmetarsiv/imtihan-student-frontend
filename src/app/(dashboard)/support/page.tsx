@@ -39,15 +39,14 @@ export default function SupportPage(): ReactNode {
 
     const columns = [
         {
-            Header: 'Konu',
-            accessor: 'subject',
+            header: 'Konu',
+            cell: ({ row }: any) => row.original.subject.slice(0, 25),
         },
         {
-            Header: 'Oluşturma tarihi',
-            accessor: 'created_at',
-            Cell: ({ value }: any) => {
+            header: 'Oluşturma tarihi',
+            cell: ({ row }: any) => {
                 const formattedDate = format(
-                    new Date(value),
+                    new Date(row.original.created_at),
                     'd MMM yyyy HH:mm',
                     { locale: tr },
                 );
@@ -55,14 +54,15 @@ export default function SupportPage(): ReactNode {
             },
         },
         {
-            Header: 'İşlemler',
-            Cell: ({ row }: any) => (
+            header: 'İşlemler',
+            cell: ({ row }: any) => (
                 <div className="flex items-center space-x-2">
-                    <button
-                        onClick={() => handleDelete(row?.original?.id)}
-                        className="text-sm text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-300">
+                    <Button
+                        variant="destructive"
+                        size="icon"
+                        onClick={() => handleDelete(row?.original?.id)}>
                         <TrashIcon className="h-5 w-5" />
-                    </button>
+                    </Button>
                 </div>
             ),
         },
